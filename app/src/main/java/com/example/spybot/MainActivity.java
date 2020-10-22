@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     button = null;
                 } else {
                     button.setBackgroundColor(0xFF00FF00);
-                    dijkstra(id, x * 10 + y);
+                    GetDirection(id,x*10+y);
                 }
             }
 
@@ -97,6 +97,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    void findEnemy(int xDifference, int yDifference, int current, int target){
+        while(xDifference != 0){
+            GetDirection(current,target);
+            current = Moving(xDifference,yDifference, current);
+        }
+
+
+    }
+
+    int Moving(int xDirection, int yDirection, int current){
+        int currentX, currentY;
+        currentX = current/10;
+        currentY = current-(current/10);
+
+        if (xDirection != 0){
+            currentX =+ (0+(1/xDirection)*xDirection);
+            if(CheckButton(currentX,currentY)){
+
+            }
+        }
+        return current;
+    }
+
+    void GetDirection(int target, int start){
+        int differenceX = target/10 - start/10;
+        int differenceY = (target-(target/10)*10) - (start-(start/10)*10);
+        findEnemy(differenceX,differenceY,start,target);
+    }
+
+    boolean CheckButton(int currentX, int currentY){
+        Button button = (Button) findViewById(currentX*10+currentY);
+
+        if (button != null){
+            if (button.getVisibility()==View.VISIBLE)
+            return true;
+            else return false;
+        }
+        return true;
     }
 
     void resetButtons() {
@@ -110,78 +150,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    void dijkstra(int start, int target) {
-        int weight = 0;
-        int currentPos = start;
-
-        int xCurrent;
-        int yCurrent;
-        int xTarget;
-        int yTarget;
-
-
-        while (currentPos != target) {
-            Toast.makeText(this, Integer.toString(currentPos), Toast.LENGTH_LONG * 2).show();
-            xCurrent = currentPos / 10;
-            yCurrent = currentPos - xCurrent * 10;
-            xTarget = target / 10;
-            yTarget = target - xTarget * 10;
-
-            if (xCurrent != xTarget) {
-                if (xCurrent - xTarget > 0) {  //target is left
-                    xCurrent--;
-                    if (!checkPermeability(xCurrent, yCurrent)) {
-                        xCurrent++;
-                        if (yCurrent - yTarget > 0) { //target is above
-                            yCurrent--;
-                            if (!checkPermeability(xCurrent, yCurrent)) {
-                                yCurrent = yCurrent + 2;
-                            }
-                        } else {
-                            yCurrent--;
-                            if (!checkPermeability(xCurrent, yCurrent)) {
-                                yCurrent = yCurrent - 2;
-                            }
-                        }
-                    } else {
-                        xCurrent++; //target is right
-                        if (!checkPermeability(xCurrent, yCurrent)) {
-                            xCurrent--;
-                            if (yCurrent - yTarget > 0) { //target is above
-                                yCurrent--;
-                                if (!checkPermeability(xCurrent, yCurrent)) {
-                                    yCurrent = yCurrent + 2;
-                                }
-                            } else {
-                                yCurrent--;
-                                if (!checkPermeability(xCurrent, yCurrent)) {
-                                    yCurrent = yCurrent - 2;
-                                }
-                            }
-                        }
-
-                    }
-
-                }
-
-
-            }
-            currentPos = xCurrent * 10 + yCurrent;
-            Button button = (Button) findViewById(currentPos);
-            button.setText("I");
-            button.setBackgroundColor(0xcccccc);
-        }
-    }
-
-    boolean checkPermeability(int x, int y) {
-        Button button = (Button) findViewById(x * 10 + y);
-        if (button == null) {
-            if (button.getVisibility() == View.INVISIBLE) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
 }
