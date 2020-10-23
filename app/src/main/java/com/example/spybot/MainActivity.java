@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     button = null;
                 } else {
                     button.setBackgroundColor(0xFF00FF00);
-                    GetDirection(id,x*10+y);
+                    //GetDirection(id,x*10+y);
                 }
             }
 
