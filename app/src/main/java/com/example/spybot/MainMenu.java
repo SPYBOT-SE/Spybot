@@ -30,7 +30,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.btnStart:
-                Intent i = new Intent(MainMenu.this, MainActivity.class);
+                Intent i = new Intent(MainMenu.this, LevelSelection.class);
                 startActivity(i);
                 break;
             case R.id.btnQuit:

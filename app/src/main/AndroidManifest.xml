@@ -12,9 +12,12 @@
 
         <activity android:name=".MainActivity"
             android:screenOrientation="landscape">
-
-
         </activity>
+
+        <activity android:name=".LevelSelection"
+            android:screenOrientation="landscape">
+        </activity>
+
         <activity android:name=".MainMenu"
             android:screenOrientation="landscape">
 
