@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.spybot.app.AppSetting;
+
 import java.util.Random;
 
 public class LevelSelection extends AppCompatActivity implements View.OnClickListener {
@@ -17,6 +19,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.level_selection);
+            AppSetting.hideSystemUI(this);
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
             int name = 1;
