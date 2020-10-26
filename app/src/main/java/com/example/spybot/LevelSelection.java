@@ -36,7 +36,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
                 layout.addView(row);
             }
             setContentView(layout);
-
+            layout.setBackgroundResource(R.drawable.background);
         }
 
         void createButton(String name, LinearLayout layout, int i) {

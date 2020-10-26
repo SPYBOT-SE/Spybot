@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         AppSetting.hideSystemUI(this);
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-
+        layout.setBackgroundResource(R.drawable.background);
         for (int i = 0; i < 8; i++) {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 20, width / 20));
 
+
         btnTag.setText(name);
         btnTag.setId(x * 10 + y);
         btnTag.setWidth(40);
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             btnTag.setVisibility(View.INVISIBLE);
         }
         layout.addView(btnTag);
+
 
     }
 

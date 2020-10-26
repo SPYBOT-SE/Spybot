@@ -26,6 +26,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         quit.setOnClickListener(this);
         Button settings = (Button) findViewById(R.id.btnSettings);
         settings.setOnClickListener(this);
+
     }
 
     @Override
