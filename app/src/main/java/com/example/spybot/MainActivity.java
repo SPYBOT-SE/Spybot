@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         currentX = current/10;
         currentY = current-(current/10);
 
+        //?
         if (xDirection != 0){
             currentX =+ (0+(1/xDirection)*xDirection);
             if(CheckButton(currentX,currentY)){
