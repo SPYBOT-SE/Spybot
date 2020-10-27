@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.spybot.app.AppSetting;
 
-import java.util.Random;
-
 public class LevelSelection extends AppCompatActivity implements View.OnClickListener {
 
         @Override

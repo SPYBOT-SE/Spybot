@@ -1,4 +1,4 @@
-package com.example.spybot;
+package com.spybot.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.spybot.app.AppSetting;
+import com.example.spybot.R;
 
 import java.util.Random;
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         AppSetting.hideSystemUI(this);
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setBackgroundResource(R.drawable.background);                // 76 x:7 y:6
+        layout.setBackgroundResource(R.drawable.background);
         for (int i = 0; i < 8; i++) {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams
@@ -102,7 +102,46 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    void findEnemy(int xDifference, int yDifference, int current, int target){
+        while(xDifference != 0){
+            GetDirection(current,target);
+            current = Moving(xDifference,yDifference, current);
+        }
 
+
+    }
+
+    int Moving(int xDirection, int yDirection, int current){
+        int currentX, currentY;
+        currentX = current/10;
+        currentY = current-(current/10);
+
+        //?
+        if (xDirection != 0){
+            currentX =+ (0+(1/xDirection)*xDirection);
+            if(CheckButton(currentX,currentY)){
+
+            }
+        }
+        return current;
+    }
+
+    void GetDirection(int target, int start){
+        int differenceX = target/10 - start/10;
+        int differenceY = (target-(target/10)*10) - (start-(start/10)*10);
+        findEnemy(differenceX,differenceY,start,target);
+    }
+
+    boolean CheckButton(int currentX, int currentY){
+        Button button = (Button) findViewById(currentX*10+currentY);
+
+        if (button != null){
+            if (button.getVisibility()==View.VISIBLE)
+            return true;
+            else return false;
+        }
+        return true;
+    }
 
     void resetButtons() {
         for (int i = 0; i < 8; i++) {
