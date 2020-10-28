@@ -2,8 +2,6 @@ package com.example.spybot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,6 +13,8 @@ import com.spybot.app.AppSetting;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    int width = 16;
+    int height = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,27 +23,78 @@ public class MainActivity extends AppCompatActivity {
         AppSetting.hideSystemUI(this);
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setBackgroundResource(R.drawable.background);                // 76 x:7 y:6
-        for (int i = 0; i < 8; i++) {
+        layout.setBackgroundResource(R.drawable.background);
+
+        // 76 x:7 y:6
+        int check, name;
+        Random random = new Random();
+
+
+        for (int y = 0; y < height; y++) {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams
                     (LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT));
-            for (int j = 0; j < 16; j++) {
-                Random random = new Random();
-                int check = random.nextInt(101);
+
+            for (int x = 0; x < width; x++) {
+                createButton2(row, y * height + x, View.VISIBLE);
+            }
+            layout.addView(row);
+        }
+
+        /*
+        for (int y = 0; y < width; y++) {
+            LinearLayout row = new LinearLayout(this);
+            row.setLayoutParams(new LinearLayout.LayoutParams
+                    (LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+            for (int x = 0; x < height; x++) {
+
+                check = random.nextInt(101);
                 if (check % 5 == 0) {
-                    createButton("O", row, i, j, false);
+                    //createButton("O", row, y, x, false);
+                    createButton2(row, y * height + x, View.INVISIBLE);
                 } else {
-                    int name = j * 10 + i;
-                    createButton(Integer.toString(name), row, i, j, true);
+                    //name = y * xRange + x;
+                    //createButton(Integer.toString(name), row, y, x, true);
+                    createButton2(row, y * height + x, View.VISIBLE);
                 }
 
             }
             layout.addView(row);
-        }
+        }*/
         setContentView(layout);
-        resetButtons();
+        //resetButtons();
+    }
+
+    void createButton2(LinearLayout layout, int id, int visibility) {
+        Button btnTag = new Button(this);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+
+        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 20, width / 20));
+
+        btnTag.setText(Integer.toString(id));
+        btnTag.setId(id);
+        btnTag.setWidth(40);
+        btnTag.setHeight(40);
+
+        btnTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //resetButtons();
+                Button clickedButton = (Button) findViewById(v.getId());
+                clickedButton.setBackgroundColor(0xFF00FF00);
+                //OnClick(v.getId());
+            }
+        });
+
+
+        btnTag.setVisibility(visibility);
+
+        layout.addView(btnTag);
     }
 
     void createButton(String name, LinearLayout layout, int y, int x, boolean visible) {
@@ -64,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
         btnTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetButtons();
+                //resetButtons();
                 Button clickedButton = (Button) findViewById(v.getId());
                 clickedButton.setBackgroundColor(0xFF00FF00);
-                OnClick(v.getId());
+                //OnClick(v.getId());
             }
         });
         if (visible) {
@@ -110,12 +161,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     void resetButtons() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 16; j++) {
-                Button button = (Button) findViewById(j * 10 + i);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Button button = (Button) findViewById(y * width + x);
                 button.setBackgroundColor(0xcccccc);
             }
-
         }
     }
 
