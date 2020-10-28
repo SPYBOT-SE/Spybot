@@ -2,6 +2,8 @@ package com.example.spybot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -73,10 +75,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             btnTag.setVisibility(View.INVISIBLE);
         }
+
         layout.addView(btnTag);
 
 
     }
+
+
 
     void OnClick(int id) {
         Random random = new Random();
