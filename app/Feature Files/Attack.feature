@@ -1,4 +1,10 @@
 Feature: Attack
+  As a PLAYER
+  I want to attack an enemy pawn with on of my pawns
+
+  Background:
+    Given the level has been chosen
+    And the pawn can still attack
 
   Scenario: Attack enemy
     Given it is my turn
