@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.spybot.app.AppSetting;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
         layout.setBackgroundResource(R.drawable.background);
 
 
-        Random random = new Random();
-
-
         for (int y = 0; y < height; y++) {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                             LinearLayout.LayoutParams.WRAP_CONTENT));
 
             for (int x = 0; x < width; x++) {
-                createButton2(row, y * width + x, View.VISIBLE);
+                createButton(row, y * width + x, View.VISIBLE);
             }
             layout.addView(row);
         }
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //resetButtons();
     }
 
-    void createButton2(LinearLayout layout, int id, int visibility) {
+    void createButton(LinearLayout layout, int id, int viewVisibility) {
         Button btnTag = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 20, width / 20));
 
-        btnTag.setText(Integer.toString(id));
+        btnTag.setText(String.format(Integer.toString(id), Locale.ENGLISH));
         btnTag.setId(id);
 
         btnTag.setOnClickListener(new View.OnClickListener() {
@@ -66,18 +64,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnTag.setVisibility(visibility);
+        btnTag.setVisibility(viewVisibility);
         layout.addView(btnTag);
     }
 
+
     void OnClick(int id) {
         Random random = new Random();
-
+        int x,y;
 
         Button button = null;
         while (button == null) {
-            int x = random.nextInt(width) + 1;
-            int y = random.nextInt(height) + 1;
+            x = random.nextInt(width) + 1;
+            y = random.nextInt(height) + 1;
             button = (Button) findViewById(y * width + x);
             if (button != null) {
                 if (button.getVisibility() == View.INVISIBLE) {
