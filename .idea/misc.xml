@@ -6,4 +6,7 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+  <component name="TaskProjectConfiguration">
+    <server type="YouTrack" url="https://dhbw-karlsruhe.myjetbrains.com/youtrack" />
+  </component>
 </project>
