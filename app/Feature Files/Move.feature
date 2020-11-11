@@ -1,4 +1,10 @@
 Feature: Move Pawn
+  As a PLAYER
+  I want to move with one Pawn from one field to another
+
+  Background:
+    Given the level has been chosen
+    And the pawn can still move
 
   Scenario: Correct move
     Given it is my turn

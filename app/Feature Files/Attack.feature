@@ -1,11 +1,17 @@
 Feature: Attack
+  As a PLAYER
+  I want to attack an enemy pawn with on of my pawns
+
+  Background:
+    Given the level has been chosen
+    And the pawn can still attack
 
   Scenario: Attack enemy
     Given it is my turn
     And a pawn is chosen
     And the pawn can attack
     When I click on a field on the board with an enemy pawn
-    Then the health and body should shrink
+    Then the health and body shrinks
     And get deleted if the pawn dies
 
   Scenario: Field is out of range
