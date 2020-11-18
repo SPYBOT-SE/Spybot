@@ -1,7 +1,10 @@
 package com.pawns;
 
 public abstract class Attack {
-    private int attackRange;
+    private byte range;
+    private byte magnitude;
+    private AttackType type;
 
-    abstract void doAttack();
+
+
 }
