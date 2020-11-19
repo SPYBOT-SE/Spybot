@@ -3,11 +3,13 @@ package com.level;
 import com.model.AdjacencyList;
 
 public class Board {
-    private final int sizeX;
-    private final int sizeY;
+    private final int sizeX; //horizontal axis
+    private final int sizeY; //vertical axis
 
     private Field[][] board;
     private AdjacencyList<Field> graph;
+
+
 
     public Board(int sizeX, int sizeY ) {
         this.sizeX = sizeX;
@@ -19,10 +21,18 @@ public class Board {
     }
 
 
+    public Field[][] getBoard() {
+        return board;
+    }
+
+    public AdjacencyList<Field> getGraph() {
+        return graph;
+    }
+
     private void initBoard() {
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
-                board[x][y] = new Field();
+                board[x][y] = new Field(y*sizeX+x);
             }
         }
 

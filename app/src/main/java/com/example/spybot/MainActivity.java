@@ -2,12 +2,15 @@ package com.example.spybot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.level.Board;
+import com.level.Field;
 import com.spybot.app.AppSetting;
 
 import java.util.Locale;
@@ -16,6 +19,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     int width = 16;
     int height = 8;
+    Board board = new Board(width,height);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         layout.setBackgroundResource(R.drawable.background);
 
 
+
+
         for (int y = 0; y < height; y++) {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams
@@ -34,7 +41,14 @@ public class MainActivity extends AppCompatActivity {
                             LinearLayout.LayoutParams.WRAP_CONTENT));
 
             for (int x = 0; x < width; x++) {
-                createButton(row, y * width + x, View.VISIBLE);
+               if (board.getBoard()[x][y].getStatus()){
+                   createButton(row, y * width + x, View.VISIBLE);
+               } else{
+                   createButton(row, y * width + x, View.INVISIBLE);
+               }
+
+
+
             }
             layout.addView(row);
         }
@@ -58,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btnTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Button clickedButton = (Button) findViewById(v.getId());
+                Button clickedButton = findViewById(v.getId());
                 clickedButton.setBackgroundColor(0xFF00FF00);
                 OnClick(v.getId());
             }
@@ -73,19 +87,20 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         int x,y;
 
-        Button button = null;
-        while (button == null) {
-            x = random.nextInt(width) + 1;
-            y = random.nextInt(height) + 1;
-            button = (Button) findViewById(y * width + x);
-            if (button != null) {
-                if (button.getVisibility() == View.INVISIBLE) {
-                    button = null;
-                } else {
-                    button.setBackgroundColor(0xFF00FF00);
-                }
-            }
+        x = id%width;
+        y = id/width;
+
+        Field field = board.getBoard()[x][y];
+
+        Button button = findViewById(id);
+        button.setBackgroundColor(0xFF00FF00);
+
+        for (Field neighborField:board.getGraph().getNeighbours(field)) {
+            Button buttonNeighbor = findViewById(neighborField.getId());
+            buttonNeighbor.setBackgroundColor(Color.BLUE);
         }
+
+
     }
 
 

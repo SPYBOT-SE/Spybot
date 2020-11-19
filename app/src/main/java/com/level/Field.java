@@ -6,6 +6,12 @@ package com.level;
  */
 public class Field {
     private boolean status; //active or inactive
+    private int id; //id of button
+
+
+    public Field(int id) {
+        this.id = id;
+    }
 
     public boolean getStatus() {
         return status;
@@ -14,4 +20,6 @@ public class Field {
     public void setStatus(boolean newStatus) {
         this.status = newStatus;
     }
+
+    public int getId() {return id; }
 }
