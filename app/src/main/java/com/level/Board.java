@@ -76,7 +76,7 @@ public class Board {
                     }
 
                     left = x - 1;
-                    if (left >= 0 && left < sizeY) {
+                    if (left >= 0 && left < sizeX) {
                         neighbour = board[left][y];
                         if (neighbour.getStatus()) {
                             graph.addEdge(middle, neighbour);
@@ -84,7 +84,7 @@ public class Board {
                     }
 
                     right = x + 1;
-                    if (right >= 0 && right < sizeY) {
+                    if (right >= 0 && right < sizeX) {
                         neighbour = board[right][y];
                         if (neighbour.getStatus()) {
                             graph.addEdge(middle, neighbour);
