@@ -6,8 +6,8 @@ public class Board {
     private final int sizeX;
     private final int sizeY;
 
-    Field[][] board;
-    AdjacencyList<Field> graph;
+    private Field[][] board;
+    private AdjacencyList<Field> graph;
 
     public Board(int sizeX, int sizeY ) {
         this.sizeX = sizeX;
