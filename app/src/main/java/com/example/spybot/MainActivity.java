@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.level.Board;
 import com.level.Field;
 import com.spybot.app.AppSetting;
+import com.utility.Utility;
 
 import java.util.Locale;
 import java.util.Random;
@@ -95,12 +96,10 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(id);
         button.setBackgroundColor(0xFF00FF00);
 
-        for (Field neighborField:board.getGraph().getNeighbours(field)) {
+        for (Field neighborField: Utility.getFieldsInRange(board, id, 1)) {
             Button buttonNeighbor = findViewById(neighborField.getId());
             buttonNeighbor.setBackgroundColor(Color.BLUE);
         }
-
-
     }
 
 

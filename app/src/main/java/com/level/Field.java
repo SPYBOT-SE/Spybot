@@ -5,7 +5,7 @@ package com.level;
  *  Class representing one field of the game board.
  */
 public class Field {
-    private boolean status; //active or inactive
+    private boolean status = true; //active or inactive
     private int id; //id of button
 
 

@@ -96,4 +96,7 @@ public class Board {
     }
 
 
+    public Field getFieldById(int id) {
+        return board[id%sizeX][id/sizeX];
+    }
 }
