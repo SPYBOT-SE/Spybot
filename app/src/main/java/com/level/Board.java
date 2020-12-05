@@ -1,11 +1,16 @@
 package com.level;
 
 import com.model.AdjacencyList;
+import com.pawns.Bug;
+import com.pawns.Pawn;
+
+import java.util.ArrayList;
 
 public class Board {
 
     int idCount = 0;
 
+    ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
 
 
     private int sizeY; //vertical axis
@@ -62,6 +67,15 @@ public class Board {
             case 1:
                 outField = new Field(idCount, true);
                 break;
+            case 2:
+                outField = new Field(idCount, true);
+
+                Pawn bug = new Bug();
+                pawnsOnBoard.add(bug);
+                bug.createSegment(outField);
+                break;
+
+
             default:
                 throw  new IllegalArgumentException("Unexpected value for field type: " + value);
 

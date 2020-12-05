@@ -5,11 +5,20 @@ package com.pawns;
  */
 public class PawnSegment {
 
-    public PawnSegment(int x, int y, Boolean head) {
+    private Pawn pawn;
 
+    private boolean isHead;
 
+    public PawnSegment(Pawn pawn, boolean isHead) {
+        this.pawn = pawn;
+        this.isHead = isHead;
     }
 
+    public boolean isHead() {
+        return isHead;
+    }
 
-
+    public Pawn getPawn() {
+        return pawn;
+    }
 }

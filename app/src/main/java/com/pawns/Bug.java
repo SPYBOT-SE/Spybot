@@ -1,9 +1,9 @@
 package com.pawns;
 
 public class Bug extends Pawn {
-    @Override
-    void move() {
 
+    public Bug() {
+        this.name = "Bug";
     }
 
     @Override

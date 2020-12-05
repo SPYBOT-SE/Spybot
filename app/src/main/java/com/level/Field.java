@@ -8,6 +8,9 @@ import com.pawns.PawnSegment;
  */
 public class Field {
 
+    private Highlighting highlighting = Highlighting.Empty;
+
+
     private boolean enabled = true; //active or inactive
     private int id; //id of button
     private PawnSegment segment = null;
@@ -45,6 +48,11 @@ public class Field {
 
     public int getId() {return id; }
 
+    public Highlighting getHighlighting() {
+        return highlighting;
+    }
 
-
+    public void setHighlighting(Highlighting highlighting) {
+        this.highlighting = highlighting;
+    }
 }
