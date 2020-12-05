@@ -2,37 +2,49 @@
 
 title __LEVEL's Class Diagram__\n
 
-  namespace com.level {
-    class com.level.Board {
-        - board : Field[][]
-        - graph : AdjacencyList<Field>
-        - sizeX : int
-        - sizeY : int
-        + Board()
-        - initBoard()
-        - initGraph()
+  namespace  {
+    namespace om.level {
+      class com.level.Board {
+          - board : Field[][]
+          - graph : AdjacencyList<Field>
+          - sizeX : int
+          - sizeY : int
+          + Board()
+          + getBoard()
+          + getFieldById()
+          + getGraph()
+          - initBoard()
+          - initGraph()
+      }
     }
   }
   
 
-  namespace com.level {
-    class com.level.Field {
-        - status : boolean
-        + getStatus()
-        + setStatus()
+  namespace  {
+    namespace om.level {
+      class com.level.Field {
+          - id : int
+          - status : boolean
+          + Field()
+          + getId()
+          + getStatus()
+          + setStatus()
+      }
     }
   }
   
 
-  namespace com.level {
-    class com.level.Level {
-        - board : Board
-        + Level()
-        - initBoard()
+  namespace  {
+    namespace om.level {
+      class com.level.Level {
+          + Level()
+          - initBoard()
+      }
     }
   }
   
 
+  com.level.Level o-- com.level.Board : board
 
 
 right footer

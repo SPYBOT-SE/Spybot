@@ -2,81 +2,99 @@
 
 title __PAWNS's Class Diagram__\n
 
-  namespace com.pawns {
-    abstract class com.pawns.Attack {
-        - magnitude : byte
-        - range : byte
-        - type : AttackType
+  namespace  {
+    namespace om.pawns {
+      abstract class com.pawns.Attack {
+          - magnitude : byte
+          - range : byte
+      }
     }
   }
   
 
-  namespace com.pawns {
-    enum AttackType {
-      HEALTH
-      SIZE
-      SPEED
+  namespace  {
+    namespace om.pawns {
+      enum AttackType {
+        HEALTH
+        SIZE
+        SPEED
+      }
     }
   }
   
 
-  namespace com.pawns {
-    class com.pawns.Bite {
-        ~ doAttack()
+  namespace  {
+    namespace om.pawns {
+      class com.pawns.Bite {
+          ~ doAttack()
+      }
     }
   }
   
 
-  namespace com.pawns {
-    class com.pawns.Body {
-        - head : Pawn
-        - position : Position
-        + Body()
+  namespace  {
+    namespace om.pawns {
+      class com.pawns.Body {
+          + Body()
+      }
     }
   }
   
 
-  namespace com.pawns {
-    class com.pawns.Bug {
-        ~ attack()
-        ~ move()
+  namespace  {
+    namespace om.pawns {
+      class com.pawns.Bug {
+          ~ attack()
+          ~ move()
+      }
     }
   }
   
 
-  namespace com.pawns {
-    abstract class com.pawns.Pawn {
-        - attack1 : Attack
-        - attack2 : Attack
-        - maxHealth : int
-        - mvRange : int
-        - speed : int
-        + Pawn()
-        {abstract} ~ attack()
-        {abstract} ~ move()
+  namespace  {
+    namespace om.pawns {
+      abstract class com.pawns.Pawn {
+          - maxHealth : int
+          - mvRange : int
+          - speed : int
+          + Pawn()
+          {abstract} ~ attack()
+          {abstract} ~ move()
+      }
     }
   }
   
 
-  namespace com.pawns {
-    class com.pawns.PawnSegment {
+  namespace  {
+    namespace om.pawns {
+      class com.pawns.PawnSegment {
+      }
     }
   }
   
 
-  namespace com.pawns {
-    class com.pawns.Position {
-        - x : int
-        - y : int
-        + getX()
-        + getY()
-        + setX()
-        + setY()
-        ~ Position()
+  namespace  {
+    namespace om.pawns {
+      class com.pawns.Position {
+          - x : int
+          - y : int
+          + getX()
+          + getY()
+          + setX()
+          + setY()
+          ~ Position()
+      }
     }
   }
   
 
+  com.pawns.Attack o-- com.pawns.AttackType : type
+  com.pawns.Bite -up-|> com.pawns.Attack
+  com.pawns.Body o-- com.pawns.Pawn : head
+  com.pawns.Body o-- com.pawns.Position : position
+  com.pawns.Bug -up-|> com.pawns.Pawn
+  com.pawns.Pawn o-- com.pawns.Attack : attack1
+  com.pawns.Pawn o-- com.pawns.Attack : attack2
 
 
 right footer

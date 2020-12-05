@@ -2,30 +2,34 @@
 
 title __MODEL's Class Diagram__\n
 
-  namespace com.model {
-    class com.model.AdjacencyList {
-        ~ vertices : HashSet<Vertex<T>>
-        + addEdge()
-        + addVertex()
-        + getAllVertices()
-        + getNeighbours()
-        + removeEdge()
-        + removeVertex()
-        - getVertex()
+  namespace  {
+    namespace om.model {
+      class com.model.AdjacencyList {
+          ~ vertices : HashSet<Vertex<T>>
+          + addEdge()
+          + addVertex()
+          + getAllVertices()
+          + getNeighbours()
+          + removeEdge()
+          + removeVertex()
+          - getVertex()
+      }
     }
   }
   
 
-  namespace com.model {
-    class com.model.AdjacencyList.Vertex {
-        - neighbours : ArrayList<S>
-        + Vertex()
-        + same()
+  namespace  {
+    namespace om.model {
+      class com.model.AdjacencyList.Vertex {
+          - neighbours : ArrayList<S>
+          + Vertex()
+          + same()
+      }
     }
   }
   
 
-  com.model.AdjacencyList <|-down- com.model.AdjacencyList.Vertex
+  com.model.AdjacencyList +-down- com.model.AdjacencyList.Vertex
   com.model.AdjacencyList.Vertex o-- S : self
 
 

@@ -1,5 +1,6 @@
 package com.example.spybot;
 
+import android.graphics.drawable.Drawable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -18,8 +19,8 @@ import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    int width = 16;
-    int height = 8;
+    int width = 20;
+    int height = 12;
     Board board = new Board(width,height);
 
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnTag.setText(String.format(Integer.toString(id), Locale.ENGLISH));
         btnTag.setId(id);
-
+        btnTag.setBackgroundResource(R.drawable.button_icon);
         btnTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         Field field = board.getBoard()[x][y];
 
         Button button = findViewById(id);
-        button.setBackgroundColor(0xFF00FF00);
+        //button.setBackgroundColor(0xFF00FF00);
+
 
         for (Field neighborField: Utility.getFieldsInRange(board, id, 1)) {
             Button buttonNeighbor = findViewById(neighborField.getId());

@@ -1,19 +1,11 @@
 @startuml
 
-title __PLAYER's Class Diagram__\n
+title __ENEMY's Class Diagram__\n
 
   namespace  {
-    namespace om.player {
-      class com.player.PawnType {
-      }
-    }
-  }
-  
-
-  namespace  {
-    namespace om.player {
-      class com.player.Player {
-          ~ catalogue : ArrayList<PawnType>
+    namespace om.enemy {
+      class com.enemy.Dijkstra {
+          + FindShortestPath()
       }
     }
   }

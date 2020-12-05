@@ -1,11 +1,13 @@
+import com.level.Level;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class MyStepdefs {
+public class AttackStepDef {
     @Given("the level has been chosen")
     public void theLevelHasBeenChosen() {
+
     }
 
     @And("the pawn can still attack")

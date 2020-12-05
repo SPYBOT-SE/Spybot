@@ -1,19 +1,11 @@
 @startuml
 
-title __PLAYER's Class Diagram__\n
+title __UTILITY's Class Diagram__\n
 
   namespace  {
-    namespace om.player {
-      class com.player.PawnType {
-      }
-    }
-  }
-  
-
-  namespace  {
-    namespace om.player {
-      class com.player.Player {
-          ~ catalogue : ArrayList<PawnType>
+    namespace om.utility {
+      class com.utility.Utility {
+          {static} + getFieldsInRange()
       }
     }
   }

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com</OriginalElement>
+  <nodes>
+    <node x="630.5" y="700.0">com.level.Level</node>
+    <node x="1084.1623746867167" y="612.5">com.pawns.Bug</node>
+    <node x="265.0" y="1334.0">com.pawns.PawnSegment</node>
+    <node x="478.5522556390977" y="0.0">com.model.AdjacencyList.Vertex</node>
+    <node x="1176.3885651629073" y="419.0">com.pawns.Bite</node>
+    <node x="128.8378446115289" y="850.0">com.example.spybot.MainActivity</node>
+    <node x="340.1526629072682" y="1213.0">com.example.spybot.MainMenu</node>
+    <node x="0.0" y="1414.0">com.player.Player</node>
+    <node x="350.5" y="723.0">com.spybot.app.AppSetting</node>
+    <node x="1092.4242794486215" y="193.0">com.pawns.Attack</node>
+    <node x="211.90266290726817" y="1065.0">com.example.spybot.LevelSelection</node>
+    <node x="277.97189849624056" y="439.0">com.level.Board</node>
+    <node x="908.1623746867168" y="601.0">com.pawns.Body</node>
+    <node x="857.9718984962406" y="396.5">com.pawns.Position</node>
+    <node x="458.6772556390977" y="172.0">com.model.AdjacencyList</node>
+    <node x="485.22189849624056" y="945.0">com.enemy.Dijkstra</node>
+    <node x="1063.4242794486215" y="0.0">com.pawns.AttackType</node>
+    <node x="54.0" y="1334.0">com.player.PawnType</node>
+    <node x="10.5" y="723.0">com.utility.Utility</node>
+    <node x="1032.3885651629073" y="341.0">com.pawns.Pawn</node>
+    <node x="211.65648496240604" y="216.0">com.level.Field</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.spybot.MainMenu" target="com.example.spybot.LevelSelection">
+      <point x="-42.0" y="-38.0" />
+      <point x="382.1526629072682" y="1188.0" />
+      <point x="349.90266290726817" y="1188.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="com.pawns.Body" target="com.pawns.Position">
+      <point x="-19.5" y="-49.5" />
+      <point x="966.6623746867168" y="581.0" />
+      <point x="960.7218984962406" y="581.0" />
+      <point x="34.25" y="49.5" />
+    </edge>
+    <edge source="com.example.spybot.MainMenu" target="com.spybot.app.AppSetting">
+      <point x="42.0" y="-38.0" />
+      <point x="466.1526629072682" y="1188.0" />
+      <point x="534.8718984962405" y="1188.0" />
+      <point x="534.8718984962405" y="830.0" />
+      <point x="567.1666666666666" y="830.0" />
+      <point x="86.66666666666669" y="27.0" />
+    </edge>
+    <edge source="com.example.spybot.MainActivity" target="com.level.Field">
+      <point x="-103.60000000000002" y="-82.5" />
+      <point x="154.73784461152889" y="830.0" />
+      <point x="0.0" y="830.0" />
+      <point x="0.0" y="409.0" />
+      <point x="219.51362781954893" y="409.0" />
+      <point x="-47.14285714285711" y="49.5" />
+    </edge>
+    <edge source="com.example.spybot.MainActivity" target="com.utility.Utility">
+      <point x="-51.80000000000001" y="-82.5" />
+      <point x="206.5378446115289" y="830.0" />
+      <point x="164.5" y="830.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="com.utility.Utility" target="com.level.Field">
+      <point x="-77.0" y="-27.0" />
+      <point x="87.5" y="419.0" />
+      <point x="235.2279135338346" y="419.0" />
+      <point x="-31.428571428571445" y="49.5" />
+    </edge>
+    <edge source="com.enemy.Dijkstra" target="com.model.AdjacencyList">
+      <point x="83.5" y="-27.0" />
+      <point x="729.4718984962406" y="419.0" />
+      <point x="662.5522556390977" y="419.0" />
+      <point x="87.375" y="93.5" />
+    </edge>
+    <edge source="com.enemy.Dijkstra" target="com.level.Field">
+      <point x="-83.5" y="-27.0" />
+      <point x="562.4718984962406" y="379.0" />
+      <point x="313.7993421052631" y="379.0" />
+      <point x="47.14285714285711" y="49.5" />
+    </edge>
+    <edge source="com.model.AdjacencyList" target="com.model.AdjacencyList.Vertex">
+      <point x="-87.375" y="-93.5" />
+      <point x="487.8022556390977" y="147.0" />
+      <point x="501.0522556390977" y="147.0" />
+      <point x="-67.5" y="61.0" />
+    </edge>
+    <edge source="com.player.Player" target="com.player.PawnType">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.example.spybot.MainActivity" target="com.spybot.app.AppSetting">
+      <point x="103.60000000000002" y="-82.5" />
+      <point x="361.93784461152893" y="830.0" />
+      <point x="393.8333333333333" y="830.0" />
+      <point x="-86.66666666666667" y="27.0" />
+    </edge>
+    <edge source="com.example.spybot.MainActivity" target="com.level.Board">
+      <point x="0.0" y="-82.5" />
+      <point x="258.3378446115289" y="820.0" />
+      <point x="329.0" y="820.0" />
+      <point x="329.0" y="680.0" />
+      <point x="332.2718984962405" y="680.0" />
+      <point x="-36.200000000000045" y="105.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.level.Field">
+      <point x="-77.57142857142856" y="-105.5" />
+      <point x="290.900469924812" y="419.0" />
+      <point x="250.94219924812032" y="419.0" />
+      <point x="-15.714285714285722" y="49.5" />
+    </edge>
+    <edge source="com.example.spybot.LevelSelection" target="com.example.spybot.MainActivity">
+      <point x="-69.0" y="-49.0" />
+      <point x="280.90266290726817" y="1040.0" />
+      <point x="258.3378446115289" y="1040.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="com.level.Level" target="com.level.Board">
+      <point x="-32.75" y="-50.0" />
+      <point x="663.25" y="680.0" />
+      <point x="404.6718984962406" y="680.0" />
+      <point x="36.200000000000045" y="105.5" />
+    </edge>
+    <edge source="com.model.AdjacencyList.Vertex" target="com.model.AdjacencyList">
+      <point x="67.5" y="61.0" />
+      <point x="636.0522556390977" y="147.0" />
+      <point x="662.5522556390977" y="147.0" />
+      <point x="87.375" y="-93.5" />
+    </edge>
+    <edge source="com.pawns.Pawn" target="com.pawns.Attack">
+      <point x="0.0" y="-105.0" />
+      <point x="1094.3885651629073" y="316.0" />
+      <point x="1125.9242794486215" y="316.0" />
+      <point x="-33.5" y="49.0" />
+    </edge>
+    <edge source="com.example.spybot.LevelSelection" target="com.spybot.app.AppSetting">
+      <point x="69.0" y="-49.0" />
+      <point x="418.90266290726817" y="1040.0" />
+      <point x="480.5" y="1040.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="com.utility.Utility" target="com.level.Board">
+      <point x="77.0" y="-27.0" />
+      <point x="241.5" y="680.0" />
+      <point x="296.0718984962406" y="680.0" />
+      <point x="-72.39999999999998" y="105.5" />
+    </edge>
+    <edge source="com.pawns.Body" target="com.pawns.Pawn">
+      <point x="19.5" y="-49.5" />
+      <point x="1005.6623746867168" y="571.0" />
+      <point x="1053.055231829574" y="571.0" />
+      <point x="-41.33333333333326" y="105.0" />
+    </edge>
+    <edge source="com.pawns.Bite" target="com.pawns.Attack">
+      <point x="0.0" y="-27.0" />
+      <point x="1241.8885651629073" y="316.0" />
+      <point x="1192.9242794486215" y="316.0" />
+      <point x="33.5" y="49.0" />
+    </edge>
+    <edge source="com.pawns.Bug" target="com.pawns.Pawn">
+      <point x="0.0" y="-38.0" />
+      <point x="1141.6623746867167" y="581.0" />
+      <point x="1135.7218984962406" y="581.0" />
+      <point x="41.33333333333326" y="105.0" />
+    </edge>
+    <edge source="com.pawns.Attack" target="com.pawns.AttackType">
+      <point x="0.0" y="-49.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.model.AdjacencyList">
+      <point x="25.85714285714289" y="-105.5" />
+      <point x="394.32904135338345" y="399.0" />
+      <point x="487.8022556390977" y="399.0" />
+      <point x="-87.375" y="93.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7999999999999999" x="686.3750000000001" y="710.625" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
