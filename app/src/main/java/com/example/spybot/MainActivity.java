@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.level.Board;
 import com.level.Field;
+import com.level.levelSingle;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
 
@@ -21,7 +22,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     int width = 20;
     int height = 12;
-    Board board = new Board(width,height);
+    Board board = new Board(levelSingle.TestLevel1);
 
 
     @Override
