@@ -1,21 +1,9 @@
 package com.level;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class levelSingle {
-
-    ArrayList<Level> levels;
-
-    public levelSingle() {
-        levels = new ArrayList<>();
-        addLevels();
-    }
-
-    private void addLevels() {
-
-        levels.add((new Level("Test1", (byte)11, (byte)14, Ones)));
-        levels.add((new Level("Test1", (byte)8, (byte)12, TestLevel1)));
-    }
 
     /*
     Definition:
@@ -36,11 +24,8 @@ public class levelSingle {
     ... =   Credits with different Values
     127
 
-
-
-
     */
-    final byte[][] Ones = {
+    public final static byte[][] Ones = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -54,7 +39,7 @@ public class levelSingle {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
 
-    final byte[][] TestLevel1 = {
+    public final static byte[][] TestLevel1 = {
             {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, },
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, },
             {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, },

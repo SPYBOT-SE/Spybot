@@ -5,10 +5,8 @@ package com.pawns;
  */
 public class PawnSegment {
 
-    private Position position;
-
     public PawnSegment(int x, int y, Boolean head) {
-        this.position = new Position(x, y);
+
 
     }
 
