@@ -1,6 +1,7 @@
 package com.example.spybot;
 
 import android.graphics.drawable.Drawable;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -30,17 +31,38 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppSetting.hideSystemUI(this);
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setBackgroundResource(R.drawable.background);
 
+        LinearLayout parentLayout = new LinearLayout(this); //main layout of the level screen
+        parentLayout.setOrientation(LinearLayout.HORIZONTAL);
+        parentLayout.setBackgroundResource(R.drawable.background);
+
+        LinearLayout infoPanel = new LinearLayout(this); //layout containing the information
+        infoPanel.setOrientation(LinearLayout.VERTICAL);
+        parentLayout.addView(infoPanel); //add info box to parent
+
+        SetUpInfoPanel(infoPanel);
+
+
+
+        LinearLayout gameLayout = new LinearLayout(this); //layout containing the game and a info box
+        gameLayout.setOrientation(LinearLayout.VERTICAL);
+        parentLayout.addView(gameLayout);
+
+        LinearLayout fields = new LinearLayout(this); //fields
+        fields.setOrientation(LinearLayout.VERTICAL);
+        gameLayout.addView(fields);
+
+        LinearLayout infoBox = new LinearLayout(this); //info box
+        infoBox.setOrientation(LinearLayout.VERTICAL);
+        gameLayout.addView(infoBox);
+
+        TextView text = new TextView(this);
+        text.setText("Timo Steidinger");
+        text.setTextColor(Color.WHITE);
+        infoBox.addView(text);
 
 
 
@@ -52,31 +74,29 @@ public class MainActivity extends AppCompatActivity {
 
             for (int x = 0; x < width; x++) {
                if (board.getBoard()[x][y].getStatus()){
-                   createButton(row, y * width + x, View.VISIBLE);
+                   createButton(row, y * width + x, View.VISIBLE, 20);
                } else{
-                   createButton(row, y * width + x, View.INVISIBLE);
+                   createButton(row, y * width + x, View.INVISIBLE,20);
                }
 
 
 
             }
-            layout.addView(row);
+            fields.addView(row);
         }
 
-        setContentView(layout);
+        setContentView(parentLayout);
         //resetButtons();
     }
 
-    void createButton(LinearLayout layout, int id, int viewVisibility) {
+    void createButton(LinearLayout layout, int id, int viewVisibility , int ratio) {
         Button btnTag = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
         this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
 
-        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 20, width / 20));
-
-        btnTag.setText(String.format(Integer.toString(id), Locale.ENGLISH));
+        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / ratio, width / ratio));
         btnTag.setId(id);
         btnTag.setBackgroundResource(R.drawable.button_icon);
         btnTag.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         btnTag.setVisibility(viewVisibility);
         layout.addView(btnTag);
     }
-
 
     void OnClick(int id) {
         Random random = new Random();
@@ -112,5 +131,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    void SetUpInfoPanel(LinearLayout panel){
+        //createButton(panel, 1234567, View.VISIBLE, 10);
 
+        Button btnTag = new Button(this);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+
+        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 4));
+        btnTag.setId(10001);
+        btnTag.setBackgroundResource(R.drawable.button_icon_timo);
+        btnTag.setVisibility(View.VISIBLE);
+        panel.addView(btnTag);
+
+
+
+        TextView text = new TextView(this);
+        text.setText("Timo Steidinger");
+        text.setTextColor(Color.WHITE);
+        panel.addView(text);
+
+    }
 }
