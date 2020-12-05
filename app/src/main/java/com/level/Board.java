@@ -33,8 +33,10 @@ public class Board {
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
                 board[x][y] = new Field(y*sizeX+x);
+                
             }
         }
+
 
 
         board[1][1].setStatus(true);
