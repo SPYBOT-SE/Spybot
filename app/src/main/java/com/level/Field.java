@@ -10,7 +10,7 @@ public class Field {
 
     private boolean enabled = true; //active or inactive
     private int id; //id of button
-    private PawnSegment segment;
+    private PawnSegment segment = null;
 
     public PawnSegment getSegment() {
         return segment;

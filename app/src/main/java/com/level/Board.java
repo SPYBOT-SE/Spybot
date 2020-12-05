@@ -6,8 +6,11 @@ public class Board {
 
     int idCount = 0;
 
-    private int sizeX; //horizontal axis
+
+
     private int sizeY; //vertical axis
+    private int sizeX; //horizontal axis
+
 
     private Field[][] board;
     private AdjacencyList<Field> graph;
@@ -32,15 +35,15 @@ public class Board {
 
     private void initBoard(byte[][] fieldDef) {
 
-        sizeX = fieldDef.length;
-        sizeY = fieldDef[0].length;
+        sizeY = fieldDef.length;
+        sizeX = fieldDef[0].length;
 
         board = new Field[sizeX][sizeY];
 
-        for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeY; y++) {
+        for(int y = 0; y < sizeY; y++) {
+            for(int x = 0; x < sizeX; x++) {
 
-                board[x][y] = getField(fieldDef[x][y]);
+                board[x][y] = getField(fieldDef[y][x]);
 
             }
 
@@ -121,4 +124,14 @@ public class Board {
     public Field getFieldById(int id) {
         return board[id%sizeX][id/sizeX];
     }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
 }

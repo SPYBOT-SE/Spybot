@@ -20,13 +20,20 @@ import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    int width = 20;
-    int height = 12;
+
+
+
     Board board = new Board(levelSingle.TestLevel1);
 
+    int height = board.getSizeY();
+    int width = board.getSizeX();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppSetting.hideSystemUI(this);
