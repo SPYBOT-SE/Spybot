@@ -3,21 +3,20 @@ package com.level;
 import com.model.AdjacencyList;
 
 public class Board {
-
-    int idCount = 0;
-
-    private int sizeX; //horizontal axis
-    private int sizeY; //vertical axis
+    private final int sizeX; //horizontal axis
+    private final int sizeY; //vertical axis
 
     private Field[][] board;
     private AdjacencyList<Field> graph;
 
 
 
-    public Board(byte[][] level ) {
+    public Board(int sizeX, int sizeY ) {
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
 
-        initBoard(level);
-
+        board = new Field[sizeX][sizeY];
+        initBoard();
         initGraph();
     }
 
@@ -30,44 +29,25 @@ public class Board {
         return graph;
     }
 
-    private void initBoard(byte[][] fieldDef) {
-
-        sizeX = fieldDef.length;
-        sizeY = fieldDef[0].length;
-
-        board = new Field[sizeX][sizeY];
-
-        for(int x = 0; x < sizeX; x++) {
-            for(int y = 0; y < sizeY; y++) {
-
-                board[x][y] = getField(fieldDef[x][y]);
-
+    private void initBoard() {
+        for (int y = 0; y < sizeY; y++) {
+            for (int x = 0; x < sizeX; x++) {
+                board[x][y] = new Field(y*sizeX+x);
+                
             }
-
         }
 
 
+
+        board[1][1].setStatus(true);
+        board[1][0].setStatus(true);
+        board[1][2].setStatus(true);
+        board[0][1].setStatus(true);
+        board[2][1].setStatus(true);
+
+        board[0][0].setStatus(true);
+        board[15][7].setStatus(true);
     }
-
-    private Field getField(byte value) {
-        Field outField;
-
-        switch (value) {
-            case 0:
-                outField = new Field(idCount, false);
-                break;
-            case 1:
-                outField = new Field(idCount, true);
-                break;
-            default:
-                throw  new IllegalArgumentException("Unexpected value for field type: " + value);
-
-        }
-        idCount++;
-        return outField;
-    }
-
-
 
     private void initGraph() {
         graph = new AdjacencyList<>();
