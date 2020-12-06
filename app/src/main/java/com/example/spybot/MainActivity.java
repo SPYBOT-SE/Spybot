@@ -185,13 +185,13 @@ public class MainActivity extends AppCompatActivity {
                 for (Field neighborField : Utility.getFieldsInRange(board, id, pawn.getLeftSteps())) {
                     neighborField.setHighlighting(Highlighting.Reachable);
                     buttonNeighbor = findViewById(neighborField.getId());
-                    buttonNeighbor.setBackgroundColor(Color.CYAN);
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_spybot_reachable);
                 }
 
                 for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
                     neighborField.setHighlighting(Highlighting.Movable);
                     buttonNeighbor = findViewById(neighborField.getId());
-                    buttonNeighbor.setBackgroundColor(Color.BLUE);
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_spybot_moveable);
                 }
             }
 
