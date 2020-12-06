@@ -4,6 +4,7 @@ public enum Highlighting {
     Empty,
     Attackable,
     Movable,
+    Reachable,
     Healable,
     Buildable
 }

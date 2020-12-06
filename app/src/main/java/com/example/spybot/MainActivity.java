@@ -1,6 +1,5 @@
 package com.example.spybot;
 
-import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,17 +18,16 @@ import com.pawns.Pawn;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
 
-import java.util.Locale;
-import java.util.Random;
-
 public class MainActivity extends AppCompatActivity {
 
+    public static byte[][] selectedLevel = levelSingle.Ones;
 
-
-    Board board = new Board(levelSingle.TestLevel1);
+    Board board = new Board(selectedLevel);
 
     int height = board.getSizeY();
     int width = board.getSizeX();
+
+    private Field lastSelected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         gameLayout.addView(infoBox);
 
         TextView text = new TextView(this);
-        text.setText("Timo Steidinger");
+        text.setText("Lorem Ipsum");
         text.setTextColor(Color.WHITE);
         infoBox.addView(text);
 
@@ -128,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
         btnTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Button clickedButton = findViewById(v.getId());
-                clickedButton.setBackgroundColor(0xFF00FF00);
+//                Button clickedButton = findViewById(v.getId());
+//                clickedButton.setBackgroundColor(0xFF00FF00);
                 OnClick(v.getId());
             }
         });
@@ -142,22 +140,91 @@ public class MainActivity extends AppCompatActivity {
     void OnClick(int id) {
 
 
+
         Field field = board.getFieldById(id);
         // Button button = findViewById(id);
         // button.setBackgroundColor(0xFF00FF00);
+
+        if(field.getHighlighting() != Highlighting.Empty) {
+            switch(field.getHighlighting()) {
+                case Movable:
+                    field.setSegment(lastSelected.getSegment());
+                    lastSelected.setSegment(null);
+                    byte steps = field.getSegment().getPawn().getLeftSteps();
+                    field.getSegment().getPawn().setLeftSteps((byte)(steps - 1));
+
+
+
+                    findViewById(lastSelected.getId()).setBackgroundResource(R.drawable.button_icon);
+            }
+
+            for(int y = 0; y < height; y++) {
+                for(int x = 0; x < width; x++) {
+                    Field currentF = board.getBoard()[x][y];
+                    if(currentF.getHighlighting() != Highlighting.Empty) {
+                        currentF.setHighlighting(Highlighting.Empty);
+                        findViewById(currentF.getId()).setBackgroundResource(R.drawable.button_icon);
+                    }
+
+
+
+                }
+            }
+
+        }
 
 
 
         if(field.getSegment() != null && field.getSegment().isHead()) {
 
-            Pawn pawn = field.getSegment().getPawn();
+            lastSelected = field;
 
-            for (Field neighborField: Utility.getFieldsInRange(board, id, pawn.getSpeed())) {
-                neighborField.setHighlighting(Highlighting.Movable);
-                Button buttonNeighbor = findViewById(neighborField.getId());
-                buttonNeighbor.setBackgroundColor(Color.BLUE);
+            Pawn pawn = field.getSegment().getPawn();
+            Button buttonNeighbor;
+            if(pawn.getLeftSteps() > 0) {
+                for (Field neighborField : Utility.getFieldsInRange(board, id, pawn.getLeftSteps())) {
+                    neighborField.setHighlighting(Highlighting.Reachable);
+                    buttonNeighbor = findViewById(neighborField.getId());
+                    buttonNeighbor.setBackgroundColor(Color.CYAN);
+                }
+
+                for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
+                    neighborField.setHighlighting(Highlighting.Movable);
+                    buttonNeighbor = findViewById(neighborField.getId());
+                    buttonNeighbor.setBackgroundColor(Color.BLUE);
+                }
             }
 
+            buttonNeighbor = findViewById(id);
+            board.getFieldById(id).setHighlighting(Highlighting.Empty);
+
+            switch(board.getFieldById(id).getSegment().getPawn().getName()) {
+
+                case "Bug":
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bug);
+                    break;
+                case "Bulldozer":
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bulldozer);
+                    break;
+                default:
+
+            }
+
+
+        } else {
+            lastSelected = null;
+            for(int y = 0; y < height; y++) {
+                for(int x = 0; x < width; x++) {
+                    Field currentF = board.getBoard()[x][y];
+                    if(currentF.getHighlighting() != Highlighting.Empty) {
+                        currentF.setHighlighting(Highlighting.Empty);
+                        findViewById(currentF.getId()).setBackgroundResource(R.drawable.button_icon);
+                    }
+
+
+
+                }
+            }
         }
 
 
@@ -174,14 +241,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 4));
         btnTag.setId(10001);
-        btnTag.setBackgroundResource(R.drawable.button_icon_timo);
+        btnTag.setBackgroundResource(R.drawable.button_icon_bug);
         btnTag.setVisibility(View.VISIBLE);
         panel.addView(btnTag);
 
 
 
         TextView text = new TextView(this);
-        text.setText("Timo Steidinger");
+        text.setText("Bug");
         text.setTextColor(Color.WHITE);
         panel.addView(text);
 

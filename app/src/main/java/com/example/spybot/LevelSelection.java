@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.level.levelSingle;
 import com.spybot.app.AppSetting;
 
 public class LevelSelection extends AppCompatActivity implements View.OnClickListener {
@@ -20,7 +21,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             AppSetting.hideSystemUI(this);
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
-            int name = 1;
+            int name = 0;
             for (int i = 0; i < 4; i++) {
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams
@@ -59,11 +60,18 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                case 0:
+                    MainActivity.selectedLevel = levelSingle.TestLevel1;
+                    break;
+                case 1:
+                    MainActivity.selectedLevel = levelSingle.Ones;
+                    break;
                 default:
-                    Intent i = new Intent(LevelSelection.this, MainActivity.class);
-                    startActivity(i);
+                    MainActivity.selectedLevel = levelSingle.Error;
                     break;
             }
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
         }
     }
 
