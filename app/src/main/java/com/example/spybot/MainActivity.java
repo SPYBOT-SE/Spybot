@@ -112,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
             switch(board.getFieldById(id).getSegment().getPawn().getName()) {
 
                 case "Bug":
-                    btnTag.setBackgroundResource(R.drawable.bug);
+                    btnTag.setBackgroundResource(R.drawable.button_icon_bug);
+                    break;
+                case "Bulldozer":
+                    btnTag.setBackgroundResource(R.drawable.button_icon_bulldozer);
                     break;
                 default:
 
