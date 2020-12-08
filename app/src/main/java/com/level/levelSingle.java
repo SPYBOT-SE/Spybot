@@ -5,6 +5,28 @@ import java.util.HashMap;
 
 public class levelSingle {
 
+    private static boolean initialized = false;
+    public static byte[][] getLevel(int levelID) {
+
+        if(!initialized) {
+            initializeLevels();
+        }
+
+        if(!levels.containsKey(levelID)) {
+            return Error;
+        }
+
+        return levels.get(levelID);
+    }
+    /**
+     * Hashmap that maps button IDs to levels
+     */
+    private static HashMap<Integer, byte[][]> levels = new HashMap<>();
+    private static void initializeLevels() {
+        levels.put(0, Ones);
+        levels.put(1, TestLevel1);
+    }
+
     /*
     Definition:
     -128
@@ -26,14 +48,14 @@ public class levelSingle {
 
     */
     public final static byte[][] Ones = {
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1},
+            {1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1,1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1}
             // {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             // {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             // {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}

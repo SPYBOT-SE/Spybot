@@ -59,17 +59,11 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case 0:
-                    MainActivity.selectedLevel = levelSingle.TestLevel1;
-                    break;
-                case 1:
-                    MainActivity.selectedLevel = levelSingle.Ones;
-                    break;
-                default:
-                    MainActivity.selectedLevel = levelSingle.Error;
-                    break;
-            }
+
+
+            MainActivity.selectedLevel = levelSingle.getLevel(v.getId());
+
+
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         }

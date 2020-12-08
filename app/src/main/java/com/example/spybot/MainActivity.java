@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if(field.getSegment() != null && field.getSegment().isHead()) {
+        if(field.getSegment() != null) {
 
             lastSelected = field;
 
@@ -253,4 +253,58 @@ public class MainActivity extends AppCompatActivity {
         panel.addView(text);
 
     }
+
+
+    /**
+     * Function iterates over field and refreshes every button representation
+     *
+     */
+    void refreshBoard() {
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
+
+                mapFieldToView(board.getBoard()[x][y]);
+            }
+        }
+    }
+
+    /**
+     * Function maps the status of a field to the correct picture representation
+     *
+     * @param field current field to refresh picture
+     */
+    void mapFieldToView(Field field) {
+        Button currBut = findViewById(field.getId());
+        if (field.getStatus()) {
+            currBut.setVisibility(View.VISIBLE);
+            switch(field.getHighlighting()) {
+                case Empty:
+                    currBut.setBackgroundResource(R.drawable.button_icon);
+                case Reachable:
+                    currBut.setBackgroundResource(R.drawable.button_spybot_reachable);
+                case MovableUp:
+                case MovableDown:
+                case MovableLeft:
+                case MovableRight:
+                case Movable:
+                    currBut.setBackgroundResource(R.drawable.button_spybot_moveable);
+                case Healable:
+                case Attackable:
+                case Buildable:
+                default:
+            }
+            if(field.getSegment() != null) {
+
+                switch(field.getSegment().getBodyType()) {
+                    case Head:
+                    case Tail:
+                    default:
+                }
+
+            }
+        } else {
+            currBut.setVisibility(View.INVISIBLE);
+        }
+    }
+
 }

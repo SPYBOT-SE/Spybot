@@ -1,5 +1,7 @@
 package com.pawns;
 
+import android.graphics.drawable.Drawable;
+import com.example.spybot.R;
 import com.level.Field;
 
 import java.util.ArrayList;
@@ -16,6 +18,13 @@ public abstract class Pawn {
 
     private Attack attack1;
     private Attack attack2;
+
+    protected int pictureHead = R.drawable.button_icon;
+    protected int pictureTail = R.drawable.button_icon;
+    protected int pictureTailUp = R.drawable.button_icon;
+    protected int pictureTailDown = R.drawable.button_icon;
+    protected int pictureTailRight = R.drawable.button_icon;
+    protected int pictureTailLeft = R.drawable.button_icon;
 
 
     private LinkedList<PawnSegment> segments = new LinkedList<>();
@@ -38,7 +47,7 @@ public abstract class Pawn {
         createSegment(field);
 
         for(PawnSegment segment: segments) {
-            segment.setNotHead();
+            segment.setBodyType(BodyType.Tail);
         }
 
         while(segments.size() > maxSize) {

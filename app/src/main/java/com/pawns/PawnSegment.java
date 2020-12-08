@@ -9,13 +9,13 @@ public class PawnSegment {
 
     private Pawn pawn;
 
-    private boolean isHead;
+    private BodyType bodyType;
 
     private Field field;
 
     public PawnSegment(Pawn pawn, boolean isHead, Field field) {
         this.pawn = pawn;
-        this.isHead = isHead;
+        this.bodyType = BodyType.Head;
         this.field = field;
     }
 
@@ -23,12 +23,12 @@ public class PawnSegment {
         return field;
     }
 
-    public boolean isHead() {
-        return isHead;
+    public BodyType getBodyType() {
+        return bodyType;
     }
 
-    public void setNotHead() {
-        isHead = false;
+    public void setBodyType(BodyType bodyType) {
+        this.bodyType = bodyType;
     }
 
     public Pawn getPawn() {
