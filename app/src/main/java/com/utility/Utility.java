@@ -35,7 +35,7 @@ public class Utility {
         return new ArrayList<>(fieldsInRange);
     }
 
-    public static void getShortestPath(AdjacencyList<Field> graph, Field start, Field goal) throws NoSuchElementException {
+    public static ArrayDeque<Field> getShortestPath(AdjacencyList<Field> graph, Field start, Field goal) throws NoSuchElementException {
         if (existingStartGoal(graph, start, goal)) {
             throw new NoSuchElementException("Start or goal field not found");
         }
@@ -57,28 +57,33 @@ public class Utility {
         while (!spf.getAllVertices().containsAll(graph.getAllVertices())) {
             assert k != null;
 
-            ArrayList<Vertex<Field>> list = k.getNeighbours();
-            for (int i = 0; i < list.size(); i++) {
-                if (k.getDistance() != Integer.MAX_VALUE) {
-                    if (list.get(i).getDistance() > k.getDistance() + 1) {
-                        list.get(i).setDistance(k.getDistance() + 1);
-                    }
-                }
-                list.get(i).setPredecessor(k);
-            }
-
-            /*for (Vertex<Field> neighbour : k.getNeighbours()) {
+            for (Vertex<Field> neighbour : k.getNeighbours()) {
                 if (k.getDistance() != Integer.MAX_VALUE) {
                     if (neighbour.getDistance() > k.getDistance() + 1) {
-                        neighbour.setDistance(k.getDistance() + 1);
+                        for (Vertex<Field> v : graph.getAllVertices()) {
+                            if (v.haveSameCores(neighbour)) {
+                                if (!spf.getAllVertices().contains(v)) {
+                                    v.setDistance(k.getDistance() + 1);
+                                    v.setPredecessor(k);
+                                }
+                            }
+                        }
                     }
                 }
-                neighbour.setPredecessor(k);
-            }*/
+            }
             k = getNewVertex(graph, spf);
             spf.addVertex(k);
         }
-        System.out.println();
+
+        ArrayDeque<Field> deque = new ArrayDeque<>();
+        Vertex<Field> end = spf.getVertex(goal).get();
+        deque.addFirst(end.getSelf());
+        while (end.getPredecessor() != null) {
+            end = end.getPredecessor();
+            deque.addFirst(end.getSelf());
+        }
+
+        return deque;
     }
 
     private static boolean existingStartGoal(AdjacencyList<Field> graph, Field start, Field goal) {

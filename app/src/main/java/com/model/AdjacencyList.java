@@ -29,7 +29,7 @@ public class AdjacencyList<T> {
     public void addVertex(T vertex) {
         Optional<Vertex<T>> v = getVertex(vertex);
         if (!v.isPresent()) {
-            vertices.add(new Vertex<T>(vertex));
+            vertices.add(new Vertex<>(vertex));
         }
     }
 
@@ -74,7 +74,7 @@ public class AdjacencyList<T> {
         }
     }
 
-    private Optional<Vertex<T>> getVertex(T vertex) {
+    public Optional<Vertex<T>> getVertex(T vertex) {
         Vertex<T> v = null;
 
         for (Vertex<T> tVertex : vertices) {
