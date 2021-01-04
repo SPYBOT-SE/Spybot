@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     void OnClick(int id) {
-
+        Utility.getShortestPath(board.getGraph(), board.getFieldById(0), board.getFieldById(3));
 
 
         Field field = board.getFieldById(id);

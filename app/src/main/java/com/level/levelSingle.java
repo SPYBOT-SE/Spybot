@@ -25,6 +25,7 @@ public class levelSingle {
     private static void initializeLevels() {
         levels.put(0, Ones);
         levels.put(1, TestLevel1);
+        levels.put(2, SPF);
     }
 
     /*
@@ -83,5 +84,12 @@ public class levelSingle {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 
 
+    };
+
+    public final static byte[][] SPF = {
+            {1, 1, 1, 1},
+            {1, 1, 1, 1},
+            {1, 1, 1, 1},
+            {1, 1, 1, 1},
     };
 }
