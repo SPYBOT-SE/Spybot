@@ -58,10 +58,10 @@ public class Board {
     }
 
     private Field getField(byte value) {
-        Field outField;
+        Field outField = null;
 
         switch (value) {
-            case 0:
+            case 0-9:
                 outField = new Field(idCount, false);
                 break;
             case 1:
@@ -74,6 +74,13 @@ public class Board {
                 pawnsOnBoard.add(bug);
                 bug.createSegment(outField);
                 break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 10:
 
 
             default:

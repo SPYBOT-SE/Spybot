@@ -1,5 +1,8 @@
 package com.example.spybot;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +23,7 @@ import com.utility.Utility;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static byte[][] selectedLevel = levelSingle.Ones;
+    public static byte[][] selectedLevel = levelSingle.Error;
 
     Board board = new Board(selectedLevel);
 
@@ -288,6 +291,16 @@ public class MainActivity extends AppCompatActivity {
                 case MovableRight:
                 case Movable:
                     currBut.setBackgroundResource(R.drawable.button_spybot_moveable);
+                    Resources r = getResources();
+                    Drawable[] layers = new Drawable[2];
+
+                    layers[0] = r.getDrawable(R.drawable.button_icon);
+                    layers[1] = r.getDrawable(R.drawable.button_icon_bulldozer);
+                    LayerDrawable layerDrawable = new LayerDrawable(layers);
+
+                    currBut.setBackground(layerDrawable);
+
+
                 case Healable:
                 case Attackable:
                 case Buildable:
