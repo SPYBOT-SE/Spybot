@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppSetting.hideSystemUI(this);
@@ -143,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
     void OnClick(int id) {
         Utility.getShortestPath(board.getGraph(), board.getFieldById(0), board.getFieldById(3));
 
-
         Field field = board.getFieldById(id);
         // Button button = findViewById(id);
         // button.setBackgroundColor(0xFF00FF00);
@@ -155,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
                     lastSelected.setSegment(null);
                     byte steps = field.getSegment().getPawn().getLeftSteps();
                     field.getSegment().getPawn().setLeftSteps((byte)(steps - 1));
-
-
 
                     findViewById(lastSelected.getId()).setBackgroundResource(R.drawable.button_icon);
             }
