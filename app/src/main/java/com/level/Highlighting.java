@@ -1,5 +1,9 @@
 package com.level;
 
+/**
+ * All the different highlightings that a field can have
+ *
+ */
 public enum Highlighting {
     Empty,
     Attackable,
