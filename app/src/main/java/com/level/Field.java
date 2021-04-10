@@ -82,8 +82,8 @@ public class Field {
         this.layerView[2] = highlighting;
     }
 
-    public void setSegmentView(int segment) {
-        this.layerView[1].;
+    public void setSegmentView(Drawable segment) {
+        this.layerView[1] = segment;
     }
 
 }

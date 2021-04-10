@@ -213,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
 
             switch(field.getHighlighting()) {
                 case Empty:
+
+                    field.setSegmentView(R.getDrawable(R.drawable.button_icon));
+
+
                     currBut.setBackgroundResource(R.drawable.button_icon);
                 case Reachable:
 
@@ -225,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                     //currBut.setBackgroundResource(R.drawable.button_spybot_moveable);
 
 
-
+                    // layers[0] = r.getDrawable(R.drawable.button_icon);
 
                     // LayerDrawable layerDrawable = new LayerDrawable(layers);
 
