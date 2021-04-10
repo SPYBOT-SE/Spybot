@@ -25,12 +25,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static byte[][] selectedLevel = levelSingle.Error;
 
-    Board board = new Board(selectedLevel);
+    private Board board = new Board(selectedLevel);
 
-    int height = board.getSizeY();
-    int width = board.getSizeX();
+    private int height = board.getSizeY();
+    private int width = board.getSizeX();
 
     private Field lastSelected = null;
+
+    private Resources r = getResources();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,28 +206,40 @@ public class MainActivity extends AppCompatActivity {
      * @param field current field to refresh picture
      */
     private void mapFieldToView(Field field) {
+
+        Resources r = getResources();
+
         Button currBut = findViewById(field.getId());
+
         if (field.getStatus()) {
+
             currBut.setVisibility(View.VISIBLE);
-
-
-
 
             switch(field.getHighlighting()) {
                 case Empty:
+                    field.setHighlightingView(null);
+                    break;
 
-                    field.setSegmentView(R.getDrawable(R.drawable.button_icon));
-
-
-                    currBut.setBackgroundResource(R.drawable.button_icon);
                 case Reachable:
-
-                    currBut.setBackgroundResource(R.drawable.button_spybot_reachable);
+                    field.setHighlightingView(r.getDrawable(R.drawable.highlighting_reachable));
+                    break;
                 case MovableUp:
+                    field.setHighlightingView(r.getDrawable(R.drawable.highlighting_movable_up));
+                    break;
                 case MovableDown:
+                    field.setHighlightingView(r.getDrawable(R.drawable.highlighting_movable_down));
+                    break;
                 case MovableLeft:
+                    field.setHighlightingView(r.getDrawable(R.drawable.highlighting_movable_left));
+                    break;
                 case MovableRight:
+                    field.setHighlightingView(r.getDrawable(R.drawable.highlighting_movable_right));
+                    break;
                 case Movable:
+
+                    field.setHighlightingView(r.getDrawable(R.drawable.highlighting_movable));
+                    break;
+
                     //currBut.setBackgroundResource(R.drawable.button_spybot_moveable);
 
 
@@ -253,6 +267,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             currBut.setVisibility(View.INVISIBLE);
         }
+
+        LayerDrawable layerDrawable = new LayerDrawable(field.getLayerView());
+        currBut.setBackground(layerDrawable);
+
     }
 
     /**
@@ -313,6 +331,8 @@ public class MainActivity extends AppCompatActivity {
                     buttonNeighbor = findViewById(neighborField.getId());
 
                 }
+
+
 
                 for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
                     neighborField.setHighlighting(Highlighting.Movable);
