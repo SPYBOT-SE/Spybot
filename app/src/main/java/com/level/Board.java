@@ -61,7 +61,7 @@ public class Board {
         Field outField = null;
 
         switch (value) {
-            case 0-9:
+            case 0:
                 outField = new Field(idCount, false);
                 break;
             case 1:

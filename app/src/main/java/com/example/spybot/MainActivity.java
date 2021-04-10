@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     void OnClick(int id) {
-        Utility.getShortestPath(board.getGraph(), board.getFieldById(0), board.getFieldById(3));
+        // Utility.getShortestPath(board.getGraph(), board.getFieldById(0), board.getFieldById(3));
 
         Field field = board.getFieldById(id);
         // Button button = findViewById(id);
@@ -265,12 +265,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void doMovable(Field field) {
+
+    }
+
     /**
      * Function maps the status of a field to the correct picture representation
      *
      * @param field current field to refresh picture
      */
-    void mapFieldToView(Field field) {
+    private void mapFieldToView(Field field) {
         Button currBut = findViewById(field.getId());
         if (field.getStatus()) {
             currBut.setVisibility(View.VISIBLE);
