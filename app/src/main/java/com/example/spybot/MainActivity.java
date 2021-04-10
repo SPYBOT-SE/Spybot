@@ -144,86 +144,9 @@ public class MainActivity extends AppCompatActivity {
         // Button button = findViewById(id);
         // button.setBackgroundColor(0xFF00FF00);
 
-        if(field.getHighlighting() != Highlighting.Empty) {
-            switch(field.getHighlighting()) {
-                case Movable:
-                    field.setSegment(lastSelected.getSegment());
-                    lastSelected.setSegment(null);
-                    byte steps = field.getSegment().getPawn().getLeftSteps();
-                    field.getSegment().getPawn().setLeftSteps((byte)(steps - 1));
-
-                    findViewById(lastSelected.getId()).setBackgroundResource(R.drawable.button_icon);
-            }
-
-            for(int y = 0; y < height; y++) {
-                for(int x = 0; x < width; x++) {
-                    Field currentF = board.getBoard()[x][y];
-                    if(currentF.getHighlighting() != Highlighting.Empty) {
-                        currentF.setHighlighting(Highlighting.Empty);
-                        findViewById(currentF.getId()).setBackgroundResource(R.drawable.button_icon);
-                    }
-
-
-
-                }
-            }
-
-        }
-
-
-
-        if(field.getSegment() != null) {
-
-            lastSelected = field;
-
-            Pawn pawn = field.getSegment().getPawn();
-            Button buttonNeighbor;
-            if(pawn.getLeftSteps() > 0) {
-                for (Field neighborField : Utility.getFieldsInRange(board, id, pawn.getLeftSteps())) {
-                    neighborField.setHighlighting(Highlighting.Reachable);
-                    buttonNeighbor = findViewById(neighborField.getId());
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_spybot_reachable);
-                }
-
-                for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
-                    neighborField.setHighlighting(Highlighting.Movable);
-                    buttonNeighbor = findViewById(neighborField.getId());
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_spybot_moveable);
-                }
-            }
-
-            buttonNeighbor = findViewById(id);
-            board.getFieldById(id).setHighlighting(Highlighting.Empty);
-
-            switch(board.getFieldById(id).getSegment().getPawn().getName()) {
-
-                case "Bug":
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bug);
-                    break;
-                case "Bulldozer":
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bulldozer);
-                    break;
-                default:
-
-            }
-
-
-        } else {
-            lastSelected = null;
-            for(int y = 0; y < height; y++) {
-                for(int x = 0; x < width; x++) {
-                    Field currentF = board.getBoard()[x][y];
-                    if(currentF.getHighlighting() != Highlighting.Empty) {
-                        currentF.setHighlighting(Highlighting.Empty);
-                        findViewById(currentF.getId()).setBackgroundResource(R.drawable.button_icon);
-                    }
-
-
-
-                }
-            }
-        }
-
+        doHighlightingActions(field);
+        doHighlightSetting(id, field);
+        refreshBoard();
 
     }
 
@@ -266,8 +189,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doMovable(Field field) {
+        field.setSegment(lastSelected.getSegment());
+        lastSelected.setSegment(null);
+        byte steps = field.getSegment().getPawn().getLeftSteps();
+        field.getSegment().getPawn().setLeftSteps((byte)(steps - 1));
 
+        findViewById(lastSelected.getId()).setBackgroundResource(R.drawable.button_icon);
     }
+
 
     /**
      * Function maps the status of a field to the correct picture representation
@@ -278,25 +207,29 @@ public class MainActivity extends AppCompatActivity {
         Button currBut = findViewById(field.getId());
         if (field.getStatus()) {
             currBut.setVisibility(View.VISIBLE);
+
+
+
+
             switch(field.getHighlighting()) {
                 case Empty:
                     currBut.setBackgroundResource(R.drawable.button_icon);
                 case Reachable:
+
                     currBut.setBackgroundResource(R.drawable.button_spybot_reachable);
                 case MovableUp:
                 case MovableDown:
                 case MovableLeft:
                 case MovableRight:
                 case Movable:
-                    currBut.setBackgroundResource(R.drawable.button_spybot_moveable);
-                    Resources r = getResources();
-                    Drawable[] layers = new Drawable[2];
+                    //currBut.setBackgroundResource(R.drawable.button_spybot_moveable);
 
-                    layers[0] = r.getDrawable(R.drawable.button_icon);
-                    layers[1] = r.getDrawable(R.drawable.button_icon_bulldozer);
-                    LayerDrawable layerDrawable = new LayerDrawable(layers);
 
-                    currBut.setBackground(layerDrawable);
+
+
+                    // LayerDrawable layerDrawable = new LayerDrawable(layers);
+
+                    // currBut.setBackground(layerDrawable);
 
 
                 case Healable:
@@ -318,4 +251,103 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * By clicking on a highlighted field the associated action will be performed here
+     * @param field cklicked field
+     */
+    private void doHighlightingActions(Field field) {
+        if(field.getHighlighting() != Highlighting.Empty) {
+
+            // Actions when clicking a highlighted field
+            switch(field.getHighlighting()) {
+                case Movable:
+                    doMovable(field);
+                    break;
+                case Attackable:
+                    //TODO
+                    break;
+                case Buildable:
+                    //TODO
+                    break;
+                case Healable:
+                    //TODO
+                    break;
+                case Reachable:
+                    //TODO
+                    break;
+                case Empty:
+                case MovableRight:
+                case MovableLeft:
+                case MovableDown:
+                case MovableUp:
+                    break;
+                default:
+
+            }
+
+            clearBoard();
+        }
+    }
+
+    /**
+     * by clicking on a field with a segment, the new highlighting for that segment will be set here
+     * @param id of field
+     * @param field clicked field
+     */
+    private void doHighlightSetting(int id, Field field) {
+        if(field.getSegment() != null) {
+
+            lastSelected = field;
+
+            Pawn pawn = field.getSegment().getPawn();
+
+            Button buttonNeighbor;
+
+            if(pawn.getLeftSteps() > 0) {
+                for (Field neighborField : Utility.getFieldsInRange(board, id, pawn.getLeftSteps())) {
+                    neighborField.setHighlighting(Highlighting.Reachable);
+                    buttonNeighbor = findViewById(neighborField.getId());
+
+                }
+
+                for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
+                    neighborField.setHighlighting(Highlighting.Movable);
+                    buttonNeighbor = findViewById(neighborField.getId());
+
+                }
+            }
+
+            buttonNeighbor = findViewById(id);
+            board.getFieldById(id).setHighlighting(Highlighting.Empty);
+
+            switch(board.getFieldById(id).getSegment().getPawn().getName()) {
+
+                case "Bug":
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bug);
+                    break;
+                case "Bulldozer":
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bulldozer);
+                    break;
+                default:
+
+            }
+
+
+        } else {
+            lastSelected = null;
+            clearBoard();
+        }
+    }
+
+    private void clearBoard() {
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
+                Field currentF = board.getBoard()[x][y];
+                if(currentF.getHighlighting() != Highlighting.Empty) {
+                    currentF.setHighlighting(Highlighting.Empty);
+
+                }
+            }
+        }
+    }
 }
