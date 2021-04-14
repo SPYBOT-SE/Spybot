@@ -244,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case Healable:
                 case Attackable:
+
                 case Buildable:
                 default:
             }
