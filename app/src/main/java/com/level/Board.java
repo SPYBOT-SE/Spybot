@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.MutableContextWrapper;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import com.example.spybot.R;
 import com.model.AdjacencyList;
 import com.pawns.Bug;
 import com.pawns.Pawn;
@@ -71,13 +72,13 @@ public class Board extends MutableContextWrapper {
 
         switch (value) {
             case 0:
-                outField = new Field(idCount, false, backgrounds[1]);
+                outField = new Field(idCount, false, this.getDrawable(R.drawable.field_tiled));
                 break;
             case 1:
-                outField = new Field(idCount, true, backgrounds[0]);
+                outField = new Field(idCount, true, this.getDrawable(R.drawable.field_clean));
                 break;
             case 2:
-                outField = new Field(idCount, true, backgrounds[2]);
+                outField = new Field(idCount, true, this.getDrawable(R.drawable.field_classroom));
 
                 Pawn bug = new Bug();
                 pawnsOnBoard.add(bug);

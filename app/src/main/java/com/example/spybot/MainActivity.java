@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Button clickedButton = findViewById(v.getId());
-//                clickedButton.setBackgroundColor(0xFF00FF00);
+//                clickedButton.setBackgroundColoield_cleanr(0xFF00FF00);
                 OnClick(v.getId());
             }
         });
