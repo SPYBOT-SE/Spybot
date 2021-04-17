@@ -1,12 +1,17 @@
 package com.level;
 
+
+import android.content.Context;
+import android.content.MutableContextWrapper;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import com.model.AdjacencyList;
 import com.pawns.Bug;
 import com.pawns.Pawn;
 
 import java.util.ArrayList;
 
-public class Board {
+public class Board extends MutableContextWrapper {
 
     int idCount = 0;
 
@@ -20,10 +25,14 @@ public class Board {
     private Field[][] board;
     private AdjacencyList<Field> graph;
 
+    Drawable[] backgrounds;
 
+    Resources r;
 
-    public Board(byte[][] level ) {
+    public Board(byte[][] level, Context ctx) {
 
+        super(ctx);
+        r = getResources();
         initBoard(level);
 
         initGraph();
@@ -45,8 +54,8 @@ public class Board {
 
         board = new Field[sizeX][sizeY];
 
-        for(int y = 0; y < sizeY; y++) {
-            for(int x = 0; x < sizeX; x++) {
+        for (int y = 0; y < sizeY; y++) {
+            for (int x = 0; x < sizeX; x++) {
 
                 board[x][y] = getField(fieldDef[y][x]);
 
@@ -62,13 +71,13 @@ public class Board {
 
         switch (value) {
             case 0:
-                outField = new Field(idCount, false);
+                outField = new Field(idCount, false, backgrounds[1]);
                 break;
             case 1:
-                outField = new Field(idCount, true);
+                outField = new Field(idCount, true, backgrounds[0]);
                 break;
             case 2:
-                outField = new Field(idCount, true);
+                outField = new Field(idCount, true, backgrounds[2]);
 
                 Pawn bug = new Bug();
                 pawnsOnBoard.add(bug);
@@ -84,13 +93,12 @@ public class Board {
 
 
             default:
-                throw  new IllegalArgumentException("Unexpected value for field type: " + value);
+                throw new IllegalArgumentException("Unexpected value for field type: " + value);
 
         }
         idCount++;
         return outField;
     }
-
 
 
     private void initGraph() {
@@ -143,7 +151,7 @@ public class Board {
 
 
     public Field getFieldById(int id) {
-        return board[id%sizeX][id/sizeX];
+        return board[id % sizeX][id / sizeX];
     }
 
     public int getSizeX() {

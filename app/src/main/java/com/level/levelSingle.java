@@ -35,9 +35,9 @@ public class levelSingle {
     -1
     0   =   Void
     1   =   Empty field
-    2   =   Player
-    3   =   Player
-    4   =   Player
+    2   =   Spawn Player
+    3   =   Spawn Player
+    4   =   Spawn Player
     5   =   Player
     6   =   Player
     7   =   Player
