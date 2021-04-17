@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         r = getResources();
 
-        Board board = new Board(selectedLevel,this);
+        board = new Board(selectedLevel,this);
 
         int height = board.getSizeY();
         int width = board.getSizeX();
