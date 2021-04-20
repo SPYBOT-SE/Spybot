@@ -1,19 +1,20 @@
 package com.level;
 
 
+import android.content.Context;
+import android.content.MutableContextWrapper;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import com.example.spybot.R;
 import com.pawns.PawnSegment;
 
 /**
  *  Class representing one field of the game board.
  */
-public class Field {
+public class Field{
 
     private Highlighting highlighting = Highlighting.Empty;
-
-    private Drawable[] layerView = new Drawable[3];
 
     //active or inactive
     private boolean enabled = true;
@@ -48,14 +49,6 @@ public class Field {
         this.enabled = enabled;
     }
 
-    public Field(int id, boolean enabled, Drawable background) {
-        this.id = id;
-        this.enabled = enabled;
-        this.layerView[0] = background;
-
-
-    }
-
     public boolean getStatus() {
         return enabled;
     }
@@ -74,16 +67,6 @@ public class Field {
         this.highlighting = highlighting;
     }
 
-    public Drawable[] getLayerView() {
-        return layerView;
-    }
 
-    public void setHighlightingView(Drawable highlighting) {
-        this.layerView[2] = highlighting;
-    }
-
-    public void setSegmentView(Drawable segment) {
-        this.layerView[1] = segment;
-    }
 
 }

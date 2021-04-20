@@ -12,7 +12,7 @@ import com.pawns.Pawn;
 
 import java.util.ArrayList;
 
-public class Board extends MutableContextWrapper {
+public class Board {
 
     int idCount = 0;
 
@@ -30,10 +30,8 @@ public class Board extends MutableContextWrapper {
 
     Resources r;
 
-    public Board(byte[][] level, Context ctx) {
+    public Board(byte[][] level) {
 
-        super(ctx);
-        r = getResources();
         initBoard(level);
 
         initGraph();
@@ -72,13 +70,13 @@ public class Board extends MutableContextWrapper {
 
         switch (value) {
             case 0:
-                outField = new Field(idCount, false, this.getDrawable(R.drawable.field_tiled));
+                outField = new Field(idCount, false);
                 break;
             case 1:
-                outField = new Field(idCount, true, this.getDrawable(R.drawable.field_clean));
+                outField = new Field(idCount, true);
                 break;
             case 2:
-                outField = new Field(idCount, true, this.getDrawable(R.drawable.field_classroom));
+                outField = new Field(idCount, true);
 
                 Pawn bug = new Bug();
                 pawnsOnBoard.add(bug);

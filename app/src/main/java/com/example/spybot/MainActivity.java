@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         r = getResources();
 
-        board = new Board(selectedLevel,this);
+        board = new Board(selectedLevel);
 
-        int height = board.getSizeY();
-        int width = board.getSizeX();
+        height = board.getSizeY();
+        width = board.getSizeX();
 
 
 
@@ -105,8 +105,11 @@ public class MainActivity extends AppCompatActivity {
             fields.addView(row);
         }
 
+
+
         setContentView(parentLayout);
         //resetButtons();
+        refreshBoard();
     }
 
     void createButton(LinearLayout layout, int id, int viewVisibility, int ratio) {
@@ -187,8 +190,6 @@ public class MainActivity extends AppCompatActivity {
         lastSelected.setSegment(null);
         byte steps = field.getSegment().getPawn().getLeftSteps();
         field.getSegment().getPawn().setLeftSteps((byte) (steps - 1));
-
-        findViewById(lastSelected.getId()).setBackgroundResource(R.drawable.button_icon);
     }
 
 
@@ -203,55 +204,53 @@ public class MainActivity extends AppCompatActivity {
 
         Button currBut = findViewById(field.getId());
 
+
+        Drawable[] layerView = new Drawable[3];
+
+        layerView[0] = this.getDrawable(R.drawable.field_clean);
+        layerView[1] = this.getDrawable(R.drawable.field_transparent);
+        layerView[2] = this.getDrawable(R.drawable.field_transparent);
+
         if (field.getStatus()) {
 
             currBut.setVisibility(View.VISIBLE);
 
             switch (field.getHighlighting()) {
                 case Empty:
-                    field.setHighlightingView(null);
+                    layerView[2] = this.getDrawable(R.drawable.field_transparent);
                     break;
 
                 case Reachable:
-                    field.setHighlightingView(this.getDrawable(R.drawable.highlighting_reachable));
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_reachable);
                     break;
                 case MovableUp:
-                    field.setHighlightingView(this.getDrawable(R.drawable.highlighting_movable_up));
+
                     break;
                 case MovableDown:
-                    field.setHighlightingView(this.getDrawable(R.drawable.highlighting_movable_down));
+
                     break;
                 case MovableLeft:
-                    field.setHighlightingView(this.getDrawable(R.drawable.highlighting_movable_left));
+
                     break;
                 case MovableRight:
-                    field.setHighlightingView(this.getDrawable(R.drawable.highlighting_movable_right));
+
                     break;
                 case Movable:
-
-                    field.setHighlightingView(this.getDrawable(R.drawable.highlighting_movable));
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable);
                     break;
-
-                //currBut.setBackgroundResource(R.drawable.button_spybot_moveable);
-
-
-                // layers[0] = r.getDrawable(R.drawable.button_icon);
-
-                // LayerDrawable layerDrawable = new LayerDrawable(layers);
-
-                // currBut.setBackground(layerDrawable);
-
-
                 case Healable:
+                    break;
                 case Attackable:
-
+                    break;
                 case Buildable:
+                    break;
                 default:
             }
             if (field.getSegment() != null) {
 
                 switch (field.getSegment().getBodyType()) {
                     case Head:
+                        layerView[1] = this.getDrawable(R.drawable.bug);
                     case Tail:
                     default:
                 }
@@ -261,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
             currBut.setVisibility(View.INVISIBLE);
         }
 
-        LayerDrawable layerDrawable = new LayerDrawable(field.getLayerView());
+        LayerDrawable layerDrawable = new LayerDrawable(layerView);
         currBut.setBackground(layerDrawable);
 
     }
@@ -362,10 +361,8 @@ public class MainActivity extends AppCompatActivity {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Field currentF = board.getBoard()[x][y];
-                if (currentF.getHighlighting() != Highlighting.Empty) {
-                    currentF.setHighlighting(Highlighting.Empty);
 
-                }
+                currentF.setHighlighting(Highlighting.Empty);
             }
         }
     }
