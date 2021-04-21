@@ -65,6 +65,8 @@ public class Board {
 
     }
 
+
+
     private Field getField(byte value) {
         Field outField = null;
 
@@ -151,6 +153,10 @@ public class Board {
 
     public Field getFieldById(int id) {
         return board[id % sizeX][id / sizeX];
+    }
+
+    public int getXofField(int id) {
+        return 0;
     }
 
     public int getSizeX() {

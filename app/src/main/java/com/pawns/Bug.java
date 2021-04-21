@@ -18,4 +18,6 @@ public class Bug extends Pawn {
     void attack() {
 
     }
+
+
 }

@@ -159,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
         int width = dm.widthPixels;
 
         btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 4));
-        btnTag.setId(10001);
+        btnTag.setId((int)10001);
+
         btnTag.setBackgroundResource(R.drawable.button_icon_bug);
         btnTag.setVisibility(View.VISIBLE);
         panel.addView(btnTag);
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable[] layerView = new Drawable[3];
 
-        layerView[0] = this.getDrawable(R.drawable.field_clean);
+        layerView[0] = this.getDrawable(R.drawable.field_classroom);
         layerView[1] = this.getDrawable(R.drawable.field_transparent);
         layerView[2] = this.getDrawable(R.drawable.field_transparent);
 
@@ -224,16 +225,16 @@ public class MainActivity extends AppCompatActivity {
                     layerView[2] = this.getDrawable(R.drawable.highlighting_reachable);
                     break;
                 case MovableUp:
-
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_up);
                     break;
                 case MovableDown:
-
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_down);
                     break;
                 case MovableLeft:
-
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_left);
                     break;
                 case MovableRight:
-
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_right);
                     break;
                 case Movable:
                     layerView[2] = this.getDrawable(R.drawable.highlighting_movable);
@@ -288,9 +289,9 @@ public class MainActivity extends AppCompatActivity {
                     //TODO
                     break;
                 case Reachable:
-                    //TODO
-                    break;
                 case Empty:
+                    clearBoard();
+                    break;
                 case MovableRight:
                 case MovableLeft:
                 case MovableDown:
@@ -313,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
     private void doHighlightSetting(int id, Field field) {
         if (field.getSegment() != null) {
 
+            clearBoard();
             lastSelected = field;
 
             Pawn pawn = field.getSegment().getPawn();
@@ -325,6 +327,8 @@ public class MainActivity extends AppCompatActivity {
                     buttonNeighbor = findViewById(neighborField.getId());
 
                 }
+
+                //board.getBoard()[id + 1 % board.getSizeX()][id / board.getSizeX()].setHighlighting(Highlighting.MovableRight);
 
 
                 for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
