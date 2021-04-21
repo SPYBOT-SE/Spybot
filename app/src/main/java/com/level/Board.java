@@ -37,11 +37,11 @@ public class Board {
         initGraph();
     }
 
-
+/*
     public Field[][] getBoard() {
         return board;
     }
-
+*/
     public AdjacencyList<Field> getGraph() {
         return graph;
     }
@@ -53,10 +53,10 @@ public class Board {
 
         board = new Field[sizeX][sizeY];
 
-        for (int y = 0; y < sizeY; y++) {
-            for (int x = 0; x < sizeX; x++) {
+        for (short y = 0; y < sizeY; y++) {
+            for (short x = 0; x < sizeX; x++) {
 
-                board[x][y] = getField(fieldDef[y][x]);
+                board[x][y] = getField(fieldDef[y][x],x,y);
 
             }
 
@@ -67,18 +67,18 @@ public class Board {
 
 
 
-    private Field getField(byte value) {
+    private Field getField(byte value, short x, short y) {
         Field outField = null;
 
         switch (value) {
             case 0:
-                outField = new Field(idCount, false);
+                outField = new Field(idCount, false, x,y);
                 break;
             case 1:
-                outField = new Field(idCount, true);
+                outField = new Field(idCount, true,x,y);
                 break;
             case 2:
-                outField = new Field(idCount, true);
+                outField = new Field(idCount, true,x,y);
 
                 Pawn bug = new Bug();
                 pawnsOnBoard.add(bug);
@@ -150,6 +150,13 @@ public class Board {
         }
     }
 
+    public Field getField(short x, short y) {
+        if(x >= 0 && x < sizeX && y >= 0 && y < sizeY) {
+            return board[x][y];
+        } else{
+            return null;
+        }
+    }
 
     public Field getFieldById(int id) {
         return board[id % sizeX][id / sizeX];

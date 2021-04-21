@@ -14,6 +14,9 @@ import com.pawns.PawnSegment;
  */
 public class Field{
 
+    public final short x;
+    public final short y;
+
     private Highlighting highlighting = Highlighting.Empty;
 
     //active or inactive
@@ -35,16 +38,9 @@ public class Field{
     }
 
 
-
-    /**
-     * Constructor of a Field
-     * @param id
-     */
-    public Field(int id) {
-        this.id = id;
-    }
-
-    public Field(int id, boolean enabled) {
+    public Field(int id, boolean enabled, short x, short y) {
+        this.x = x;
+        this.y = y;
         this.id = id;
         this.enabled = enabled;
     }
@@ -66,7 +62,4 @@ public class Field{
     public void setHighlighting(Highlighting highlighting) {
         this.highlighting = highlighting;
     }
-
-
-
 }

@@ -85,16 +85,16 @@ public class MainActivity extends AppCompatActivity {
         infoBox.addView(text);
 
 
-        for (int y = 0; y < height; y++) {
+        for (short y = 0; y < height; y++) {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams
                     (LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT));
 
-            for (int x = 0; x < width; x++) {
+            for (short x = 0; x < width; x++) {
                 int id = y * width + x;
 
-                if (board.getBoard()[x][y].getStatus()) {
+                if (board.getField(x,y).getStatus()) {
                     createButton(row, id, View.VISIBLE, 20);
                 } else {
                     createButton(row, id, View.INVISIBLE, 20);
@@ -178,10 +178,10 @@ public class MainActivity extends AppCompatActivity {
      * Function iterates over field and refreshes every button representation
      */
     void refreshBoard() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (short y = 0; y < height; y++) {
+            for (short x = 0; x < width; x++) {
 
-                mapFieldToView(board.getBoard()[x][y]);
+                mapFieldToView(board.getField(x,y));
             }
         }
     }
@@ -276,6 +276,10 @@ public class MainActivity extends AppCompatActivity {
 
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
+                case MovableRight:
+                case MovableLeft:
+                case MovableDown:
+                case MovableUp:
                 case Movable:
                     doMovable(field);
                     break;
@@ -291,11 +295,6 @@ public class MainActivity extends AppCompatActivity {
                 case Reachable:
                 case Empty:
                     clearBoard();
-                    break;
-                case MovableRight:
-                case MovableLeft:
-                case MovableDown:
-                case MovableUp:
                     break;
                 default:
 
@@ -328,14 +327,26 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                //board.getBoard()[id + 1 % board.getSizeX()][id / board.getSizeX()].setHighlighting(Highlighting.MovableRight);
+                if (board.getField((short)(field.x + 1), field.y) != null) {
+                    board.getField((short)(field.x + 1), field.y).setHighlighting(Highlighting.MovableRight);
+                }
 
+                if (board.getField((short)(field.x - 1), field.y) != null) {
+                    board.getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);
+                }
+                if (board.getField((short)(field.x), (short)(field.y+1)) != null) {
+                    board.getField((short)(field.x), (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
+                }
+                if (board.getField((short)(field.x), (short)(field.y-1)) != null) {
+                    board.getField((short)(field.x), (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
+                }
 
+                /*
                 for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
                     neighborField.setHighlighting(Highlighting.Movable);
                     buttonNeighbor = findViewById(neighborField.getId());
 
-                }
+                }*/
             }
 
             buttonNeighbor = findViewById(id);
@@ -362,9 +373,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clearBoard() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Field currentF = board.getBoard()[x][y];
+        for (short y = 0; y < height; y++) {
+            for (short x = 0; x < width; x++) {
+                Field currentF = board.getField(x,y);
 
                 currentF.setHighlighting(Highlighting.Empty);
             }

@@ -14,6 +14,9 @@ public enum Highlighting {
     MovableLeft,
     Reachable,
     Healable,
-    Buildable
+    Buildable,
+    Spawnable,
+    SpawnableP1,
+    SpawnableP2
 }
 
