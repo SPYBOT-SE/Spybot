@@ -19,7 +19,7 @@ public abstract class Pawn {
     private Attack attack1;
     private Attack attack2;
 
-    protected int pictureHead = R.drawable.button_icon;
+    protected int pictureHead = R.drawable.hantel_head;
     protected int pictureTail = R.drawable.button_icon;
     protected int pictureTailUp = R.drawable.button_icon;
     protected int pictureTailDown = R.drawable.button_icon;

@@ -19,6 +19,7 @@ import com.level.Field;
 import com.level.Highlighting;
 import com.level.levelSingle;
 import com.pawns.Pawn;
+import com.pawns.PawnSegment;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
 
@@ -208,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable[] layerView = new Drawable[3];
 
-        layerView[0] = this.getDrawable(R.drawable.field_classroom);
+        layerView[0] = this.getDrawable(R.drawable.field_clean);
         layerView[1] = this.getDrawable(R.drawable.field_transparent);
         layerView[2] = this.getDrawable(R.drawable.field_transparent);
 
@@ -247,12 +248,18 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 default:
             }
-            if (field.getSegment() != null) {
+            PawnSegment segment = field.getSegment();
+            if (segment != null) {
 
-                switch (field.getSegment().getBodyType()) {
+                switch (segment.getBodyType()) {
                     case Head:
-                        layerView[1] = this.getDrawable(R.drawable.bug);
+                        layerView[1] = segment.getPawn().move(field);
                     case Tail:
+
+                    case TailUp:
+                    case TailDown:
+                    case TailLeft:
+                    case TailRight:
                     default:
                 }
 
@@ -351,20 +358,6 @@ public class MainActivity extends AppCompatActivity {
 
             buttonNeighbor = findViewById(id);
             board.getFieldById(id).setHighlighting(Highlighting.Empty);
-
-            switch (board.getFieldById(id).getSegment().getPawn().getName()) {
-
-                case "Bug":
-
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bug);
-                    break;
-                case "Bulldozer":
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bulldozer);
-                    break;
-                default:
-
-            }
-
 
         } else {
             lastSelected = null;
