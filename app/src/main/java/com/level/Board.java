@@ -17,6 +17,8 @@ public class Board {
 
     ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
 
+    public byte currentPlayer = 0;
+    public LevelState currentState;
 
     private int sizeY; //vertical axis
     private int sizeX; //horizontal axis
@@ -25,7 +27,7 @@ public class Board {
     private Field[][] board;
     private AdjacencyList<Field> graph;
 
-    private LevelState state = LevelState.PlayerOneChoosePawn;
+    private LevelState state = LevelState.ChoosePawn;
     //private int selectedPawnFieldID;
     private SelectedInfo selectedInfo = new SelectedInfo();
 
@@ -176,7 +178,7 @@ public class Board {
     }
 
     public LevelState getState() {
-        return state;
+        return state.Preparation;
     }
 
     public void setState(LevelState state) {

@@ -1,17 +1,14 @@
 package com.pawns;
 
-import android.graphics.drawable.Drawable;
 import com.example.spybot.R;
 import com.level.Field;
-import com.model.Team;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public abstract class Pawn {
 
     protected String name;
-    protected Team team;
+    protected byte team;
 
     protected byte speed;
     protected byte leftSteps;
@@ -101,11 +98,11 @@ public abstract class Pawn {
         this.leftSteps = leftSteps;
     }
 
-    public Team getTeam(){
+    public byte getTeam(){
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(byte team) {
         this.team = team;
     }
 }

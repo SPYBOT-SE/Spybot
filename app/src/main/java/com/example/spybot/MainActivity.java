@@ -19,7 +19,6 @@ import com.level.Highlighting;
 import com.level.levelSingle;
 import com.model.ActionID;
 import com.model.LevelState;
-import com.model.Team;
 import com.pawns.Pawn;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
@@ -162,8 +161,9 @@ public class MainActivity extends AppCompatActivity {
                         loadInfoWithSpawnable();
                     }
                     break;
-                case PlayerOneChoosePawn:
+                case ChoosePawn:
                     clearBoard();
+
                     if (field.getSegment() != null) {
                         Pawn pawn = field.getSegment().getPawn();
                         board.setSelectedInfo(pawn, field.getId());
@@ -172,13 +172,13 @@ public class MainActivity extends AppCompatActivity {
                         board.setSelectedInfo(null, -1);
                     }
                     break;
-                case PlayerOneMoveChooseField:
+                case MoveChooseField:
                     if (field.getSegment() == null) {
                         //doHighlightingActions(field); //doMove()
                         if (Utility.getFieldsInRange(board, board.getSelectedInfo().getFieldId(), 1).contains(field)) {
                             doMovable(board.getFieldById(id));
                             if (board.getSelectedInfo().getPawn().getLeftSteps() <= 0) {
-                                board.setState(LevelState.PlayerOneChoosePawn);
+                                board.setState(LevelState.ChoosePawn);
                                 board.moveSelecetedInfoPawn(board.getFieldById(id));
                                 doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
                                 loadInfoWithPawn();
@@ -190,21 +190,19 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     break;
-                case PlayerTwosTurn:
-                    break;
                 default:
             }
         } else { // ID > 1000 are not on board
             switch (id) {
                 case ActionID.move:
                     doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
-                    board.setState(LevelState.PlayerOneMoveChooseField);
+                    board.setState(LevelState.MoveChooseField);
                     loadInfoWithAction(ActionID.move);
                     break;
                 case ActionID.attack1:
                 case ActionID.attack2:
                 case ActionID.back:
-                    board.setState(LevelState.PlayerOneChoosePawn);
+                    board.setState(LevelState.ChoosePawn);
                     loadInfoWithPawn();
                     break;
                 case ActionID.nexTurn:
@@ -436,6 +434,7 @@ public class MainActivity extends AppCompatActivity {
 
             Button buttonNeighbor;
 
+
             if (pawn.getLeftSteps() > 0) {
                 for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps())) {
                     neighborField.setHighlighting(Highlighting.Reachable);
@@ -512,7 +511,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadInfoWithPawn() {
-        if (board.getSelectedInfo().getPawn().getTeam() == Team.PlayerOne) {
+        if (board.getSelectedInfo().getPawn().getTeam() == board.currentPlayer) {
 
         } else {
 
