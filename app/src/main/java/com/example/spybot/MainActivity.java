@@ -18,8 +18,9 @@ import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
 import com.level.levelSingle;
+import com.model.ActionID;
+import com.model.LevelState;
 import com.pawns.Pawn;
-import com.pawns.PawnSegment;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         parentLayout.addView(infoPanel); //add info box to parent
 
         SetUpInfoPanel(infoPanel);
+        infoPanel.setBackgroundColor(Color.rgb(211,211, 211));
 
 
         LinearLayout gameLayout = new LinearLayout(this); //layout containing the game and a info box
@@ -123,29 +125,108 @@ public class MainActivity extends AppCompatActivity {
         btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / ratio, width / ratio));
         btnTag.setId(id);
 
-        btnTag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Button clickedButton = findViewById(v.getId());
-//                clickedButton.setBackgroundColoield_cleanr(0xFF00FF00);
-                OnClick(v.getId());
-            }
+        btnTag.setOnClickListener((v) -> {
+            OnClick(v.getId());
         });
 
         btnTag.setVisibility(viewVisibility);
         layout.addView(btnTag);
     }
 
+    private Button createButton(LinearLayout layout, int id, int ratio) {
+        Button btnTag = new Button(this);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+
+        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / ratio));
+        btnTag.setId(id);
+
+        btnTag.setOnClickListener((v) -> {
+            OnClick(v.getId());
+        });
+
+        btnTag.setVisibility(View.VISIBLE);
+
+        return btnTag;
+    }
+
 
     void OnClick(int id) {
-        // Utility.getShortestPath(board.getGraph(), board.getFieldById(0), board.getFieldById(3));
+        //Field field = board.getFieldById(id);//should be in following if block
+        if (id < 1000) { // if button is on board
+            Field field = board.getFieldById(id);
 
-        Field field = board.getFieldById(id);
+            switch (board.getState()) {
+                case Preparation:
+                    if (field.getSpawner() > 0) {
+                        loadInfoWithSpawnable();
+                    }
+                    break;
+                case ChoosePawn:
+                    clearBoard();
+
+                    if (field.getSegment() != null) {
+                        Pawn pawn = field.getSegment().getPawn();
+                        board.setSelectedInfo(pawn, field.getId());
+                        loadInfoWithPawn();
+                    } else {
+                        board.setSelectedInfo(null, -1);
+                    }
+                    break;
+                case MoveChooseField:
+                    if (field.getSegment() == null) {
+                        //doHighlightingActions(field); //doMove()
+                        if (Utility.getFieldsInRange(board, board.getSelectedInfo().getFieldId(), 1).contains(field)) {
+                            doMovable(board.getFieldById(id));
+                            if (board.getSelectedInfo().getPawn().getLeftSteps() <= 0) {
+                                board.setState(LevelState.ChoosePawn);
+                                board.moveSelecetedInfoPawn(board.getFieldById(id));
+                                doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
+                                loadInfoWithPawn();
+
+                            } else {
+                                board.moveSelecetedInfoPawn(board.getFieldById(id));
+                                doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
+                            }
+                        }
+                    }
+                    break;
+                default:
+            }
+        } else { // ID > 1000 are not on board
+            switch (id) {
+                case ActionID.move:
+                    doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
+                    board.setState(LevelState.MoveChooseField);
+                    loadInfoWithAction(ActionID.move);
+                    break;
+                case ActionID.attack1:
+                case ActionID.attack2:
+                case ActionID.back:
+                    board.setState(LevelState.ChoosePawn);
+                    loadInfoWithPawn();
+                    break;
+                case ActionID.nexTurn:
+                    board.nextTurn();
+                    loadDefaultView();
+                    break;
+                default:
+            }
+
+
+        }
+
+        System.out.println("" + board.getState() + " "+ board.getSelectedInfo().getFieldId());
+
+
+
         // Button button = findViewById(id);
         // button.setBackgroundColor(0xFF00FF00);
 
-        doHighlightingActions(field);
-        doHighlightSetting(id, field);
+        //doHighlightingActions(field);
+        //doHighlightSetting(field);
         refreshBoard();
 
     }
@@ -153,25 +234,56 @@ public class MainActivity extends AppCompatActivity {
     void SetUpInfoPanel(LinearLayout panel) {
         //createButton(panel, 1234567, View.VISIBLE, 10);
 
-        Button btnTag = new Button(this);
+        Button btn = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
         this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
 
-        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 4));
-        btnTag.setId((int)10001);
+        btn.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 4));
+        btn.setId(1100);
 
-        btnTag.setBackgroundResource(R.drawable.button_icon_bug);
-        btnTag.setVisibility(View.VISIBLE);
-        panel.addView(btnTag);
+        btn.setBackgroundResource(R.drawable.button_icon_bug);
+        btn.setVisibility(View.VISIBLE);
+        btn.setClickable(false);
+        panel.addView(btn);
 
 
         TextView text = new TextView(this);
         text.setText("Bug");
-        text.setTextColor(Color.WHITE);
+        text.setTextColor(Color.GRAY);
         panel.addView(text);
 
+        LinearLayout btnLayout = new LinearLayout(this);
+        btnLayout.setOrientation(LinearLayout.VERTICAL);
+        btnLayout.setLayoutParams(new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+        btnLayout.setBackgroundColor(Color.CYAN);
+
+
+
+        btn = createButton(btnLayout, ActionID.move, 20);
+        btn.setText("Move");
+        btnLayout.addView(btn);
+
+        btn = createButton(btnLayout, ActionID.attack1, 20);
+        btn.setText("Attack 1");
+        btnLayout.addView(btn);
+
+        btn = createButton(btnLayout, ActionID.attack2, 20);
+        btn.setText("Attack 2");
+        btnLayout.addView(btn);
+
+        btn = createButton(btnLayout, ActionID.back, 20);
+        btn.setText("Back");
+        btnLayout.addView(btn);
+
+        btn = createButton(btnLayout, ActionID.nexTurn, 20);
+        btn.setText("Next Turn");
+        btnLayout.addView(btn);
+
+        panel.addView(btnLayout);
     }
 
 
@@ -209,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable[] layerView = new Drawable[3];
 
-        layerView[0] = this.getDrawable(R.drawable.field_clean);
+        layerView[0] = this.getDrawable(R.drawable.field_classroom);
         layerView[1] = this.getDrawable(R.drawable.field_transparent);
         layerView[2] = this.getDrawable(R.drawable.field_transparent);
 
@@ -246,6 +358,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case Buildable:
                     break;
+                case SpawnableP1:
+                case SpawnableP2:
                 default:
             }
             PawnSegment segment = field.getSegment();
@@ -283,12 +397,20 @@ public class MainActivity extends AppCompatActivity {
 
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
-                case MovableRight:
-                case MovableLeft:
-                case MovableDown:
+                case Empty:
+                    clearBoard();
+                    break;
+                case Reachable:
+                    break;
                 case MovableUp:
+                case MovableDown:
+                case MovableLeft:
+                case MovableRight:
                 case Movable:
                     doMovable(field);
+                    break;
+                case Healable:
+                    //TODO
                     break;
                 case Attackable:
                     //TODO
@@ -296,13 +418,8 @@ public class MainActivity extends AppCompatActivity {
                 case Buildable:
                     //TODO
                     break;
-                case Healable:
-                    //TODO
-                    break;
-                case Reachable:
-                case Empty:
-                    clearBoard();
-                    break;
+                case SpawnableP1:
+                case SpawnableP2:
                 default:
 
             }
@@ -314,10 +431,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * by clicking on a field with a segment, the new highlighting for that segment will be set here
      *
-     * @param id    of field
      * @param field clicked field
      */
-    private void doHighlightSetting(int id, Field field) {
+    private void doHighlightSetting(Field field) {
         if (field.getSegment() != null) {
 
             clearBoard();
@@ -327,8 +443,9 @@ public class MainActivity extends AppCompatActivity {
 
             Button buttonNeighbor;
 
+
             if (pawn.getLeftSteps() > 0) {
-                for (Field neighborField : Utility.getFieldsInRange(board, id, pawn.getLeftSteps())) {
+                for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps())) {
                     neighborField.setHighlighting(Highlighting.Reachable);
                     buttonNeighbor = findViewById(neighborField.getId());
 
@@ -356,8 +473,22 @@ public class MainActivity extends AppCompatActivity {
                 }*/
             }
 
-            buttonNeighbor = findViewById(id);
-            board.getFieldById(id).setHighlighting(Highlighting.Empty);
+            buttonNeighbor = findViewById(field.getId());
+            board.getFieldById(field.getId()).setHighlighting(Highlighting.Empty);
+
+            switch (board.getFieldById(field.getId()).getSegment().getPawn().getName()) {
+
+                case "Bug":
+
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bug);
+                    break;
+                case "Bulldozer":
+                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bulldozer);
+                    break;
+                default:
+
+            }
+
 
         } else {
             lastSelected = null;
@@ -374,4 +505,34 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void loadDefaultView() {
+        clearBoard();
+        clearInfoPanel();
+    }
+
+    private void clearInfoPanel() {
+
+    }
+
+    private void loadInfoWithSpawnable() {
+
+    }
+
+    private void loadInfoWithPawn() {
+        if (board.getSelectedInfo().getPawn().getTeam() == board.currentPlayer) {
+
+        } else {
+
+        }
+    }
+
+    private void loadInfoWithAction(int action) {
+        switch (action) {
+            case ActionID.move:
+                break;
+            default:
+        }
+    }
+
 }

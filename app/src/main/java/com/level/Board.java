@@ -1,12 +1,11 @@
 package com.level;
 
 
-import android.content.Context;
-import android.content.MutableContextWrapper;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import com.example.spybot.R;
 import com.model.AdjacencyList;
+import com.model.SelectedInfo;
+import com.model.LevelState;
 import com.pawns.Bug;
 import com.pawns.Pawn;
 
@@ -18,6 +17,8 @@ public class Board {
 
     ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
 
+    public byte currentPlayer = 0;
+    public LevelState currentState = LevelState.ChoosePawn;
 
     private int sizeY; //vertical axis
     private int sizeX; //horizontal axis
@@ -25,6 +26,10 @@ public class Board {
 
     private Field[][] board;
     private AdjacencyList<Field> graph;
+
+    private LevelState state = LevelState.ChoosePawn;
+    //private int selectedPawnFieldID;
+    private SelectedInfo selectedInfo = new SelectedInfo();
 
     Drawable[] backgrounds;
 
@@ -37,11 +42,6 @@ public class Board {
         initGraph();
     }
 
-/*
-    public Field[][] getBoard() {
-        return board;
-    }
-*/
     public AdjacencyList<Field> getGraph() {
         return graph;
     }
@@ -76,19 +76,21 @@ public class Board {
                 break;
             case 1:
                 outField = new Field(idCount, true,x,y);
+                outField.setSpawner((byte) 1);
                 break;
             case 2:
                 outField = new Field(idCount, true,x,y);
-
-                Pawn bug = new Bug();
-                pawnsOnBoard.add(bug);
-                bug.createSegment(outField);
+                outField.setSpawner((byte) 2);
                 break;
             case 3:
                 break;
             case 4:
                 break;
             case 5:
+                outField = new Field(idCount, true,x,y);
+                Pawn bug = new Bug();
+                pawnsOnBoard.add(bug);
+                bug.createSegment(outField);
                 break;
             case 10:
 
@@ -175,4 +177,56 @@ public class Board {
         return sizeY;
     }
 
+    public LevelState getState() {
+        return currentState;
+    }
+
+    public void setState(LevelState state) {
+        this.currentState = state;
+    }
+
+    public void nextTurn() {
+        /*switch (state) {
+            case Preparation:
+            case PlayerTwosTurn:
+                state = LevelState.PlayerOnesTurn;
+                break;
+            case PlayerOnesTurn:
+                state = LevelState.PlayerTwosTurn;
+                break;
+            default:
+        }
+        System.out.println("new State: " + state);*/
+    }
+
+    public SelectedInfo getSelectedInfo() {
+        return selectedInfo;
+    }
+
+    public void moveSelecetedInfoPawn(Field field) {
+        selectedInfo.getPawn().mov(field);
+        updateSelectedInfo();
+    }
+
+
+    public void setSelectedInfo(SelectedInfo selectedInfo) {
+        this.selectedInfo = selectedInfo;
+    }
+
+    public void setSelectedInfoPawn(Pawn pawn) {
+        selectedInfo.setPawn(pawn);
+    }
+
+    public void setSelectedInfoFieldId(int fieldId) {
+        selectedInfo.setFieldId(fieldId);
+    }
+
+    public void setSelectedInfo(Pawn pawn, int fieldId) {
+        selectedInfo.setPawn(pawn);
+        selectedInfo.setFieldId(fieldId);
+    }
+
+    public void updateSelectedInfo() {
+        selectedInfo.setFieldId(selectedInfo.getPawn().getSegments().getFirst().getField().getId());
+    }
 }

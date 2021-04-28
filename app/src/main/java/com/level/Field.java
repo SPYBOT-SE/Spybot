@@ -28,6 +28,9 @@ public class Field{
     // Segment of a pawn
     private PawnSegment segment = null;
 
+    //Spawn Area
+    byte spawner = 0;
+
 
     public PawnSegment getSegment() {
         return segment;
@@ -61,5 +64,13 @@ public class Field{
 
     public void setHighlighting(Highlighting highlighting) {
         this.highlighting = highlighting;
+    }
+
+    public byte getSpawner() {
+        return spawner;
+    }
+
+    public void setSpawner(byte spawner) {
+        this.spawner = spawner;
     }
 }

@@ -1,15 +1,14 @@
 package com.pawns;
 
-import android.graphics.drawable.Drawable;
 import com.example.spybot.R;
 import com.level.Field;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public abstract class Pawn {
 
     protected String name;
+    protected byte team;
 
     protected byte speed;
     protected byte leftSteps;
@@ -29,14 +28,16 @@ public abstract class Pawn {
 
     private LinkedList<PawnSegment> segments = new LinkedList<>();
 
-    public Pawn() {
-
-    }
-
     public void createSegment(Field field) {
         PawnSegment newSeg = new PawnSegment(this, true, field);
         segments.add(newSeg);
         field.setSegment(newSeg);
+    }
+
+    public void mov(Field field) {
+        segments = new LinkedList<>();
+        PawnSegment seg = new PawnSegment(this, true, field);
+        segments.add(seg);
     }
 
     public boolean move(Field field) {
@@ -95,5 +96,13 @@ public abstract class Pawn {
 
     public void setLeftSteps(byte leftSteps) {
         this.leftSteps = leftSteps;
+    }
+
+    public byte getTeam(){
+        return team;
+    }
+
+    public void setTeam(byte team) {
+        this.team = team;
     }
 }

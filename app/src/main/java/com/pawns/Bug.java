@@ -5,6 +5,7 @@ import com.example.spybot.R;
 public class Bug extends Pawn {
 
     public Bug() {
+        this.team = 0;
         this.name = "Bug";
         this.speed = 4;
         this.leftSteps = this.speed;
