@@ -21,6 +21,7 @@ import com.level.levelSingle;
 import com.model.ActionID;
 import com.model.LevelState;
 import com.pawns.Pawn;
+import com.pawns.PawnSegment;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
 
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         int width = dm.widthPixels;
 
         btn.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 4));
-        btn.setId(1100);
+        btn.setId((int) 1100);
 
         btn.setBackgroundResource(R.drawable.button_icon_bug);
         btn.setVisibility(View.VISIBLE);
@@ -367,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (segment.getBodyType()) {
                     case Head:
-                        layerView[1] = segment.getPawn().move(field);
+                        // layerView[1] = segment.getPawn().move(field);
                     case Tail:
 
                     case TailUp:
