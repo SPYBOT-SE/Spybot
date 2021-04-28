@@ -18,7 +18,7 @@ public class Board {
     ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
 
     public byte currentPlayer = 0;
-    public LevelState currentState;
+    public LevelState currentState = LevelState.ChoosePawn;
 
     private int sizeY; //vertical axis
     private int sizeX; //horizontal axis
@@ -178,11 +178,11 @@ public class Board {
     }
 
     public LevelState getState() {
-        return state.Preparation;
+        return currentState;
     }
 
     public void setState(LevelState state) {
-        this.state = state;
+        this.currentState = state;
     }
 
     public void nextTurn() {
