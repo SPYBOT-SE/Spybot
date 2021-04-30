@@ -1,6 +1,5 @@
 package com.example.spybot;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -24,8 +23,6 @@ import com.pawns.Pawn;
 import com.pawns.PawnSegment;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         parentLayout.addView(infoPanel); //add info box to parent
 
         SetUpInfoPanel(infoPanel);
-        infoPanel.setBackgroundColor(Color.rgb(211,211, 211));
+        //infoPanel.setBackgroundColor(Color.GRAY);
 
 
         LinearLayout gameLayout = new LinearLayout(this); //layout containing the game and a info box
@@ -83,10 +80,7 @@ public class MainActivity extends AppCompatActivity {
         infoBox.setOrientation(LinearLayout.VERTICAL);
         gameLayout.addView(infoBox);
 
-        TextView text = new TextView(this);
-        text.setText("Lorem Ipsum");
-        text.setTextColor(Color.WHITE);
-        infoBox.addView(text);
+
 
 
         for (short y = 0; y < height; y++) {
@@ -141,12 +135,12 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
 
-        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / ratio));
+        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / ratio));
         btnTag.setId(id);
 
-        btnTag.setOnClickListener((v) -> {
-            OnClick(v.getId());
-        });
+//        btnTag.setOnClickListener((v) -> {
+//            OnClick(v.getId());
+//        });
 
         btnTag.setVisibility(View.VISIBLE);
 
@@ -209,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                     board.setState(LevelState.ChoosePawn);
                     loadInfoWithPawn();
                     break;
-                case ActionID.nexTurn:
+                case ActionID.nextTurn:
                     board.nextTurn();
                     loadDefaultView();
                     break;
@@ -241,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
 
-        btn.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 4));
+        btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));
         btn.setId((int) 1100);
 
         btn.setBackgroundResource(R.drawable.button_icon_bug);
@@ -250,17 +244,17 @@ public class MainActivity extends AppCompatActivity {
         panel.addView(btn);
 
 
-        TextView text = new TextView(this);
-        text.setText("Bug");
-        text.setTextColor(Color.GRAY);
-        panel.addView(text);
+        CreateTextViews(panel, "Name:", Color.BLACK,90001);
+        CreateTextViews(panel, "HP:", Color.BLACK, 90002);
+        CreateTextViews(panel, "Steps:", Color.BLACK, 90003);
+        CreateTextViews(panel, "Class:", Color.BLACK, 90004);
 
         LinearLayout btnLayout = new LinearLayout(this);
         btnLayout.setOrientation(LinearLayout.VERTICAL);
         btnLayout.setLayoutParams(new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
-        btnLayout.setBackgroundColor(Color.CYAN);
+
 
 
 
@@ -280,11 +274,19 @@ public class MainActivity extends AppCompatActivity {
         btn.setText("Back");
         btnLayout.addView(btn);
 
-        btn = createButton(btnLayout, ActionID.nexTurn, 20);
+        btn = createButton(btnLayout, ActionID.nextTurn, 20);
         btn.setText("Next Turn");
         btnLayout.addView(btn);
 
         panel.addView(btnLayout);
+    }
+
+    private void CreateTextViews(LinearLayout panel, String description, int color, int id) {
+        TextView text = new TextView(this);
+        text.setText(description);
+        text.setTextColor(color);
+        text.setId(id);
+        panel.addView(text);
     }
 
 
@@ -368,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (segment.getBodyType()) {
                     case Head:
-                        // layerView[1] = segment.getPawn().move(field);
+                        layerView[1] = this.getDrawable(R.drawable.bug);
                     case Tail:
 
                     case TailUp:
@@ -522,6 +524,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadInfoWithPawn() {
         if (board.getSelectedInfo().getPawn().getTeam() == board.currentPlayer) {
+            TextView showName = (TextView) findViewById(90001); //Name
+            TextView showHealth = (TextView) findViewById(90002); //HP
+            TextView showSteps = (TextView) findViewById(90003); //Steps
+            TextView showClass = (TextView) findViewById(90004); //Class
+
+            showName.setText(board.getSelectedInfo().getPawn().getName());
+            showHealth.setText(" /" + board.getSelectedInfo().getPawn().getMaxSize());
+            showSteps.setText(board.getSelectedInfo().getPawn().getLeftSteps());
+
+
 
         } else {
 
