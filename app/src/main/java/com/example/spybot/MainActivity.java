@@ -149,58 +149,43 @@ public class MainActivity extends AppCompatActivity {
 
 
     void OnClick(int id) {
+
         //Field field = board.getFieldById(id);//should be in following if block
         if (id < 1000) { // if button is on board
             Field field = board.getFieldById(id);
 
             switch (board.getState()) {
                 case Preparation:
-                    if (field.getSpawner() > 0) {
-                        loadInfoWithSpawnable();
-                    }
+                    loadInfoWithSpawnable();
+                    // TODO Spawn something
                     break;
-                case ChoosePawn:
-                    clearBoard();
+                case Running:
+                    doHighlightingActions(field);
 
-                    if (field.getSegment() != null) {
-                        Pawn pawn = field.getSegment().getPawn();
-                        board.setSelectedInfo(pawn, field.getId());
+                    if(field.getSegment() != null) {
+                        lastSelected = field;
                         loadInfoWithPawn();
-                    } else {
-                        board.setSelectedInfo(null, -1);
+                        setHighlightingMove(field);
                     }
-                    break;
-                case MoveChooseField:
-                    if (field.getSegment() == null) {
-                        //doHighlightingActions(field); //doMove()
-                        if (Utility.getFieldsInRange(board, board.getSelectedInfo().getFieldId(), 1).contains(field)) {
-                            doMovable(board.getFieldById(id));
-                            if (board.getSelectedInfo().getPawn().getLeftSteps() <= 0) {
-                                board.setState(LevelState.ChoosePawn);
-                                board.moveSelecetedInfoPawn(board.getFieldById(id));
-                                doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
-                                loadInfoWithPawn();
-
-                            } else {
-                                board.moveSelecetedInfoPawn(board.getFieldById(id));
-                                doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
-                            }
-                        }
-                    }
-                    break;
-                default:
             }
         } else { // ID > 1000 are not on board
+            clearBoard();
+
+            if(lastSelected == null) {
+                return;
+            }
+
             switch (id) {
                 case ActionID.move:
-                    doHighlightSetting(board.getFieldById(board.getSelectedInfo().getFieldId()));
-                    board.setState(LevelState.MoveChooseField);
-                    loadInfoWithAction(ActionID.move);
+
+                    setHighlightingMove(lastSelected);
+
+                    // loadInfoWithAction(ActionID.move);
                     break;
                 case ActionID.attack1:
                 case ActionID.attack2:
                 case ActionID.back:
-                    board.setState(LevelState.ChoosePawn);
+
                     loadInfoWithPawn();
                     break;
                 case ActionID.nextTurn:
@@ -220,8 +205,7 @@ public class MainActivity extends AppCompatActivity {
         // Button button = findViewById(id);
         // button.setBackgroundColor(0xFF00FF00);
 
-        //doHighlightingActions(field);
-        //doHighlightSetting(field);
+
         refreshBoard();
 
     }
@@ -370,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (segment.getBodyType()) {
                     case Head:
-                        layerView[1] = this.getDrawable(R.drawable.bug);
+                        layerView[1] = this.getDrawable(segment.getPawn().pictureHead);
                     case Tail:
 
                     case TailUp:
@@ -431,6 +415,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setHighlightingMove(Field field) {
+        clearBoard();
+
+
+        Pawn pawn = field.getSegment().getPawn();
+        Button buttonNeighbor;
+
+        if (pawn.getLeftSteps() > 0) {
+            for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps())) {
+                if(neighborField.getSegment() != null) {
+                    continue;
+                }
+                neighborField.setHighlighting(Highlighting.Reachable);
+                buttonNeighbor = findViewById(neighborField.getId());
+
+            }
+
+            if (board.getField((short)(field.x + 1), field.y) != null && board.getField((short)(field.x + 1), field.y).getSegment() == null) {
+                board.getField((short)(field.x + 1), field.y).setHighlighting(Highlighting.MovableRight);
+            }
+
+            if (board.getField((short)(field.x - 1), field.y) != null && board.getField((short)(field.x - 1), field.y).getSegment() == null) {
+                board.getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);
+            }
+            if (board.getField((short)(field.x), (short)(field.y+1)) != null && board.getField((short)(field.x), (short)(field.y+1)).getSegment() == null) {
+                board.getField((short)(field.x), (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
+            }
+            if (board.getField((short)(field.x), (short)(field.y-1)) != null && board.getField((short)(field.x), (short)(field.y-1)).getSegment() == null) {
+                board.getField((short)(field.x), (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
+            }
+
+                /*
+                for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
+                    neighborField.setHighlighting(Highlighting.Movable);
+                    buttonNeighbor = findViewById(neighborField.getId());
+
+                }*/
+        }
+
+    }
+
+    private void setHighlightingAttack(Field field) {
+        //TODO implement
+    }
+
+
+
     /**
      * by clicking on a field with a segment, the new highlighting for that segment will be set here
      *
@@ -440,57 +471,18 @@ public class MainActivity extends AppCompatActivity {
         if (field.getSegment() != null) {
 
             clearBoard();
-            lastSelected = field;
+
 
             Pawn pawn = field.getSegment().getPawn();
-
             Button buttonNeighbor;
 
 
-            if (pawn.getLeftSteps() > 0) {
-                for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps())) {
-                    neighborField.setHighlighting(Highlighting.Reachable);
-                    buttonNeighbor = findViewById(neighborField.getId());
 
-                }
-
-                if (board.getField((short)(field.x + 1), field.y) != null) {
-                    board.getField((short)(field.x + 1), field.y).setHighlighting(Highlighting.MovableRight);
-                }
-
-                if (board.getField((short)(field.x - 1), field.y) != null) {
-                    board.getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);
-                }
-                if (board.getField((short)(field.x), (short)(field.y+1)) != null) {
-                    board.getField((short)(field.x), (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
-                }
-                if (board.getField((short)(field.x), (short)(field.y-1)) != null) {
-                    board.getField((short)(field.x), (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
-                }
-
-                /*
-                for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
-                    neighborField.setHighlighting(Highlighting.Movable);
-                    buttonNeighbor = findViewById(neighborField.getId());
-
-                }*/
-            }
 
             buttonNeighbor = findViewById(field.getId());
             board.getFieldById(field.getId()).setHighlighting(Highlighting.Empty);
 
-            switch (board.getFieldById(field.getId()).getSegment().getPawn().getName()) {
 
-                case "Bug":
-
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bug);
-                    break;
-                case "Bulldozer":
-                    buttonNeighbor.setBackgroundResource(R.drawable.button_icon_bulldozer);
-                    break;
-                default:
-
-            }
 
 
         } else {
@@ -523,15 +515,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadInfoWithPawn() {
-        if (board.getSelectedInfo().getPawn().getTeam() == board.currentPlayer) {
-            TextView showName = (TextView) findViewById(90001); //Name
-            TextView showHealth = (TextView) findViewById(90002); //HP
-            TextView showSteps = (TextView) findViewById(90003); //Steps
-            TextView showClass = (TextView) findViewById(90004); //Class
+        if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
+            TextView showName = (TextView) findViewById((int) 90001); //Name
+            TextView showHealth = (TextView) findViewById((int) 90002); //HP
+            TextView showSteps = (TextView) findViewById((int) 90003); //Steps
+            TextView showClass = (TextView) findViewById((int) 90004); //Class
 
-            showName.setText(board.getSelectedInfo().getPawn().getName());
-            showHealth.setText(" /" + board.getSelectedInfo().getPawn().getMaxSize());
-            showSteps.setText(board.getSelectedInfo().getPawn().getLeftSteps());
+            showName.setText(lastSelected.getSegment().getPawn().getName());
+            showHealth.setText(" /" + lastSelected.getSegment().getPawn().getMaxSize());
+            showSteps.setText("" + lastSelected.getSegment().getPawn().getLeftSteps());
 
 
 
@@ -540,12 +532,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
     private void loadInfoWithAction(int action) {
         switch (action) {
             case ActionID.move:
                 break;
             default:
         }
-    }
+    }*/
 
 }

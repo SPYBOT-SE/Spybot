@@ -7,6 +7,7 @@ import com.model.AdjacencyList;
 import com.model.SelectedInfo;
 import com.model.LevelState;
 import com.pawns.Bug;
+import com.pawns.Dumbbell;
 import com.pawns.Pawn;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Board {
     ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
 
     public byte currentPlayer = 0;
-    public LevelState currentState = LevelState.ChoosePawn;
+    public LevelState currentState = LevelState.Running;
 
     private int sizeY; //vertical axis
     private int sizeX; //horizontal axis
@@ -27,7 +28,7 @@ public class Board {
     private Field[][] board;
     private AdjacencyList<Field> graph;
 
-    private LevelState state = LevelState.ChoosePawn;
+
     //private int selectedPawnFieldID;
     private SelectedInfo selectedInfo = new SelectedInfo();
 
@@ -66,7 +67,13 @@ public class Board {
     }
 
 
-
+    /**
+     * Initalisation of a field.
+     * @param value Field definition as specified in Level Data
+     * @param x coordinate on board
+     * @param y coordinate on board
+     * @return New field with specified data like background, highlighting,
+     */
     private Field getField(byte value, short x, short y) {
         Field outField = null;
 
@@ -76,15 +83,19 @@ public class Board {
                 break;
             case 1:
                 outField = new Field(idCount, true,x,y);
-                outField.setSpawner((byte) 1);
+                outField.setHighlighting(Highlighting.Spawnable);
                 break;
             case 2:
                 outField = new Field(idCount, true,x,y);
-                outField.setSpawner((byte) 2);
+                outField.setHighlighting(Highlighting.Spawnable);
                 break;
             case 3:
                 break;
             case 4:
+                outField = new Field(idCount, true,x,y);
+                Pawn dumbbell = new Dumbbell();
+                pawnsOnBoard.add(dumbbell);
+                dumbbell.createSegment(outField);
                 break;
             case 5:
                 outField = new Field(idCount, true,x,y);
