@@ -36,7 +36,7 @@ public class Utility {
     }
 
     public static ArrayDeque<Field> getShortestPath(AdjacencyList<Field> graph, Field start, Field goal) throws NoSuchElementException {
-        if (existingStartGoal(graph, start, goal)) {
+        if (!existingStartGoal(graph, start, goal)) {
             throw new NoSuchElementException("Start or goal field not found");
         }
 
@@ -55,7 +55,7 @@ public class Utility {
 
 
         while (!spf.getAllVertices().containsAll(graph.getAllVertices())) {
-            assert k != null;
+            //assert k != null;
 
             for (Vertex<Field> neighbour : k.getNeighbours()) {
                 if (k.getDistance() != Integer.MAX_VALUE) {
