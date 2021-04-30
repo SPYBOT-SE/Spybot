@@ -55,7 +55,7 @@ public class Utility {
 
 
         while (!spf.getAllVertices().containsAll(graph.getAllVertices())) {
-            //assert k != null;
+            assert k != null;
 
             for (Vertex<Field> neighbour : k.getNeighbours()) {
                 if (k.getDistance() != Integer.MAX_VALUE) {
