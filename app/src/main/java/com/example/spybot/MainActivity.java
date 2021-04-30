@@ -20,6 +20,7 @@ import com.level.levelSingle;
 import com.model.ActionID;
 import com.model.Direction;
 import com.model.LevelState;
+import com.pawns.BodyType;
 import com.pawns.Pawn;
 import com.pawns.PawnSegment;
 import com.spybot.app.AppSetting;
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 case Running:
                     doHighlightingActions(field);
 
-                    if(field.getSegment() != null) {
+                    if(field.getSegment() != null && field.getSegment().getBodyType() == BodyType.Head) {
                         lastSelected = field;
                         loadInfoWithPawn();
                         setHighlightingMove(field);
@@ -356,12 +357,22 @@ public class MainActivity extends AppCompatActivity {
                 switch (segment.getBodyType()) {
                     case Head:
                         layerView[1] = this.getDrawable(segment.getPawn().pictureHead);
+                        break;
                     case Tail:
-
+                        layerView[1] = this.getDrawable(segment.getPawn().pictureTail);
+                        break;
                     case TailUp:
+                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailUp);
+                        break;
                     case TailDown:
+                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailDown);
+                        break;
                     case TailLeft:
+                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailLeft);
+                        break;
                     case TailRight:
+                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailRight);
+                        break;
                     default:
                 }
 

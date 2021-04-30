@@ -41,7 +41,13 @@ public abstract class Pawn {
         if(from.getSegment() == null) {
             return;
         }
+        Pawn pawn = from.getSegment().getPawn();
 
+        if(pawn.getLeftSteps() <= 0) {
+            return;
+        }
+
+        pawn.setLeftSteps((byte) (pawn.getLeftSteps()-1));
         to.setSegment(from.getSegment());
 
 
