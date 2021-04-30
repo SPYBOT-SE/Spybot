@@ -13,9 +13,9 @@ public class PawnSegment {
 
     private Field field;
 
-    public PawnSegment(Pawn pawn, boolean isHead, Field field) {
+    public PawnSegment(Pawn pawn, BodyType type, Field field) {
         this.pawn = pawn;
-        this.bodyType = BodyType.Head;
+        this.bodyType = type;
         this.field = field;
     }
 

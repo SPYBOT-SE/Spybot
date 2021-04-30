@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import com.model.AdjacencyList;
 import com.model.SelectedInfo;
 import com.model.LevelState;
+import com.pawns.BodyType;
 import com.pawns.Bug;
 import com.pawns.Dumbbell;
 import com.pawns.Pawn;
@@ -95,13 +96,13 @@ public class Board {
                 outField = new Field(idCount, true,x,y);
                 Pawn dumbbell = new Dumbbell();
                 pawnsOnBoard.add(dumbbell);
-                dumbbell.createSegment(outField);
+                dumbbell.createSegment(outField, BodyType.Head);
                 break;
             case 5:
                 outField = new Field(idCount, true,x,y);
                 Pawn bug = new Bug();
                 pawnsOnBoard.add(bug);
-                bug.createSegment(outField);
+                bug.createSegment(outField, BodyType.Head);
                 break;
             case 10:
 
@@ -212,29 +213,6 @@ public class Board {
 
     public SelectedInfo getSelectedInfo() {
         return selectedInfo;
-    }
-
-    public void moveSelecetedInfoPawn(Field field) {
-        selectedInfo.getPawn().mov(field);
-        updateSelectedInfo();
-    }
-
-
-    public void setSelectedInfo(SelectedInfo selectedInfo) {
-        this.selectedInfo = selectedInfo;
-    }
-
-    public void setSelectedInfoPawn(Pawn pawn) {
-        selectedInfo.setPawn(pawn);
-    }
-
-    public void setSelectedInfoFieldId(int fieldId) {
-        selectedInfo.setFieldId(fieldId);
-    }
-
-    public void setSelectedInfo(Pawn pawn, int fieldId) {
-        selectedInfo.setPawn(pawn);
-        selectedInfo.setFieldId(fieldId);
     }
 
     public void updateSelectedInfo() {

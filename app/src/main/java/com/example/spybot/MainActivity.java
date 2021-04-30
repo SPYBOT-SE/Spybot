@@ -18,6 +18,7 @@ import com.level.Field;
 import com.level.Highlighting;
 import com.level.levelSingle;
 import com.model.ActionID;
+import com.model.Direction;
 import com.model.LevelState;
 import com.pawns.Pawn;
 import com.pawns.PawnSegment;
@@ -381,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void doHighlightingActions(Field field) {
         if (field.getHighlighting() != Highlighting.Empty) {
-
+            Pawn actor = lastSelected.getSegment().getPawn();
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
                 case Empty:
@@ -390,11 +391,19 @@ public class MainActivity extends AppCompatActivity {
                 case Reachable:
                     break;
                 case MovableUp:
+                    actor.move(lastSelected, field, Direction.UP);
+                    break;
                 case MovableDown:
+                    actor.move(lastSelected, field, Direction.DOWN);
+                    break;
                 case MovableLeft:
+                    actor.move(lastSelected, field, Direction.LEFT);
+                    break;
                 case MovableRight:
+                    actor.move(lastSelected, field, Direction.RIGHT);
+                    break;
                 case Movable:
-                    doMovable(field);
+                    actor.move(lastSelected, field, Direction.NONE);
                     break;
                 case Healable:
                     //TODO
@@ -521,9 +530,9 @@ public class MainActivity extends AppCompatActivity {
             TextView showSteps = (TextView) findViewById((int) 90003); //Steps
             TextView showClass = (TextView) findViewById((int) 90004); //Class
 
-            showName.setText(lastSelected.getSegment().getPawn().getName());
-            showHealth.setText(" /" + lastSelected.getSegment().getPawn().getMaxSize());
-            showSteps.setText("" + lastSelected.getSegment().getPawn().getLeftSteps());
+            showName.setText("Name: " + lastSelected.getSegment().getPawn().getName());
+            showHealth.setText("HP: " + lastSelected.getSegment().getPawn().getCurrentSize() + " / " + lastSelected.getSegment().getPawn().getMaxSize());
+            showSteps.setText("Steps: " + lastSelected.getSegment().getPawn().getLeftSteps());
 
 
 
