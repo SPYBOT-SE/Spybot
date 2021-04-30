@@ -36,7 +36,7 @@ public class Utility {
     }
 
     public static ArrayDeque<Field> getShortestPath(AdjacencyList<Field> graph, Field start, Field goal) throws NoSuchElementException {
-        if (existingStartGoal(graph, start, goal)) {
+        if (!existingStartGoal(graph, start, goal)) {
             throw new NoSuchElementException("Start or goal field not found");
         }
 
