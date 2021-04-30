@@ -1,5 +1,6 @@
 package com.pawns;
 
+import android.graphics.drawable.Drawable;
 import com.example.spybot.R;
 import com.level.Field;
 
@@ -7,23 +8,24 @@ import java.util.LinkedList;
 
 public abstract class Pawn {
 
-    protected String name;
-    protected byte team;
+    protected String name = "Template";
+    protected byte team = 0;
 
-    protected byte speed;
-    protected byte leftSteps;
+    protected byte speed = 0;
+    protected byte leftSteps = 0;
     // private int mvRange;
-    protected byte maxSize;
+    protected byte maxSize = 0;
 
     private Attack attack1;
     private Attack attack2;
 
-    protected int pictureHead = R.drawable.hantel_head;
-    protected int pictureTail = R.drawable.button_icon;
-    protected int pictureTailUp = R.drawable.button_icon;
-    protected int pictureTailDown = R.drawable.button_icon;
-    protected int pictureTailRight = R.drawable.button_icon;
-    protected int pictureTailLeft = R.drawable.button_icon;
+
+    public int pictureHead = R.drawable.hantel_head;
+    public int pictureTail = R.drawable.hantel_body;
+    public int pictureTailUp = R.drawable.hantel_body_up;
+    public int pictureTailDown = R.drawable.hantel_body_down;
+    public int pictureTailRight = R.drawable.hantel_body_right;
+    public int pictureTailLeft = R.drawable.hantel_body_left;
 
 
     private LinkedList<PawnSegment> segments = new LinkedList<>();
