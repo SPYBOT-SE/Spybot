@@ -37,7 +37,7 @@ public class Board {
 
     Resources r;
 
-    public Board(byte[][] level) {
+    public Board(int[][] level) {
 
         initBoard(level);
 
@@ -48,7 +48,7 @@ public class Board {
         return graph;
     }
 
-    private void initBoard(byte[][] fieldDef) {
+    private void initBoard(int[][] fieldDef) {
 
         sizeY = fieldDef.length;
         sizeX = fieldDef[0].length;
@@ -75,7 +75,7 @@ public class Board {
      * @param y coordinate on board
      * @return New field with specified data like background, highlighting,
      */
-    private Field getField(byte value, short x, short y) {
+    private Field getField(int value, short x, short y) {
         Field outField = null;
 
         switch (value) {

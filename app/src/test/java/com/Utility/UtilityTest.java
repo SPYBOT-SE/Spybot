@@ -1,5 +1,6 @@
 package com.Utility;
 
+import com.level.Board;
 import com.level.Field;
 import com.model.AdjacencyList;
 import com.utility.Utility;
@@ -10,6 +11,18 @@ import java.util.NoSuchElementException;
 
 
 class UtilityTest {
+
+    byte[][] testLvl = {
+            {4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 4, 1, 5, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+
+    };
 
     @Test
     void existingStartAndGoal() {
@@ -26,4 +39,12 @@ class UtilityTest {
         graph.addVertex(v2);
         Assertions.assertThrows(NoSuchElementException.class, () -> Utility.getShortestPath(graph, v1, v2));
     }
+
+    @Test
+    void moveTest() {
+        Board board = new Board(testLvl);
+
+    }
+
+
 }

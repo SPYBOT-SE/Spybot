@@ -4,14 +4,14 @@ public class Level {
 
     private String lvlName;
 
-    private byte[][] iniField;
+    private int[][] iniField;
 
-    public Level( byte[][] field) {
+    public Level( int[][] field) {
 
         this.iniField = field;
     }
 
-    public byte[][] getIniField() {
+    public int[][] getIniField() {
         return iniField;
     }
 }

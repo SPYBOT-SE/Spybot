@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class levelSingle {
 
     private static boolean initialized = false;
-    public static byte[][] getLevel(int levelID) {
+    public static int[][] getLevel(int levelID) {
 
         if(!initialized) {
             initializeLevels();
@@ -21,7 +21,7 @@ public class levelSingle {
     /**
      * Hashmap that maps button IDs to levels
      */
-    private static HashMap<Integer, byte[][]> levels = new HashMap<>();
+    private static HashMap<Integer, int[][]> levels = new HashMap<>();
     private static void initializeLevels() {
         levels.put(0, Ones);
         levels.put(1, TestLevel1);
@@ -48,8 +48,8 @@ public class levelSingle {
     127
 
     */
-    public final static byte[][] Ones = {
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    public final static int[][] Ones = {
+            {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -62,7 +62,7 @@ public class levelSingle {
             // {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
 
-    public final static byte[][] TestLevel1 = {
+    public final static int[][] TestLevel1 = {
             {5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 },
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1 },
             {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
@@ -73,7 +73,7 @@ public class levelSingle {
             {0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1 }
     };
 
-    public final static byte[][] Error = {
+    public final static int[][] Error = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             {0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0 },
             {0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0 },
@@ -86,7 +86,7 @@ public class levelSingle {
 
     };
 
-    public final static byte[][] SPF = {
+    public final static int[][] SPF = {
             {1, 1, 1, 1},
             {1, 1, 1, 1},
             {1, 1, 1, 1},

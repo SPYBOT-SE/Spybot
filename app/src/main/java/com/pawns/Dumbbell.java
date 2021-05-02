@@ -8,7 +8,7 @@ public class Dumbbell extends Pawn {
         this.name = "Hantel";
         this.speed = 5;
         this.leftSteps = this.speed;
-        this.maxSize = 3;
+        this.maxSize = 8;
         this.pictureHead = R.drawable.hantel_head;
         this.pictureTail = R.drawable.hantel_body;
         this.pictureTailDown = R.drawable.hantel_body_down;

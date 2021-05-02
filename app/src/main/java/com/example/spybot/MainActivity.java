@@ -28,7 +28,7 @@ import com.utility.Utility;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static byte[][] selectedLevel = levelSingle.Error;
+    public static int[][] selectedLevel = levelSingle.Error;
 
 
     private Board board = null;
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(parentLayout);
         //resetButtons();
         refreshBoard();
+        loadDefaultView();
     }
 
     void createButton(LinearLayout layout, int id, int viewVisibility, int ratio) {
@@ -185,7 +186,11 @@ public class MainActivity extends AppCompatActivity {
                     // loadInfoWithAction(ActionID.move);
                     break;
                 case ActionID.attack1:
+                    setHighlightingAttack(lastSelected, (byte) 0);
+                    break;
                 case ActionID.attack2:
+                    setHighlightingAttack(lastSelected, (byte) 1);
+                    break;
                 case ActionID.back:
 
                     loadInfoWithPawn();
@@ -247,24 +252,41 @@ public class MainActivity extends AppCompatActivity {
         btn = createButton(btnLayout, ActionID.move, 20);
         btn.setText("Move");
         btnLayout.addView(btn);
+        btn.setOnClickListener((v) -> {
+            OnClick(v.getId());
+        });
 
         btn = createButton(btnLayout, ActionID.attack1, 20);
         btn.setText("Attack 1");
         btnLayout.addView(btn);
+        btn.setOnClickListener((v) -> {
+            OnClick(v.getId());
+        });
 
         btn = createButton(btnLayout, ActionID.attack2, 20);
         btn.setText("Attack 2");
         btnLayout.addView(btn);
+        btn.setOnClickListener((v) -> {
+            OnClick(v.getId());
+        });
 
         btn = createButton(btnLayout, ActionID.back, 20);
         btn.setText("Back");
         btnLayout.addView(btn);
+        btn.setOnClickListener((v) -> {
+            OnClick(v.getId());
+        });
 
         btn = createButton(btnLayout, ActionID.nextTurn, 20);
         btn.setText("Next Turn");
         btnLayout.addView(btn);
+        btn.setOnClickListener((v) -> {
+            OnClick(v.getId());
+        });
 
         panel.addView(btnLayout);
+
+
     }
 
     private void CreateTextViews(LinearLayout panel, String description, int color, int id) {
@@ -344,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                 case Healable:
                     break;
                 case Attackable:
-                    break;
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p0);
                 case Buildable:
                     break;
                 case SpawnableP1:
@@ -465,51 +487,21 @@ public class MainActivity extends AppCompatActivity {
             if (board.getField((short)(field.x), (short)(field.y-1)) != null && board.getField((short)(field.x), (short)(field.y-1)).getSegment() == null) {
                 board.getField((short)(field.x), (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
             }
-
-                /*
-                for (Field neighborField : Utility.getFieldsInRange(board, id, 1)) {
-                    neighborField.setHighlighting(Highlighting.Movable);
-                    buttonNeighbor = findViewById(neighborField.getId());
-
-                }*/
-        }
-
-    }
-
-    private void setHighlightingAttack(Field field) {
-        //TODO implement
-    }
-
-
-
-    /**
-     * by clicking on a field with a segment, the new highlighting for that segment will be set here
-     *
-     * @param field clicked field
-     */
-    private void doHighlightSetting(Field field) {
-        if (field.getSegment() != null) {
-
-            clearBoard();
-
-
-            Pawn pawn = field.getSegment().getPawn();
-            Button buttonNeighbor;
-
-
-
-
-            buttonNeighbor = findViewById(field.getId());
-            board.getFieldById(field.getId()).setHighlighting(Highlighting.Empty);
-
-
-
-
-        } else {
-            lastSelected = null;
-            clearBoard();
         }
     }
+
+
+    private void setHighlightingAttack(Field field, byte attackNum) {
+        clearBoard();
+        //Button buttonNeighbor;
+        for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1)) {
+            if(neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
+                neighborField.setHighlighting(Highlighting.Attackable);
+            }
+                //buttonNeighbor = findViewById(neighborField.getId());
+        }
+    }
+
 
     private void clearBoard() {
         for (short y = 0; y < height; y++) {
@@ -521,18 +513,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void loadDefaultView() {
         clearBoard();
         clearInfoPanel();
     }
 
     private void clearInfoPanel() {
+        TextView showName = (TextView) findViewById((int) 90001); //Name
+        TextView showHealth = (TextView) findViewById((int) 90002); //HP
+        TextView showSteps = (TextView) findViewById((int) 90003); //Steps
+        TextView showClass = (TextView) findViewById((int) 90004); //Class
 
+        showName.setVisibility(View.INVISIBLE);
+        showHealth.setVisibility(View.INVISIBLE);
+        showSteps.setVisibility(View.INVISIBLE);
+        showClass.setVisibility(View.INVISIBLE);
+
+        Button btn = findViewById(ActionID.move);
+        btn.setVisibility(View.INVISIBLE);
+        btn = findViewById(ActionID.attack1);
+        btn.setVisibility(View.INVISIBLE);
+        btn = findViewById(ActionID.attack2);
+        btn.setVisibility(View.INVISIBLE);
     }
 
     private void loadInfoWithSpawnable() {
 
     }
+
 
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
@@ -541,10 +550,21 @@ public class MainActivity extends AppCompatActivity {
             TextView showSteps = (TextView) findViewById((int) 90003); //Steps
             TextView showClass = (TextView) findViewById((int) 90004); //Class
 
+            showName.setVisibility(View.VISIBLE);
+            showHealth.setVisibility(View.VISIBLE);
+            showSteps.setVisibility(View.VISIBLE);
+            showClass.setVisibility(View.VISIBLE);
+
             showName.setText("Name: " + lastSelected.getSegment().getPawn().getName());
             showHealth.setText("HP: " + lastSelected.getSegment().getPawn().getCurrentSize() + " / " + lastSelected.getSegment().getPawn().getMaxSize());
             showSteps.setText("Steps: " + lastSelected.getSegment().getPawn().getLeftSteps());
 
+            Button btn = findViewById(ActionID.move);
+            btn.setVisibility(View.VISIBLE);
+            btn = findViewById(ActionID.attack1);
+            btn.setVisibility(View.VISIBLE);
+            btn = findViewById(ActionID.attack2);
+            btn.setVisibility(View.VISIBLE);
 
 
         } else {
