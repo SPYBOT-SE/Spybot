@@ -3,6 +3,9 @@ package com.Utility;
 import com.level.Board;
 import com.level.Field;
 import com.model.AdjacencyList;
+import com.model.Direction;
+import com.pawns.BodyType;
+import com.pawns.Pawn;
 import com.utility.Utility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,13 +15,13 @@ import java.util.NoSuchElementException;
 
 class UtilityTest {
 
-    byte[][] testLvl = {
+    int[][] testLvl = {
             {4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 4, 1, 5, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 
@@ -40,10 +43,39 @@ class UtilityTest {
         Assertions.assertThrows(NoSuchElementException.class, () -> Utility.getShortestPath(graph, v1, v2));
     }
 
-    @Test
-    void moveTest() {
-        Board board = new Board(testLvl);
 
+    @Test
+    void moveOneRight() {
+        Board board = new Board(testLvl);
+        Pawn pawn = board.pawnsOnBoard.get(0);
+
+        Field field1 = board.getField((short) 0, (short) 0);
+        Field field2 = board.getField((short) 0, (short) 1);
+
+        pawn.move(field1, field2, Direction.RIGHT );
+
+        Assertions.assertNotNull(field1.getSegment());
+        Assertions.assertNotNull(field2.getSegment());
+
+        Assertions.assertEquals(field1.getSegment().getBodyType(), BodyType.TailRight);
+        Assertions.assertEquals(field2.getSegment().getBodyType(), BodyType.Head);
+    }
+
+    @Test
+    void moveOne() {
+        Board board = new Board(testLvl);
+        Pawn pawn = board.pawnsOnBoard.get(0);
+
+        Field field1 = board.getField((short) 0, (short) 0);
+        Field field2 = board.getField((short) 0, (short) 1);
+
+        pawn.move(field1, field2, Direction.RIGHT );
+
+        Assertions.assertNotNull(field1.getSegment());
+        Assertions.assertNotNull(field2.getSegment());
+
+        Assertions.assertEquals(field1.getSegment().getBodyType(), BodyType.TailRight);
+        Assertions.assertEquals(field2.getSegment().getBodyType(), BodyType.Head);
     }
 
 

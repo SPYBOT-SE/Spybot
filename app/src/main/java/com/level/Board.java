@@ -17,7 +17,7 @@ public class Board {
 
     int idCount = 0;
 
-    ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
+    public ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
 
     public byte currentPlayer = 0;
     public LevelState currentState = LevelState.Running;

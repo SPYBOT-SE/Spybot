@@ -366,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                 case Healable:
                     break;
                 case Attackable:
-                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p0);
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_attack);
                 case Buildable:
                     break;
                 case SpawnableP1:
