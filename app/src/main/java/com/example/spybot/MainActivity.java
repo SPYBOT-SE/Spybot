@@ -3,15 +3,14 @@ package com.example.spybot;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.widget.TextView;
+import android.view.MenuItem;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.level.Board;
 import com.level.Field;
@@ -21,12 +20,13 @@ import com.model.ActionID;
 import com.model.Direction;
 import com.model.LevelState;
 import com.pawns.BodyType;
+import com.pawns.Bug;
 import com.pawns.Pawn;
 import com.pawns.PawnSegment;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     public static int[][] selectedLevel = levelSingle.Error;
 
@@ -217,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     void SetUpInfoPanel(LinearLayout panel) {
         //createButton(panel, 1234567, View.VISIBLE, 10);
 
@@ -370,6 +371,8 @@ public class MainActivity extends AppCompatActivity {
                 case Buildable:
                     break;
                 case SpawnableP1:
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p1);
+                    break;
                 case SpawnableP2:
                 default:
             }
@@ -415,7 +418,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void doHighlightingActions(Field field) {
         if (field.getHighlighting() != Highlighting.Empty) {
-            Pawn actor = lastSelected.getSegment().getPawn();
+
+            Pawn actor = null;
+
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
                 case Empty:
@@ -424,18 +429,23 @@ public class MainActivity extends AppCompatActivity {
                 case Reachable:
                     break;
                 case MovableUp:
+                    actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.UP);
                     break;
                 case MovableDown:
+                    actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.DOWN);
                     break;
                 case MovableLeft:
+                    actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.LEFT);
                     break;
                 case MovableRight:
+                    actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.RIGHT);
                     break;
                 case Movable:
+                    actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.NONE);
                     break;
                 case Healable:
@@ -448,6 +458,7 @@ public class MainActivity extends AppCompatActivity {
                     //TODO
                     break;
                 case SpawnableP1:
+                    ShowSpawnableList(findViewById(field.getId()));
                 case SpawnableP2:
                 default:
 
@@ -507,8 +518,9 @@ public class MainActivity extends AppCompatActivity {
         for (short y = 0; y < height; y++) {
             for (short x = 0; x < width; x++) {
                 Field currentF = board.getField(x,y);
-
-                currentF.setHighlighting(Highlighting.Empty);
+                if(currentF.getHighlighting() != Highlighting.SpawnableP1) {
+                    currentF.setHighlighting(Highlighting.Empty);
+                }
             }
         }
     }
@@ -570,6 +582,37 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
         }
+    }
+
+
+    public void ShowSpawnableList(View v) {
+        PopupMenu selectionList = new PopupMenu(this, v);
+        selectionList.setOnMenuItemClickListener(this);
+
+        selectionList.getMenu().add(v.getId(), 0 ,0 , "Bug");
+        selectionList.getMenu().add(v.getId(),1,1,"Dumbbell");
+
+        selectionList.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+
+        Field field = board.getFieldById(item.getGroupId());
+
+        if(item.getTitle().equals("Bug")) {
+            Pawn bug = new Bug();
+            board.pawnsOnBoard.add(bug);
+            bug.createSegment(field, BodyType.Head);
+
+
+        } else if(true) {
+
+        }
+
+
+        Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+        return true;
     }
 
     /*

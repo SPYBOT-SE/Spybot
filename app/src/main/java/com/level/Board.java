@@ -84,11 +84,11 @@ public class Board {
                 break;
             case 1:
                 outField = new Field(idCount, true,x,y);
-                outField.setHighlighting(Highlighting.Spawnable);
+                outField.setHighlighting(Highlighting.SpawnableP1);
                 break;
             case 2:
                 outField = new Field(idCount, true,x,y);
-                outField.setHighlighting(Highlighting.Spawnable);
+                outField.setHighlighting(Highlighting.SpawnableP2);
                 break;
             case 3:
                 break;
