@@ -6,7 +6,8 @@ package com.level;
  */
 public enum Highlighting {
     Empty,
-    Attackable,
+    Attackable1,
+    Attackable2,
     Movable,
     MovableUp,
     MovableDown,
@@ -19,4 +20,3 @@ public enum Highlighting {
     SpawnableP1,
     SpawnableP2
 }
-

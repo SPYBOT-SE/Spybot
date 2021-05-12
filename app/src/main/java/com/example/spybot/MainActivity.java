@@ -186,10 +186,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     // loadInfoWithAction(ActionID.move);
                     break;
                 case ActionID.attack1:
-                    setHighlightingAttack(lastSelected, (byte) 0);
+                    setHighlightingAttack(lastSelected, (byte) 1);
                     break;
                 case ActionID.attack2:
-                    setHighlightingAttack(lastSelected, (byte) 1);
+                    setHighlightingAttack(lastSelected, (byte) 2);
                     break;
                 case ActionID.back:
 
@@ -366,7 +366,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     break;
                 case Healable:
                     break;
-                case Attackable:
+                case Attackable1:
+                case Attackable2:
                     layerView[2] = this.getDrawable(R.drawable.highlighting_attack);
                 case Buildable:
                     break;
@@ -420,6 +421,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (field.getHighlighting() != Highlighting.Empty) {
 
             Pawn actor = null;
+            Pawn target = null;
 
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
@@ -451,8 +453,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 case Healable:
                     //TODO
                     break;
-                case Attackable:
-                    //TODO
+                case Attackable1:
+                    actor = lastSelected.getSegment().getPawn();
+                    if(field.getSegment() != null) {
+                        target = field.getSegment().getPawn();
+                        actor.attack1(target);
+                    }
+                    break;
+                case Attackable2:
+                    actor = lastSelected.getSegment().getPawn();
+                    if(field.getSegment() != null) {
+                        target = field.getSegment().getPawn();
+                        actor.attack2(target);
+                    }
                     break;
                 case Buildable:
                     //TODO
@@ -507,7 +520,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         //Button buttonNeighbor;
         for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1)) {
             if(neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
-                neighborField.setHighlighting(Highlighting.Attackable);
+                if(attackNum == 1) {
+                    neighborField.setHighlighting(Highlighting.Attackable1);
+                } else if (attackNum == 2) {
+                    neighborField.setHighlighting(Highlighting.Attackable2);
+                }
+
+
             }
                 //buttonNeighbor = findViewById(neighborField.getId());
         }

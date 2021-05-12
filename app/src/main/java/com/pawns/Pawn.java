@@ -17,8 +17,8 @@ public abstract class Pawn {
     // private int mvRange;
     protected byte maxSize = 0;
 
-    private Attack attack1;
-    private Attack attack2;
+    protected Attack attack1;
+    protected Attack attack2;
 
 
     public int pictureHead = R.drawable.hantel_head;
@@ -78,7 +78,13 @@ public abstract class Pawn {
 
     }
 
-    abstract void attack();
+    public void attack1(Pawn target) {
+        this.attack1.performAttack(target);
+    }
+
+    public void attack2(Pawn target) {
+        this.attack2.performAttack(target);
+    }
 
 // ----- Getter & Setter -----
 

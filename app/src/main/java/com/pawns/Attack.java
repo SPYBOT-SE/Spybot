@@ -2,10 +2,14 @@ package com.pawns;
 
 public abstract class Attack {
 
-    private byte range;
-    private byte magnitude;
-    private AttackType type;
+    protected byte range;
+    protected byte magnitude;
 
+    public Attack(byte range, byte magnitude) {
+        this.range = range;
+        this.magnitude = magnitude;
+    }
 
+    abstract void performAttack(Pawn target);
 
 }
