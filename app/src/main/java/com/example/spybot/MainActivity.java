@@ -1,5 +1,6 @@
 package com.example.spybot;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -271,23 +272,53 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.back, 20);
-        btn.setText("Back");
-        btnLayout.addView(btn);
-        btn.setOnClickListener((v) -> {
-            OnClick(v.getId());
-        });
 
         btn = createButton(btnLayout, ActionID.nextTurn, 20);
         btn.setText("Next Turn");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
-            OnClick(v.getId());
+            TurnButtonOnClick();
         });
+
+
+        btn = createButton(btnLayout, ActionID.back, 20);
+        btn.setText("Back");
+        btnLayout.addView(btn);
+        btn.setOnClickListener((v) -> {
+            LoadMainMenu();
+            //OnClick(v.getId());
+        });
+
+
 
         panel.addView(btnLayout);
 
 
+    }
+
+    private void LoadMainMenu(){
+        Intent i = new Intent(this, LevelSelection.class);
+        startActivity(i);
+    }
+
+    private void TurnButtonOnClick(){
+        if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
+            //Spieler 2 darf jetzt spawnen
+            board.currentPlayer = 1;
+        } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
+            //Spiel beginnt, Spieler 1 ist dran
+            board.currentPlayer = 0;
+            board.currentState = LevelState.Running;
+        } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
+            //Spieler 2 ist dran
+            board.currentPlayer = 1;
+        } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 1){
+            //Spieler 3 ist dran
+            board.currentPlayer = 0;
+        }
+        int test = board.currentPlayer;
+
+        Toast.makeText(MainActivity.this, Integer.toString(test), Toast.LENGTH_SHORT).show();
     }
 
     private void CreateTextViews(LinearLayout panel, String description, int color, int id) {

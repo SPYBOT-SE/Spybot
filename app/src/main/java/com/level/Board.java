@@ -20,7 +20,7 @@ public class Board {
     public ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
 
     public byte currentPlayer = 0;
-    public LevelState currentState = LevelState.Running;
+    public LevelState currentState = LevelState.Preparation;
 
     private int sizeY; //vertical axis
     private int sizeX; //horizontal axis
