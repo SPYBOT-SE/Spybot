@@ -17,11 +17,16 @@ public class AttackHeal extends Attack{
 
         if(magnitude < 0) {
             for(int i = 0; i < abs(magnitude); i++) {
-
-                PawnSegment segment = target.getSegments().get(1);
-                Field segField = segment.getField();
-                segField.setSegment(null);
-                target.getSegments().remove(1);
+                if(target.getSegments().size() > 1){
+                    PawnSegment segment = target.getSegments().get(1);
+                    Field segField = segment.getField();
+                    segField.setSegment(null);
+                    target.getSegments().remove(1);
+                }
+                else {
+                    //TODO Figur löschen
+                    continue;
+                }
 
             }
         }
