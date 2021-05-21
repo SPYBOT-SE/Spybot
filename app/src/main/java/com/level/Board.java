@@ -1,10 +1,7 @@
 package com.level;
 
-
-import android.content.res.Resources;
 import com.example.spybot.R;
 import com.model.AdjacencyList;
-import com.model.SelectedInfo;
 import com.model.LevelState;
 import com.pawns.Pawn;
 
@@ -29,8 +26,6 @@ public class Board {
     private Field[][] board;
     private AdjacencyList<Field> graph;
 
-
-    Resources r;
 
     public Board(int[][] level) {
 
@@ -58,14 +53,14 @@ public class Board {
 
 
     /**
-     * Initalisation of a field.
+     * Initialisation of a field.
      * @param value Field definition as specified in Level Data
      * @param x coordinate on board
      * @param y coordinate on board
      * @return New field with specified data like background, highlighting,
      */
     private Field getField(int value, short x, short y) {
-        Field outField = null;
+        Field outField;
 
         boolean enabled = (value & 0x000F) % 2 == 1;
         int background = (value & 0x000F) / 2;
@@ -142,14 +137,9 @@ public class Board {
         return board[id % sizeX][id / sizeX];
     }
 
-    public int getXofField(int id) {
-        return 0;
-    }
-
     public int getSizeX() {
         return sizeX;
     }
-
 
     public int getSizeY() {
         return sizeY;

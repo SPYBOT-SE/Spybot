@@ -1,12 +1,5 @@
 package com.level;
 
-
-import android.content.Context;
-import android.content.MutableContextWrapper;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import com.example.spybot.R;
 import com.pawns.PawnSegment;
 
 /**

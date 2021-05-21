@@ -14,7 +14,7 @@ public abstract class Pawn {
 
     protected byte speed = 0;
     protected byte leftSteps = 0;
-    // private int mvRange;
+
     protected byte maxSize = 0;
 
     protected Attack attack1;
@@ -72,8 +72,6 @@ public abstract class Pawn {
             segField.setSegment(null);
             segments.remove(1);
         }
-
-        return;
     }
 
     public void attack1(Pawn target) {

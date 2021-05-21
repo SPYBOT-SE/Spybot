@@ -7,7 +7,7 @@ import com.pawns.Attack.AttackSpeed;
 public class Dumbbell extends Pawn {
 
     public Dumbbell() {
-        this.name = "Hantel";
+        this.name = "Dumbbell";
         this.speed = 5;
         this.leftSteps = this.speed;
         this.maxSize = 8;
@@ -20,7 +20,6 @@ public class Dumbbell extends Pawn {
 
         this.attack1 = new AttackSize((byte) 1, (byte) 1);
         this.attack2 = new AttackSpeed((byte) 1, (byte) 1);
-
     }
 
 }

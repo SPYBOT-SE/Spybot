@@ -211,10 +211,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         panel.addView(btn);
 
 
-        CreateTextViews(panel, "Name:", Color.BLACK,90001);
-        CreateTextViews(panel, "HP:", Color.BLACK, 90002);
-        CreateTextViews(panel, "Steps:", Color.BLACK, 90003);
-        CreateTextViews(panel, "Class:", Color.BLACK, 90004);
+        CreateTextViews(panel, "Name:", Color.BLACK,ActionID.NAME);
+        CreateTextViews(panel, "HP:", Color.BLACK, ActionID.HP);
+        CreateTextViews(panel, "Steps:", Color.BLACK, ActionID.STEPS);
+        CreateTextViews(panel, "Class:", Color.BLACK, ActionID.CLASS);
 
         LinearLayout btnLayout = new LinearLayout(this);
         btnLayout.setOrientation(LinearLayout.VERTICAL);
@@ -462,8 +462,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void doHighlightingActions(Field field) {
         if (field.getHighlighting() != Highlighting.Empty) {
 
-            Pawn actor = null;
-            Pawn target = null;
+            Pawn actor;
+            Pawn target;
 
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
@@ -524,7 +524,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 default:
 
             }
-            if(board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0){
+            if ((board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0) && board.currentState == LevelState.Running){
                 //game has ended
                 Intent i = new Intent(this, LevelSelection.class);
                 startActivity(i);
@@ -600,10 +600,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void clearInfoPanel() {
-        TextView showName =  findViewById((int) 90001); //Name
-        TextView showHealth = findViewById((int) 90002); //HP
-        TextView showSteps = findViewById((int) 90003); //Steps
-        TextView showClass = findViewById((int) 90004); //Class
+        TextView showName =  findViewById((int) ActionID.NAME);
+        TextView showHealth = findViewById((int) ActionID.HP);
+        TextView showSteps = findViewById((int) ActionID.STEPS);
+        TextView showClass = findViewById((int) ActionID.CLASS);
 
         showName.setVisibility(View.INVISIBLE);
         showHealth.setVisibility(View.INVISIBLE);
@@ -621,10 +621,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
-            TextView showName = findViewById((int) 90001); //Name
-            TextView showHealth = findViewById((int) 90002); //HP
-            TextView showSteps = findViewById((int) 90003); //Steps
-            TextView showClass = findViewById((int) 90004); //Class
+            TextView showName = findViewById((int) ActionID.NAME);
+            TextView showHealth = findViewById((int) ActionID.HP);
+            TextView showSteps = findViewById((int) ActionID.STEPS);
+            TextView showClass = findViewById((int) ActionID.CLASS);
 
             showName.setVisibility(View.VISIBLE);
             showHealth.setVisibility(View.VISIBLE);
@@ -671,7 +671,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
 
         Field field = board.getFieldById(item.getGroupId());
-        Pawn p = null;
+        Pawn p;
         if(item.getTitle().equals("Bug")) {
             p = new Bug();
         } else if(item.getTitle().equals("Dumbbell")) {

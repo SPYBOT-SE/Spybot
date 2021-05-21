@@ -16,7 +16,6 @@ public class Bug extends Pawn {
         this.pictureTail = R.drawable.button_icon_bug;
         this.attack1 = new AttackHeal((byte) 1, (byte) -1);
         this.attack2 = new AttackSpeed((byte) 1, (byte) -1);
-
     }
 
 }

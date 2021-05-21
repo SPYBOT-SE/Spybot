@@ -1,15 +1,16 @@
 package com.level;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class levelSingle {
 
     private static boolean initialized = false;
-    public static int[][] getLevel(int levelID) {
 
+
+    public static int[][] getLevel(int levelID) {
         if(!initialized) {
             initializeLevels();
+            initialized = true;
         }
 
         if(!levels.containsKey(levelID)) {
@@ -18,6 +19,7 @@ public class levelSingle {
 
         return levels.get(levelID);
     }
+
     /**
      * Hashmap that maps button IDs to levels
      */
