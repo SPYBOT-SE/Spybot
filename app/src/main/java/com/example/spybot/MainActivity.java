@@ -524,7 +524,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 default:
 
             }
-            if(board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0){
+            if(board.currentState == LevelState.Running && (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){
                 //game has ended
                 Intent i = new Intent(this, LevelSelection.class);
                 startActivity(i);
