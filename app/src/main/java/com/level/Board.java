@@ -2,14 +2,10 @@ package com.level;
 
 
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import com.example.spybot.R;
 import com.model.AdjacencyList;
 import com.model.SelectedInfo;
 import com.model.LevelState;
-import com.pawns.BodyType;
-import com.pawns.Bug;
-import com.pawns.Dumbbell;
 import com.pawns.Pawn;
 
 import java.util.ArrayList;
@@ -33,8 +29,6 @@ public class Board {
 
 
     private SelectedInfo selectedInfo = new SelectedInfo();
-
-    Drawable[] backgrounds;
 
     Resources r;
 
@@ -114,7 +108,7 @@ public class Board {
         graph = new AdjacencyList<>();
 
         int top, bottom, left, right;
-        Field middle, neighbour;
+        Field middle;
 
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
@@ -123,36 +117,14 @@ public class Board {
                     graph.addVertex(middle);
 
                     top = y - 1;
-                    if (top >= 0 && top < sizeY) {
-                        neighbour = board[x][top];
-                        if (neighbour.getStatus()) {
-                            graph.addEdge(middle, neighbour);
-                        }
-                    }
-
                     bottom = y + 1;
-                    if (bottom >= 0 && bottom < sizeY) {
-                        neighbour = board[x][bottom];
-                        if (neighbour.getStatus()) {
-                            graph.addEdge(middle, neighbour);
-                        }
-                    }
-
                     left = x - 1;
-                    if (left >= 0 && left < sizeX) {
-                        neighbour = board[left][y];
-                        if (neighbour.getStatus()) {
-                            graph.addEdge(middle, neighbour);
-                        }
-                    }
-
                     right = x + 1;
-                    if (right >= 0 && right < sizeX) {
-                        neighbour = board[right][y];
-                        if (neighbour.getStatus()) {
-                            graph.addEdge(middle, neighbour);
-                        }
-                    }
+
+                    addVerticalEdge(x, top, middle);
+                    addVerticalEdge(x, bottom, middle);
+                    addHorizontalEdge(left, y, middle);
+                    addHorizontalEdge(right, y, middle);
                 }
             }
         }
@@ -197,5 +169,25 @@ public class Board {
 
     public void updateSelectedInfo() {
         selectedInfo.setFieldId(selectedInfo.getPawn().getSegments().getFirst().getField().getId());
+    }
+
+    private void addVerticalEdge(int horizontal, int vertical, Field middle) {
+        Field neighbour;
+        if (vertical >= 0 && vertical < sizeY) {
+            neighbour = board[horizontal][vertical];
+            if (neighbour.getStatus()) {
+                graph.addEdge(middle, neighbour);
+            }
+        }
+    }
+
+    private void addHorizontalEdge(int horizontal, int vertical, Field middle) {
+        Field neighbour;
+        if (horizontal >= 0 && horizontal < sizeX) {
+            neighbour = board[horizontal][vertical];
+            if (neighbour.getStatus()) {
+                graph.addEdge(middle, neighbour);
+            }
+        }
     }
 }
