@@ -1,11 +1,13 @@
 package com.example.spybot;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.view.MenuItem;
 import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -160,7 +162,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 case Running:
                     doHighlightingActions(field);
 
-                    if(field.getSegment() != null && field.getSegment().getBodyType() == BodyType.Head) {
+                    if(field.getSegment() != null
+                            && field.getSegment().getBodyType() == BodyType.Head
+                            && field.getSegment().getPawn().getTeam() == board.currentPlayer) {
                         lastSelected = field;
                         loadInfoWithPawn();
                         setHighlightingMove(field);
@@ -264,10 +268,37 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void LoadMainMenu(){
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setTitle("Leave game");
+        builder1.setIcon(android.R.drawable.ic_dialog_alert);
+        builder1.setMessage("Do you really want to leave the game? Progress will not be saved");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        ExitGame();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    private void ExitGame(){
         Intent i = new Intent(this, LevelSelection.class);
         startActivity(i);
     }
-
     private void TurnButtonOnClick(){
         if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
             board.currentPlayer = 1;
@@ -517,15 +548,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         clearBoard();
         //Button buttonNeighbor;
         for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1, ActionID.ATTACK_1)) {
-            if(neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
-                if(attackNum == 1) {
-                    neighborField.setHighlighting(Highlighting.Attackable1);
-                } else if (attackNum == 2) {
-                    neighborField.setHighlighting(Highlighting.Attackable2);
+                if (neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
+                    if (attackNum == 1) {
+                        neighborField.setHighlighting(Highlighting.Attackable1);
+                    } else if (attackNum == 2) {
+                        neighborField.setHighlighting(Highlighting.Attackable2);
+                    }
                 }
 
-
-            }
                 //buttonNeighbor = findViewById(neighborField.getId());
         }
     }
@@ -638,6 +668,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         board.pawnsOnBoard.add(p);
         p.createSegment(field, BodyType.Head);
+        p.setTeam(board.currentPlayer);
 
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
