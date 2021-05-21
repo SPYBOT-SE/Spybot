@@ -1,6 +1,8 @@
-package com.pawns;
+package com.pawns.Attack;
 
 import com.level.Field;
+import com.pawns.Pawn;
+import com.pawns.PawnSegment;
 
 import static java.lang.Math.abs;
 
@@ -12,7 +14,7 @@ public class AttackHeal extends Attack{
     }
 
     @Override
-    void performAttack(Pawn target) {
+    public void performAttack(Pawn target) {
 
 
         if(magnitude < 0) {

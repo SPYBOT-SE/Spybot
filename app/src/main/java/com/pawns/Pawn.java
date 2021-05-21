@@ -1,9 +1,9 @@
 package com.pawns;
 
-import android.graphics.drawable.Drawable;
 import com.example.spybot.R;
 import com.level.Field;
 import com.model.Direction;
+import com.pawns.Attack.Attack;
 
 import java.util.LinkedList;
 

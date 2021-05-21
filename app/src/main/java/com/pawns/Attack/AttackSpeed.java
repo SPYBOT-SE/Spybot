@@ -1,4 +1,6 @@
-package com.pawns;
+package com.pawns.Attack;
+
+import com.pawns.Pawn;
 
 public class AttackSpeed extends Attack{
 
@@ -7,7 +9,7 @@ public class AttackSpeed extends Attack{
     }
 
     @Override
-    void performAttack(Pawn target) {
+    public void performAttack(Pawn target) {
         target.setSpeed((byte) (target.getSpeed() - magnitude));
     }
 }
