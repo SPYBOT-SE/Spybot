@@ -28,8 +28,6 @@ public class Board {
     private AdjacencyList<Field> graph;
 
 
-    private SelectedInfo selectedInfo = new SelectedInfo();
-
     Resources r;
 
     public Board(int[][] level) {
@@ -161,14 +159,6 @@ public class Board {
 
     public void setState(LevelState state) {
         this.currentState = state;
-    }
-
-    public SelectedInfo getSelectedInfo() {
-        return selectedInfo;
-    }
-
-    public void updateSelectedInfo() {
-        selectedInfo.setFieldId(selectedInfo.getPawn().getSegments().getFirst().getField().getId());
     }
 
     private void addVerticalEdge(int horizontal, int vertical, Field middle) {
