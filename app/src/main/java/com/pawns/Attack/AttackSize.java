@@ -1,4 +1,6 @@
-package com.pawns;
+package com.pawns.Attack;
+
+import com.pawns.Pawn;
 
 public class AttackSize extends Attack {
 
@@ -7,7 +9,7 @@ public class AttackSize extends Attack {
     }
 
     @Override
-    void performAttack(Pawn target) {
+    public void performAttack(Pawn target) {
         target.setMaxSize((byte) (target.getMaxSize() + magnitude));
     }
 }

@@ -1,4 +1,6 @@
-package com.pawns;
+package com.pawns.Attack;
+
+import com.pawns.Pawn;
 
 public abstract class Attack {
 
@@ -10,6 +12,6 @@ public abstract class Attack {
         this.magnitude = magnitude;
     }
 
-    abstract void performAttack(Pawn target);
+    public abstract void performAttack(Pawn target);
 
 }
