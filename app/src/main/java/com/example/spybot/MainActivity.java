@@ -1,5 +1,6 @@
 package com.example.spybot;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -140,10 +141,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / ratio));
         btnTag.setId(id);
 
-//        btnTag.setOnClickListener((v) -> {
-//            OnClick(v.getId());
-//        });
-
         btnTag.setVisibility(View.VISIBLE);
 
         return btnTag;
@@ -207,10 +204,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
 
-        // Button button = findViewById(id);
-        // button.setBackgroundColor(0xFF00FF00);
-
-
         refreshBoard();
 
     }
@@ -228,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));
         btn.setId((int) 1100);
 
-        btn.setBackgroundResource(R.drawable.button_icon_bug);
         btn.setVisibility(View.VISIBLE);
         btn.setClickable(false);
         panel.addView(btn);
@@ -269,23 +261,47 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.BACK, 20);
-        btn.setText("Back");
-        btnLayout.addView(btn);
-        btn.setOnClickListener((v) -> {
-            OnClick(v.getId());
-        });
-
         btn = createButton(btnLayout, ActionID.NEXT_TURN, 20);
         btn.setText("Next Turn");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
-            OnClick(v.getId());
+            TurnButtonOnClick();
         });
+
+        btn = createButton(btnLayout, ActionID.BACK, 20);
+        btn.setText("Back");
+        btnLayout.addView(btn);
+        btn.setOnClickListener((v) -> {
+            LoadMainMenu();
+            //OnClick(v.getId());
+        });
+
+
 
         panel.addView(btnLayout);
 
 
+    }
+
+    private void LoadMainMenu(){
+        Intent i = new Intent(this, LevelSelection.class);
+        startActivity(i);
+    }
+
+    private void TurnButtonOnClick(){
+        if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
+            board.currentPlayer = 1;
+        } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
+            board.currentPlayer = 0;
+            board.currentState = LevelState.Running;
+        } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
+            board.currentPlayer = 1;
+        } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 1){
+            board.currentPlayer = 0;
+        }
+        int test = board.currentPlayer;
+
+        Toast.makeText(MainActivity.this, Integer.toString(test), Toast.LENGTH_SHORT).show();
     }
 
     private void CreateTextViews(LinearLayout panel, String description, int color, int id) {
@@ -413,7 +429,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     /**
      * By clicking on a highlighted field the associated action will be performed here
      *
-     * @param field cklicked field
+     * @param field clicked field
      */
     private void doHighlightingActions(Field field) {
         if (field.getHighlighting() != Highlighting.Empty) {
@@ -530,7 +546,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-    void clearBoard() {
+
+    private void clearBoard() {
         for (short y = 0; y < height; y++) {
             for (short x = 0; x < width; x++) {
                 Field currentF = board.getField(x,y);
@@ -548,10 +565,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void clearInfoPanel() {
-        TextView showName = (TextView) findViewById((int) 90001); //Name
-        TextView showHealth = (TextView) findViewById((int) 90002); //HP
-        TextView showSteps = (TextView) findViewById((int) 90003); //Steps
-        TextView showClass = (TextView) findViewById((int) 90004); //Class
+        TextView showName =  findViewById((int) 90001); //Name
+        TextView showHealth = findViewById((int) 90002); //HP
+        TextView showSteps = findViewById((int) 90003); //Steps
+        TextView showClass = findViewById((int) 90004); //Class
 
         showName.setVisibility(View.INVISIBLE);
         showHealth.setVisibility(View.INVISIBLE);
@@ -569,10 +586,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
-            TextView showName = (TextView) findViewById((int) 90001); //Name
-            TextView showHealth = (TextView) findViewById((int) 90002); //HP
-            TextView showSteps = (TextView) findViewById((int) 90003); //Steps
-            TextView showClass = (TextView) findViewById((int) 90004); //Class
+            TextView showName = findViewById((int) 90001); //Name
+            TextView showHealth = findViewById((int) 90002); //HP
+            TextView showSteps = findViewById((int) 90003); //Steps
+            TextView showClass = findViewById((int) 90004); //Class
 
             showName.setVisibility(View.VISIBLE);
             showHealth.setVisibility(View.VISIBLE);
@@ -590,8 +607,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn = findViewById(ActionID.ATTACK_2);
             btn.setVisibility(View.VISIBLE);
 
-
-        } else {
+            btn = findViewById((int) 1100);
+            btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
 
         }
     }
@@ -617,11 +634,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             board.pawnsOnBoard.add(bug);
             bug.createSegment(field, BodyType.Head);
 
-
         } else if(true) {
 
         }
-
 
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
         return true;
