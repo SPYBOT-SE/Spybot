@@ -3,6 +3,7 @@ package com.level;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import com.example.spybot.R;
 import com.model.AdjacencyList;
 import com.model.SelectedInfo;
 import com.model.LevelState;
@@ -12,6 +13,7 @@ import com.pawns.Dumbbell;
 import com.pawns.Pawn;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class Board {
 
@@ -61,10 +63,7 @@ public class Board {
                 board[x][y] = getField(fieldDef[y][x],x,y);
 
             }
-
         }
-
-
     }
 
 
@@ -78,39 +77,39 @@ public class Board {
     private Field getField(int value, short x, short y) {
         Field outField = null;
 
-        switch (value) {
+        boolean enabled = (value & 0x000F) % 2 == 1;
+        int background = (value & 0x000F) / 2;
+
+        switch (background) {
             case 0:
-                outField = new Field(idCount, false, x,y);
+                background = R.drawable.field_clean;
                 break;
             case 1:
-                outField = new Field(idCount, true,x,y);
+                background = R.drawable.field_classroom;
+                break;
+            case 2:
+                background = R.drawable.field_tiled;
+                break;
+
+            default:
+                throw new NoSuchElementException("Error, background " + background + " not implemented yet!");
+        }
+        outField = new Field(idCount, enabled, x, y, background);
+
+        int player = (value & 0x00F0)>>4;
+
+        switch (player) {
+            case 1:
                 outField.setHighlighting(Highlighting.SpawnableP1);
                 break;
             case 2:
-                outField = new Field(idCount, true,x,y);
                 outField.setHighlighting(Highlighting.SpawnableP2);
                 break;
-            case 3:
-                break;
-            case 4:
-                outField = new Field(idCount, true,x,y);
-                Pawn dumbbell = new Dumbbell();
-                pawnsOnBoard.add(dumbbell);
-                dumbbell.createSegment(outField, BodyType.Head);
-                break;
-            case 5:
-                outField = new Field(idCount, true,x,y);
-                Pawn bug = new Bug();
-                pawnsOnBoard.add(bug);
-                bug.createSegment(outField, BodyType.Head);
-                break;
-            case 10:
-
-
             default:
-                throw new IllegalArgumentException("Unexpected value for field type: " + value);
 
         }
+
+
         idCount++;
         return outField;
     }

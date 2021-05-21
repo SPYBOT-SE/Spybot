@@ -19,6 +19,8 @@ public class Field{
 
     private Highlighting highlighting = Highlighting.Empty;
 
+    public final int background;
+
     //active or inactive
     private boolean enabled = true;
 
@@ -37,11 +39,12 @@ public class Field{
     }
 
 
-    public Field(int id, boolean enabled, short x, short y) {
+    public Field(int id, boolean enabled, short x, short y, int background) {
         this.x = x;
         this.y = y;
         this.id = id;
         this.enabled = enabled;
+        this.background = background;
     }
 
     public boolean getStatus() {

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com</OriginalElement>
+  <nodes>
+    <node x="3132.6541666666667" y="0.0">com.model.ActionID</node>
+    <node x="0.0" y="3664.0">com.level.Level</node>
+    <node x="992.8483604091505" y="1110.0">com.level.Highlighting</node>
+    <node x="461.9733604091505" y="2525.0">com.pawns.Bug</node>
+    <node x="964.9733604091505" y="2475.0">com.model.LevelState</node>
+    <node x="1253.8483604091505" y="1218.0">com.pawns.PawnSegment</node>
+    <node x="1298.1458333333335" y="0.0">com.pawns.BodyType</node>
+    <node x="1558.8586900464188" y="2026.0">com.model.Vertex</node>
+    <node x="743.9733604091505" y="1230.0">com.model.SelectedInfo</node>
+    <node x="1127.0" y="3664.0">com.sun</node>
+    <node x="3624.6541666666667" y="0.0">com.level.FieldType</node>
+    <node x="454.0" y="3664.0">com.jetbrains</node>
+    <node x="590.4733604091505" y="2158.5">com.pawns.AttackHeal</node>
+    <node x="1791.5775270758172" y="3586.0">com.Utility</node>
+    <node x="405.41666666666674" y="1290.5">com.pawns.AttackSpeed</node>
+    <node x="3311.6541666666667" y="83.0">com.player.Player</node>
+    <node x="918.3125000000001" y="60.0">com.pawns.Attack</node>
+    <node x="2543.6541666666667" y="0.0">com.level.levelSingle</node>
+    <node x="0.0" y="12.0">com.model.Direction</node>
+    <node x="913.0" y="3664.0">com.spybot</node>
+    <node x="944.9733604091505" y="2792.0">com.level.Board</node>
+    <node x="219.0" y="3664.0">com.squareup</node>
+    <node x="1554.8586900464188" y="2403.0">com.model.AdjacencyList</node>
+    <node x="2044.1541666666667" y="3080.5">com.enemy.Dijkstra</node>
+    <node x="2856.6541666666667" y="0.0">com.pawns.AttackType</node>
+    <node x="3375.6541666666667" y="0.0">com.player.PawnType</node>
+    <node x="1921.4041666666667" y="3481.0">com.utility</node>
+    <node x="152.41666666666663" y="1290.5">com.pawns.AttackSize</node>
+    <node x="685.0" y="3664.0">com.example</node>
+    <node x="978.2500000000001" y="293.0">com.pawns.Pawn</node>
+    <node x="1242.629523379752" y="1615.0">com.level.Field</node>
+    <node x="184.97336040915047" y="1773.0">com.pawns.Dumbbell</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.model.AdjacencyList" target="com.model.Vertex" relationship="CREATE">
+      <point x="80.5" y="-138.5" />
+      <point x="1796.3586900464188" y="2382.0" />
+      <point x="1745.0450253567142" y="2382.0" />
+      <point x="1745.0450253567142" y="2372.0" />
+      <point x="1794.3586900464188" y="2372.0" />
+      <point x="78.5" y="162.5" />
+    </edge>
+    <edge source="com.pawns.Attack" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="77.33333333333326" y="54.5" />
+      <point x="1111.6458333333335" y="271.0" />
+      <point x="1190.125" y="271.0" />
+      <point x="42.375" y="-366.5" />
+    </edge>
+    <edge source="com.level.Field" target="com.pawns.PawnSegment" relationship="DEPENDENCY">
+      <point x="-119.58333333333337" y="-174.5" />
+      <point x="1266.5461900464188" y="1593.0" />
+      <point x="1108.6700253567142" y="1593.0" />
+      <point x="1108.6700253567142" y="1563.0" />
+      <point x="1284.7233604091505" y="1563.0" />
+      <point x="-92.625" y="102.5" />
+    </edge>
+    <edge source="com.pawns.PawnSegment" target="com.level.Field" relationship="DEPENDENCY">
+      <point x="92.625" y="102.5" />
+      <point x="1470.336692023381" y="1593.0" />
+      <point x="1505.7128567130853" y="1593.0" />
+      <point x="119.58333333333326" y="-174.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.model.SelectedInfo" relationship="CREATE">
+      <point x="-92.0" y="-318.5" />
+      <point x="990.9733604091505" y="2751.0" />
+      <point x="832.9733604091505" y="2751.0" />
+      <point x="832.9733604091505" y="1583.0" />
+      <point x="791.2233604091505" y="1583.0" />
+      <point x="-47.25" y="90.5" />
+    </edge>
+    <edge source="com.level.Field" target="com.level.Highlighting" relationship="DEPENDENCY">
+      <point x="-23.916666666666742" y="-174.5" />
+      <point x="1362.2128567130853" y="1573.0" />
+      <point x="1209.8378567130853" y="1573.0" />
+      <point x="1209.8378567130853" y="1553.0" />
+      <point x="1173.5983604091505" y="1553.0" />
+      <point x="60.25" y="210.5" />
+    </edge>
+    <edge source="com.Utility" target="com.utility" relationship="DEPENDENCY">
+      <point x="23.428571428571445" y="-16.5" />
+      <point x="1897.0060985043885" y="3545.0" />
+      <point x="2002.4041666666667" y="3545.0" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="com.Utility" target="com.level.Board" relationship="CREATE">
+      <point x="-23.428571428571445" y="-16.5" />
+      <point x="1850.1489556472457" y="3545.0" />
+      <point x="1082.9733604091505" y="3545.0" />
+      <point x="0.0" y="318.5" />
+    </edge>
+    <edge source="com.pawns.Dumbbell" target="com.pawns.AttackSpeed" relationship="CREATE">
+      <point x="44.66666666666663" y="-16.5" />
+      <point x="296.6400270758171" y="1593.0" />
+      <point x="521.4166666666667" y="1593.0" />
+      <point x="0.0" y="30.0" />
+    </edge>
+    <edge source="com.level.Board" target="com.model.AdjacencyList" relationship="TO_ONE">
+      <point x="92.0" y="-318.5" />
+      <point x="1174.9733604091505" y="2751.0" />
+      <point x="1635.3586900464188" y="2751.0" />
+      <point x="-80.5" y="138.5" />
+    </edge>
+    <edge source="com.enemy.Dijkstra" target="com.model.AdjacencyList" relationship="DEPENDENCY">
+      <point x="-104.0" y="-30.0" />
+      <point x="2148.1541666666667" y="2771.0" />
+      <point x="1974.5116683857696" y="2771.0" />
+      <point x="1974.5116683857696" y="2751.0" />
+      <point x="1796.3586900464188" y="2751.0" />
+      <point x="80.5" y="138.5" />
+    </edge>
+    <edge source="com.pawns.Pawn" target="com.pawns.BodyType" relationship="DEPENDENCY">
+      <point x="127.125" y="-366.5" />
+      <point x="1274.875" y="271.0" />
+      <point x="1403.1458333333333" y="271.0" />
+      <point x="1403.1458333333333" y="261.0" />
+      <point x="1353.3958333333335" y="261.0" />
+      <point x="-55.25" y="114.5" />
+    </edge>
+    <edge source="com.pawns.Pawn" target="com.model.Direction" relationship="DEPENDENCY">
+      <point x="-127.125" y="-366.5" />
+      <point x="1020.6250000000001" y="261.0" />
+      <point x="109.0" y="261.0" />
+      <point x="0.0" y="102.5" />
+    </edge>
+    <edge source="com.utility" target="com.model.Vertex" relationship="CREATE">
+      <point x="20.25" y="-16.5" />
+      <point x="2022.6541666666667" y="2382.0" />
+      <point x="1745.0450253567142" y="2382.0" />
+      <point x="1745.0450253567142" y="2372.0" />
+      <point x="1794.3586900464188" y="2372.0" />
+      <point x="78.5" y="162.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.level.Highlighting" relationship="DEPENDENCY">
+      <point x="18.399999999999977" y="-318.5" />
+      <point x="1101.3733604091503" y="2711.0" />
+      <point x="1209.8378567130853" y="2711.0" />
+      <point x="1209.8378567130853" y="1553.0" />
+      <point x="1173.5983604091505" y="1553.0" />
+      <point x="60.25" y="210.5" />
+    </edge>
+    <edge source="com.pawns.PawnSegment" target="com.pawns.BodyType" relationship="TO_ONE">
+      <point x="102.91666666666663" y="-102.5" />
+      <point x="1480.2650270758172" y="1078.0" />
+      <point x="1424.4688370293984" y="1078.0" />
+      <point x="1424.4688370293984" y="261.0" />
+      <point x="1463.8958333333335" y="261.0" />
+      <point x="55.25" y="114.5" />
+    </edge>
+    <edge source="com.pawns.Bug" target="com.pawns.AttackHeal" relationship="CREATE">
+      <point x="28.666666666666686" y="-16.5" />
+      <point x="533.6400270758172" y="2382.0" />
+      <point x="706.4733604091505" y="2382.0" />
+      <point x="0.0" y="30.0" />
+    </edge>
+    <edge source="com.pawns.AttackSize" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="58.0" y="-30.0" />
+      <point x="326.41666666666663" y="1088.0" />
+      <point x="680.8450017191029" y="1088.0" />
+      <point x="680.8450017191029" y="1058.0" />
+      <point x="1063.0" y="1058.0" />
+      <point x="-84.75" y="366.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.pawns.Dumbbell" relationship="CREATE">
+      <point x="-128.8" y="-318.5" />
+      <point x="954.1733604091505" y="2771.0" />
+      <point x="251.97336040915047" y="2771.0" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="com.pawns.Pawn" target="com.pawns.PawnSegment" relationship="TO_MANY">
+      <point x="28.25" y="366.5" />
+      <point x="1176.0" y="1068.0" />
+      <point x="1356.7650270758172" y="1068.0" />
+      <point x="-20.583333333333343" y="-102.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.pawns.Bug" relationship="CREATE">
+      <point x="-110.39999999999998" y="-318.5" />
+      <point x="972.5733604091505" y="2761.0" />
+      <point x="504.9733604091505" y="2761.0" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.pawns.BodyType" relationship="DEPENDENCY">
+      <point x="73.60000000000002" y="-318.5" />
+      <point x="1156.5733604091506" y="2741.0" />
+      <point x="1544.3586900464188" y="2741.0" />
+      <point x="1544.3586900464188" y="271.0" />
+      <point x="1403.1458333333333" y="271.0" />
+      <point x="1403.1458333333333" y="261.0" />
+      <point x="1353.3958333333335" y="261.0" />
+      <point x="-55.25" y="114.5" />
+    </edge>
+    <edge source="com.pawns.Bug" target="com.pawns.Pawn" relationship="GENERALIZATION">
+      <point x="-28.666666666666742" y="-16.5" />
+      <point x="476.30669374248373" y="2382.0" />
+      <point x="394.91666666666674" y="2382.0" />
+      <point x="394.91666666666674" y="1068.0" />
+      <point x="1006.5000000000001" y="1068.0" />
+      <point x="-141.25" y="366.5" />
+    </edge>
+    <edge source="com.utility" target="com.model.AdjacencyList" relationship="CREATE">
+      <point x="-20.25" y="-16.5" />
+      <point x="1982.1541666666667" y="3455.0" />
+      <point x="2011.6541666666667" y="3455.0" />
+      <point x="2011.6541666666667" y="2771.0" />
+      <point x="1974.5116683857696" y="2771.0" />
+      <point x="1974.5116683857696" y="2751.0" />
+      <point x="1796.3586900464188" y="2751.0" />
+      <point x="80.5" y="138.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.model.LevelState" relationship="TO_ONE">
+      <point x="0.0" y="-318.5" />
+      <point x="1082.9733604091505" y="2701.0" />
+      <point x="1134.4733604091505" y="2701.0" />
+      <point x="56.5" y="66.5" />
+    </edge>
+    <edge source="com.Utility" target="com.level.Field" relationship="CREATE">
+      <point x="46.857142857142776" y="-16.5" />
+      <point x="1920.4346699329599" y="3555.0" />
+      <point x="2470.6541666666667" y="3555.0" />
+      <point x="2470.6541666666667" y="1995.0" />
+      <point x="2033.6541666666667" y="1995.0" />
+      <point x="2033.6541666666667" y="1985.0" />
+      <point x="1457.879523379752" y="1985.0" />
+      <point x="71.75" y="174.5" />
+    </edge>
+    <edge source="com.Utility" target="com.pawns.BodyType" relationship="DEPENDENCY">
+      <point x="70.28571428571433" y="-16.5" />
+      <point x="1943.8632413615314" y="3565.0" />
+      <point x="2481.6541666666667" y="3565.0" />
+      <point x="2481.6541666666667" y="271.0" />
+      <point x="1403.1458333333333" y="271.0" />
+      <point x="1403.1458333333333" y="261.0" />
+      <point x="1353.3958333333335" y="261.0" />
+      <point x="-55.25" y="114.5" />
+    </edge>
+    <edge source="com.pawns.PawnSegment" target="com.pawns.Pawn" relationship="TO_ONE">
+      <point x="-61.75" y="-102.5" />
+      <point x="1315.5983604091505" y="1078.0" />
+      <point x="952.2916666666667" y="1078.0" />
+      <point x="952.2916666666667" y="1048.0" />
+      <point x="1119.5" y="1048.0" />
+      <point x="-28.25" y="366.5" />
+    </edge>
+    <edge source="com.pawns.AttackHeal" target="com.pawns.PawnSegment" relationship="DEPENDENCY">
+      <point x="29.0" y="-30.0" />
+      <point x="735.4733604091505" y="2005.0" />
+      <point x="701.4271703627318" y="2005.0" />
+      <point x="701.4271703627318" y="1593.0" />
+      <point x="1108.6700253567142" y="1593.0" />
+      <point x="1108.6700253567142" y="1563.0" />
+      <point x="1284.7233604091505" y="1563.0" />
+      <point x="-92.625" y="102.5" />
+    </edge>
+    <edge source="com.pawns.AttackHeal" target="com.pawns.Attack" relationship="GENERALIZATION">
+      <point x="-87.0" y="-30.0" />
+      <point x="619.4733604091505" y="2005.0" />
+      <point x="647.9166666666667" y="2005.0" />
+      <point x="647.9166666666667" y="271.0" />
+      <point x="515.9166666666667" y="271.0" />
+      <point x="515.9166666666667" y="251.0" />
+      <point x="956.9791666666669" y="251.0" />
+      <point x="-77.33333333333326" y="54.5" />
+    </edge>
+    <edge source="com.Utility" target="com.model.AdjacencyList" relationship="CREATE">
+      <point x="0.0" y="-16.5" />
+      <point x="1873.5775270758172" y="3535.0" />
+      <point x="1910.9041666666667" y="3535.0" />
+      <point x="1910.9041666666667" y="2771.0" />
+      <point x="1974.5116683857696" y="2771.0" />
+      <point x="1974.5116683857696" y="2751.0" />
+      <point x="1796.3586900464188" y="2751.0" />
+      <point x="80.5" y="138.5" />
+    </edge>
+    <edge source="com.model.SelectedInfo" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="-47.25" y="-90.5" />
+      <point x="791.2233604091505" y="1088.0" />
+      <point x="680.8450017191029" y="1088.0" />
+      <point x="680.8450017191029" y="1058.0" />
+      <point x="1063.0" y="1058.0" />
+      <point x="-84.75" y="366.5" />
+    </edge>
+    <edge source="com.pawns.Dumbbell" target="com.pawns.Pawn" relationship="GENERALIZATION">
+      <point x="-44.66666666666663" y="-16.5" />
+      <point x="207.30669374248384" y="1593.0" />
+      <point x="141.91666666666663" y="1593.0" />
+      <point x="141.91666666666663" y="1078.0" />
+      <point x="394.91666666666674" y="1078.0" />
+      <point x="394.91666666666674" y="1068.0" />
+      <point x="1006.5000000000001" y="1068.0" />
+      <point x="-141.25" y="366.5" />
+    </edge>
+    <edge source="com.pawns.AttackSpeed" target="com.pawns.Attack" relationship="GENERALIZATION">
+      <point x="-58.0" y="-30.0" />
+      <point x="463.41666666666674" y="1078.0" />
+      <point x="515.9166666666667" y="1078.0" />
+      <point x="515.9166666666667" y="251.0" />
+      <point x="956.9791666666669" y="251.0" />
+      <point x="-77.33333333333326" y="54.5" />
+    </edge>
+    <edge source="com.pawns.AttackHeal" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="-29.0" y="-30.0" />
+      <point x="677.4733604091505" y="2005.0" />
+      <point x="669.4628567130854" y="2005.0" />
+      <point x="669.4628567130854" y="1088.0" />
+      <point x="680.8450017191029" y="1088.0" />
+      <point x="680.8450017191029" y="1058.0" />
+      <point x="1063.0" y="1058.0" />
+      <point x="-84.75" y="366.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.model.SelectedInfo" relationship="TO_ONE">
+      <point x="-73.60000000000002" y="-318.5" />
+      <point x="1009.3733604091505" y="2741.0" />
+      <point x="843.9733604091505" y="2741.0" />
+      <point x="843.9733604091505" y="1583.0" />
+      <point x="885.7233604091505" y="1583.0" />
+      <point x="47.25" y="90.5" />
+    </edge>
+    <edge source="com.pawns.AttackHeal" target="com.level.Field" relationship="DEPENDENCY">
+      <point x="87.0" y="-30.0" />
+      <point x="793.4733604091505" y="1995.0" />
+      <point x="2033.6541666666667" y="1995.0" />
+      <point x="2033.6541666666667" y="1985.0" />
+      <point x="1457.879523379752" y="1985.0" />
+      <point x="71.75" y="174.5" />
+    </edge>
+    <edge source="com.pawns.AttackSpeed" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="58.0" y="-30.0" />
+      <point x="579.4166666666667" y="1088.0" />
+      <point x="680.8450017191029" y="1088.0" />
+      <point x="680.8450017191029" y="1058.0" />
+      <point x="1063.0" y="1058.0" />
+      <point x="-84.75" y="366.5" />
+    </edge>
+    <edge source="com.pawns.PawnSegment" target="com.pawns.BodyType" relationship="DEPENDENCY">
+      <point x="61.75" y="-102.5" />
+      <point x="1439.0983604091505" y="1088.0" />
+      <point x="1413.4688370293984" y="1088.0" />
+      <point x="1413.4688370293984" y="271.0" />
+      <point x="1403.1458333333333" y="271.0" />
+      <point x="1403.1458333333333" y="261.0" />
+      <point x="1353.3958333333335" y="261.0" />
+      <point x="-55.25" y="114.5" />
+    </edge>
+    <edge source="com.pawns.AttackSize" target="com.pawns.Attack" relationship="GENERALIZATION">
+      <point x="-58.0" y="-30.0" />
+      <point x="210.41666666666663" y="1068.0" />
+      <point x="262.91666666666663" y="1068.0" />
+      <point x="262.91666666666663" y="271.0" />
+      <point x="515.9166666666667" y="271.0" />
+      <point x="515.9166666666667" y="251.0" />
+      <point x="956.9791666666669" y="251.0" />
+      <point x="-77.33333333333326" y="54.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.pawns.Pawn" relationship="TO_MANY">
+      <point x="-36.799999999999955" y="-318.5" />
+      <point x="1046.1733604091505" y="2721.0" />
+      <point x="954.4733604091505" y="2721.0" />
+      <point x="954.4733604091505" y="1078.0" />
+      <point x="952.2916666666667" y="1078.0" />
+      <point x="952.2916666666667" y="1048.0" />
+      <point x="1119.5" y="1048.0" />
+      <point x="-28.25" y="366.5" />
+    </edge>
+    <edge source="com.pawns.Pawn" target="com.pawns.Attack" relationship="TO_ONE">
+      <point x="-42.375" y="-366.5" />
+      <point x="1105.375" y="271.0" />
+      <point x="1034.3125" y="271.0" />
+      <point x="0.0" y="54.5" />
+    </edge>
+    <edge source="com.utility" target="com.level.Field" relationship="DEPENDENCY">
+      <point x="60.75" y="-16.5" />
+      <point x="2063.1541666666667" y="3455.0" />
+      <point x="2033.6541666666667" y="3455.0" />
+      <point x="2033.6541666666667" y="1985.0" />
+      <point x="1457.879523379752" y="1985.0" />
+      <point x="71.75" y="174.5" />
+    </edge>
+    <edge source="com.pawns.Dumbbell" target="com.pawns.AttackSize" relationship="CREATE">
+      <point x="0.0" y="-16.5" />
+      <point x="251.97336040915047" y="1593.0" />
+      <point x="268.41666666666663" y="1593.0" />
+      <point x="0.0" y="30.0" />
+    </edge>
+    <edge source="com.level.Field" target="com.pawns.PawnSegment" relationship="TO_ONE">
+      <point x="71.75" y="-174.5" />
+      <point x="1457.879523379752" y="1553.0" />
+      <point x="1408.2233604091505" y="1553.0" />
+      <point x="30.875" y="102.5" />
+    </edge>
+    <edge source="com.pawns.PawnSegment" target="com.level.Field" relationship="TO_ONE">
+      <point x="-30.875" y="102.5" />
+      <point x="1346.4733604091505" y="1563.0" />
+      <point x="1410.0461900464188" y="1563.0" />
+      <point x="23.916666666666742" y="-174.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.level.Field" relationship="TO_ONE">
+      <point x="36.799999999999955" y="-318.5" />
+      <point x="1119.7733604091504" y="2721.0" />
+      <point x="1308.879523379752" y="2721.0" />
+      <point x="1308.879523379752" y="2005.0" />
+      <point x="1314.379523379752" y="2005.0" />
+      <point x="-71.75" y="174.5" />
+    </edge>
+    <edge source="com.level.Field" target="com.level.Highlighting" relationship="TO_ONE">
+      <point x="-71.75" y="-174.5" />
+      <point x="1314.379523379752" y="1583.0" />
+      <point x="1053.0983604091505" y="1583.0" />
+      <point x="-60.25" y="210.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.level.Field" relationship="CREATE">
+      <point x="110.39999999999998" y="-318.5" />
+      <point x="1193.3733604091503" y="2761.0" />
+      <point x="1887.3586900464188" y="2761.0" />
+      <point x="1887.3586900464188" y="1995.0" />
+      <point x="2033.6541666666667" y="1995.0" />
+      <point x="2033.6541666666667" y="1985.0" />
+      <point x="1457.879523379752" y="1985.0" />
+      <point x="71.75" y="174.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="-55.19999999999999" y="-318.5" />
+      <point x="1027.7733604091504" y="2731.0" />
+      <point x="943.4733604091505" y="2731.0" />
+      <point x="943.4733604091505" y="1088.0" />
+      <point x="680.8450017191029" y="1088.0" />
+      <point x="680.8450017191029" y="1058.0" />
+      <point x="1063.0" y="1058.0" />
+      <point x="-84.75" y="366.5" />
+    </edge>
+    <edge source="com.enemy.Dijkstra" target="com.level.Field" relationship="DEPENDENCY">
+      <point x="104.0" y="-30.0" />
+      <point x="2356.1541666666667" y="1995.0" />
+      <point x="2033.6541666666667" y="1995.0" />
+      <point x="2033.6541666666667" y="1985.0" />
+      <point x="1457.879523379752" y="1985.0" />
+      <point x="71.75" y="174.5" />
+    </edge>
+    <edge source="com.pawns.Bug" target="com.pawns.AttackSpeed" relationship="CREATE">
+      <point x="0.0" y="-16.5" />
+      <point x="504.9733604091505" y="2382.0" />
+      <point x="521.4166666666667" y="2382.0" />
+      <point x="0.0" y="30.0" />
+    </edge>
+    <edge source="com.level.Board" target="com.model.AdjacencyList" relationship="CREATE">
+      <point x="128.79999999999995" y="-318.5" />
+      <point x="1211.7733604091504" y="2771.0" />
+      <point x="1974.5116683857696" y="2771.0" />
+      <point x="1974.5116683857696" y="2751.0" />
+      <point x="1796.3586900464188" y="2751.0" />
+      <point x="80.5" y="138.5" />
+    </edge>
+    <edge source="com.pawns.Pawn" target="com.pawns.PawnSegment" relationship="CREATE">
+      <point x="84.75" y="366.5" />
+      <point x="1232.5" y="1058.0" />
+      <point x="1397.9316937424837" y="1058.0" />
+      <point x="20.583333333333314" y="-102.5" />
+    </edge>
+    <edge source="com.utility" target="com.level.Board" relationship="DEPENDENCY">
+      <point x="-60.75" y="-16.5" />
+      <point x="1941.6541666666667" y="3455.0" />
+      <point x="1082.9733604091505" y="3455.0" />
+      <point x="0.0" y="318.5" />
+    </edge>
+    <edge source="com.pawns.Pawn" target="com.level.Field" relationship="DEPENDENCY">
+      <point x="141.25" y="366.5" />
+      <point x="1289.0" y="1048.0" />
+      <point x="1513.2650270758172" y="1048.0" />
+      <point x="1513.2650270758172" y="1583.0" />
+      <point x="1470.336692023381" y="1583.0" />
+      <point x="1470.336692023381" y="1593.0" />
+      <point x="1505.7128567130853" y="1593.0" />
+      <point x="119.58333333333326" y="-174.5" />
+    </edge>
+    <edge source="com.model.SelectedInfo" target="com.pawns.Pawn" relationship="TO_ONE">
+      <point x="47.25" y="-90.5" />
+      <point x="885.7233604091505" y="1078.0" />
+      <point x="952.2916666666667" y="1078.0" />
+      <point x="952.2916666666667" y="1048.0" />
+      <point x="1119.5" y="1048.0" />
+      <point x="-28.25" y="366.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.level.Field" relationship="TO_MANY">
+      <point x="55.200000000000045" y="-318.5" />
+      <point x="1138.1733604091505" y="2731.0" />
+      <point x="1319.879523379752" y="2731.0" />
+      <point x="1319.879523379752" y="2005.0" />
+      <point x="1314.379523379752" y="2005.0" />
+      <point x="-71.75" y="174.5" />
+    </edge>
+    <edge source="com.model.AdjacencyList" target="com.model.Vertex" relationship="TO_MANY">
+      <point x="-80.5" y="-138.5" />
+      <point x="1635.3586900464188" y="2382.0" />
+      <point x="1637.3586900464188" y="2382.0" />
+      <point x="-78.5" y="162.5" />
+    </edge>
+    <edge source="com.pawns.PawnSegment" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="-102.91666666666666" y="-102.5" />
+      <point x="1274.4316937424837" y="1088.0" />
+      <point x="680.8450017191029" y="1088.0" />
+      <point x="680.8450017191029" y="1058.0" />
+      <point x="1063.0" y="1058.0" />
+      <point x="-84.75" y="366.5" />
+    </edge>
+    <edge source="com.level.Board" target="com.model.LevelState" relationship="DEPENDENCY">
+      <point x="-18.399999999999977" y="-318.5" />
+      <point x="1064.5733604091506" y="2711.0" />
+      <point x="1021.4733604091505" y="2711.0" />
+      <point x="-56.5" y="66.5" />
+    </edge>
+    <edge source="com.Utility" target="com.model.Direction" relationship="DEPENDENCY">
+      <point x="-70.28571428571433" y="-16.5" />
+      <point x="1803.2918127901028" y="3565.0" />
+      <point x="109.0" y="3565.0" />
+      <point x="0.0" y="102.5" />
+    </edge>
+    <edge source="com.player.Player" target="com.player.PawnType" relationship="TO_MANY">
+      <point x="0.0" y="-30.0" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="com.Utility" target="com.pawns.Pawn" relationship="DEPENDENCY">
+      <point x="-46.85714285714289" y="-16.5" />
+      <point x="1826.720384218674" y="3555.0" />
+      <point x="120.00000000000011" y="3555.0" />
+      <point x="120.0" y="1088.0" />
+      <point x="680.8450017191029" y="1088.0" />
+      <point x="680.8450017191029" y="1058.0" />
+      <point x="1063.0" y="1058.0" />
+      <point x="-84.75" y="366.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.40000000000000013" showDependencies="true" x="1195.2499999999995" y="2866.9999999999995" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
