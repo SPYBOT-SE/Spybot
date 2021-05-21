@@ -7,5 +7,4 @@ public enum BodyType {
     TailRight,
     TailLeft,
     Tail
-
 }

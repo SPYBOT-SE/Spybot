@@ -32,7 +32,6 @@ public class Board {
     private AdjacencyList<Field> graph;
 
 
-    //private int selectedPawnFieldID;
     private SelectedInfo selectedInfo = new SelectedInfo();
 
     Drawable[] backgrounds;
@@ -51,7 +50,6 @@ public class Board {
     }
 
     private void initBoard(int[][] fieldDef) {
-
         sizeY = fieldDef.length;
         sizeX = fieldDef[0].length;
 
@@ -59,9 +57,7 @@ public class Board {
 
         for (short y = 0; y < sizeY; y++) {
             for (short x = 0; x < sizeX; x++) {
-
                 board[x][y] = getField(fieldDef[y][x],x,y);
-
             }
         }
     }
@@ -108,7 +104,6 @@ public class Board {
             default:
 
         }
-
 
         idCount++;
         return outField;

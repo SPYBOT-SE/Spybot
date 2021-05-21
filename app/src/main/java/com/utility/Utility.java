@@ -1,6 +1,5 @@
 package com.utility;
 
-import android.util.Log;
 import com.level.Board;
 import com.level.Field;
 import com.model.ActionID;

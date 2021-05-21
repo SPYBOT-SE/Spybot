@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         parentLayout.addView(infoPanel); //add info box to parent
 
         SetUpInfoPanel(infoPanel);
-        //infoPanel.setBackgroundColor(Color.GRAY);
-
 
         LinearLayout gameLayout = new LinearLayout(this); //layout containing the game and a info box
         gameLayout.setOrientation(LinearLayout.VERTICAL);
@@ -108,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
         setContentView(parentLayout);
-        //resetButtons();
         refreshBoard();
         loadDefaultView();
     }
@@ -176,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             switch (id) {
                 case ActionID.MOVE:
                     setHighlightingMove(lastSelected);
-                    // loadInfoWithAction(ActionID.move);
                     break;
                 case ActionID.ATTACK_1:
                     setHighlightingAttack(lastSelected, (byte) 1);
@@ -195,8 +191,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     void SetUpInfoPanel(LinearLayout panel) {
-        //createButton(panel, 1234567, View.VISIBLE, 10);
-
         Button btn = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -484,7 +478,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         clearBoard();
 
         Pawn pawn = field.getSegment().getPawn();
-        Button buttonNeighbor;
 
         if (pawn.getLeftSteps() > 0) {
             for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
@@ -492,8 +485,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     continue;
                 }
                 neighborField.setHighlighting(Highlighting.Reachable);
-                buttonNeighbor = findViewById(neighborField.getId());
-
             }
 
             if (board.getField((short)(field.x + 1), field.y) != null && board.getField((short)(field.x + 1), field.y).getSegment() == null) {
@@ -515,7 +506,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void setHighlightingAttack(Field field, byte attackNum) {
         clearBoard();
-        //Button buttonNeighbor;
         for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1, ActionID.ATTACK_1)) {
             if(neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
                 if(attackNum == 1) {
@@ -526,13 +516,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
             }
-                //buttonNeighbor = findViewById(neighborField.getId());
         }
     }
 
 
     private void clearBoard() {
-
         if(board.currentState == LevelState.Preparation) {
             return;
         }

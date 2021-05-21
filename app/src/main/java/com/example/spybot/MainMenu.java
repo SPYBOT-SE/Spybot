@@ -17,7 +17,6 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.startmenu);
 
         AppSetting.hideSystemUI(this);
-        //Resize buttons
 
         //create Buttons
         Button start = (Button) findViewById(R.id.btnStart);
@@ -43,9 +42,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 System.exit(1);
                 break;
         }
-
     }
-
 
 
 }

@@ -73,9 +73,7 @@ public abstract class Pawn {
             segments.remove(1);
         }
 
-
         return;
-
     }
 
     public void attack1(Pawn target) {

@@ -7,22 +7,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class AdjacencyList<T> {
-
-    /*private static class Vertex<S> {
-        private final S self;
-        private final ArrayList<S> neighbours;
-
-        public Vertex(S vertex) {
-            self = vertex;
-            neighbours = new ArrayList<>();
-        }
-
-        public boolean same(S compare) {
-            return self == compare;
-        }
-    }*/
-
-
     HashSet<Vertex<T>> vertices = new HashSet<>(96);
 
 
