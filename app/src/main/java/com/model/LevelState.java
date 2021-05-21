@@ -1,5 +1,5 @@
 package com.model;
 
 public enum LevelState {
-    Preparation, Running
+    Preparation, Running, Finished
 }

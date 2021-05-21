@@ -20,7 +20,7 @@ public abstract class Pawn {
     protected Attack attack1;
     protected Attack attack2;
 
-
+    public int icon = R.drawable.bug;
     public int pictureHead = R.drawable.hantel_head;
     public int pictureTail = R.drawable.hantel_body;
     public int pictureTailUp = R.drawable.hantel_body_up;

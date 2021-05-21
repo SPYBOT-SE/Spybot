@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.view.MenuItem;
 import android.widget.*;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -20,12 +21,11 @@ import com.level.levelSingle;
 import com.model.ActionID;
 import com.model.Direction;
 import com.model.LevelState;
-import com.pawns.BodyType;
-import com.pawns.Bug;
-import com.pawns.Pawn;
-import com.pawns.PawnSegment;
+import com.pawns.*;
 import com.spybot.app.AppSetting;
 import com.utility.Utility;
+
+import java.util.NoSuchElementException;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
 
+
         setContentView(parentLayout);
         //resetButtons();
         refreshBoard();
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             switch (board.getState()) {
                 case Preparation:
                     loadInfoWithSpawnable();
-                    // TODO Spawn something
+                    doHighlightingActions(field);
                     break;
                 case Running:
                     doHighlightingActions(field);
@@ -351,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         Drawable[] layerView = new Drawable[3];
 
-        layerView[0] = this.getDrawable(R.drawable.field_classroom);
+        layerView[0] = this.getDrawable(field.background);
         layerView[1] = this.getDrawable(R.drawable.field_transparent);
         layerView[2] = this.getDrawable(R.drawable.field_transparent);
 
@@ -500,8 +501,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void setHighlightingMove(Field field) {
-        clearBoard();
 
+        clearBoard();
 
         Pawn pawn = field.getSegment().getPawn();
         Button buttonNeighbor;
@@ -621,7 +622,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-
+    /**
+     * Show menu for spawnable pawns
+     * @param v spawnable button field that has been pressed
+     */
     public void ShowSpawnableList(View v) {
         PopupMenu selectionList = new PopupMenu(this, v);
         selectionList.setOnMenuItemClickListener(this);
@@ -632,21 +636,33 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         selectionList.show();
     }
 
+    /**
+     * Actual spawning of pawn on the selected button field
+     * @param item selected pawn to spawn on field
+     * @return if spawning was successful
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
         Field field = board.getFieldById(item.getGroupId());
-
+        Pawn p = null;
         if(item.getTitle().equals("Bug")) {
-            Pawn bug = new Bug();
-            board.pawnsOnBoard.add(bug);
-            bug.createSegment(field, BodyType.Head);
-
-        } else if(true) {
-
+            p = new Bug();
+        } else if(item.getTitle().equals("Dumbbell")) {
+            p = new Dumbbell();
+        } else {
+            throw new NoSuchElementException("Error, selected pawn not implemented");
         }
 
+        field.setHighlighting(Highlighting.Empty);
+
+        board.pawnsOnBoard.add(p);
+        p.createSegment(field, BodyType.Head);
+
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+
+        mapFieldToView(field);
+
         return true;
     }
 
