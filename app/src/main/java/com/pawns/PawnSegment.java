@@ -23,6 +23,10 @@ public class PawnSegment {
         return field;
     }
 
+    public void setField(Field field) {
+        this.field = field;
+    }
+
     public BodyType getBodyType() {
         return bodyType;
     }

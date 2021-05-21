@@ -23,4 +23,20 @@ public abstract class Attack {
     public void SetAttackFlag(boolean hasBeenUsed) {
         this.canAttack = hasBeenUsed;
     }
+
+    public byte getRange() {
+        return range;
+    }
+
+    public void setRange(byte range) {
+        this.range = range;
+    }
+
+    public byte getMagnitude() {
+        return magnitude;
+    }
+
+    public void setMagnitude(byte magnitude) {
+        this.magnitude = magnitude;
+    }
 }

@@ -10,6 +10,8 @@ public class Field{
     public final short x;
     public final short y;
 
+    public Board board;
+
     private Highlighting highlighting = Highlighting.Empty;
 
     public final int background;
@@ -32,12 +34,13 @@ public class Field{
     }
 
 
-    public Field(int id, boolean enabled, short x, short y, int background) {
+    public Field(int id, boolean enabled, short x, short y, int background, Board board) {
         this.x = x;
         this.y = y;
         this.id = id;
         this.enabled = enabled;
         this.background = background;
+        this.board = board;
     }
 
     public boolean getStatus() {

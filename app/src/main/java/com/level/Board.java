@@ -30,7 +30,6 @@ public class Board {
     public Board(int[][] level) {
 
         initBoard(level);
-
         initGraph();
     }
 
@@ -79,7 +78,7 @@ public class Board {
             default:
                 throw new NoSuchElementException("Error, background " + background + " not implemented yet!");
         }
-        outField = new Field(idCount, enabled, x, y, background);
+        outField = new Field(idCount, enabled, x, y, background, this);
 
         int player = (value & 0x00F0)>>4;
 

@@ -8,6 +8,7 @@ public enum Highlighting {
     Empty,
     Attackable1,
     Attackable2,
+    Attackable,
     Movable,
     MovableUp,
     MovableDown,

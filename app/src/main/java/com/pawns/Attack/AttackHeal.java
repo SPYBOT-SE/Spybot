@@ -16,7 +16,6 @@ public class AttackHeal extends Attack{
     @Override
     public void performAttack(Pawn target) {
 
-
         if(magnitude < 0) {
             for(int i = 0; i < abs(magnitude); i++) {
                 if(target.getSegments().size() > 1){
@@ -26,7 +25,7 @@ public class AttackHeal extends Attack{
                     target.getSegments().remove(1);
                 }
                 else {
-                    //TODO Figur löschen
+                    target.die();
                     continue;
                 }
 

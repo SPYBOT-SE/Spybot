@@ -4,12 +4,14 @@ import com.level.Board;
 import com.level.Field;
 import com.model.Direction;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PawnTests {
 
     int[][] testLvl = {
-            {4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -19,15 +21,31 @@ public class PawnTests {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
 
+    Board board;
+
+    Field field1;
+    Field field2;
+    Field field3;
+
+    Pawn p;
+
+    @BeforeEach
+    void iniBoard() {
+        board = new Board(testLvl);
+
+        field1 = board.getField((short) 0, (short) 0);
+        field2 = board.getField((short) 0, (short) 1);
+        field3 = board.getField((short) 1, (short) 0);
+
+        p = new Dumbbell();
+        board.pawnsOnBoard.add(p);
+        p.createSegment(field1, BodyType.Head);
+    }
+
     @Test
     void moveOneRight() {
-        Board board = new Board(testLvl);
-        Pawn pawn = board.pawnsOnBoard.get(0);
 
-        Field field1 = board.getField((short) 0, (short) 0);
-        Field field2 = board.getField((short) 0, (short) 1);
-
-        pawn.move(field1, field2, Direction.RIGHT );
+        p.move(field1, field2, Direction.RIGHT );
 
         Assertions.assertNotNull(field1.getSegment());
         Assertions.assertNotNull(field2.getSegment());
@@ -39,13 +57,8 @@ public class PawnTests {
 
     @Test
     void moveOneDown() {
-        Board board = new Board(testLvl);
-        Pawn pawn = board.pawnsOnBoard.get(0);
 
-        Field field1 = board.getField((short) 0, (short) 0);
-        Field field3 = board.getField((short) 1, (short) 0);
-
-        pawn.move(field1, field3, Direction.DOWN );
+        p.move(field1, field3, Direction.DOWN );
 
         Assertions.assertNotNull(field1.getSegment());
         Assertions.assertNotNull(field3.getSegment());
