@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 
 class UtilityTest {
-
+    /*
     @Test
     void existingStartAndGoal() {
         AdjacencyList<Field> graph = new AdjacencyList<>();
@@ -25,6 +25,6 @@ class UtilityTest {
         graph.removeVertex(v1);
         graph.addVertex(v2);
         Assertions.assertThrows(NoSuchElementException.class, () -> Utility.getShortestPath(graph, v1, v2));
-    }
+    }*/
 
 }

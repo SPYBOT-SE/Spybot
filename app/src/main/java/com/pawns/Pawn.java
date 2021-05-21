@@ -1,6 +1,7 @@
 package com.pawns;
 
 import com.example.spybot.R;
+import com.level.Board;
 import com.level.Field;
 import com.model.Direction;
 import com.pawns.Attack.Attack;
@@ -37,19 +38,31 @@ public abstract class Pawn {
         field.setSegment(newSeg);
     }
 
+    public void die() {
+
+        Field field = this.getSegments().get(0).getField();
+        field.setSegment(null);
+        this.segments.remove(0);
+
+        field.board.pawnsOnBoard.remove(this);
+        field.board.pawnsInTeam2.remove(this);
+        field.board.pawnsInTeam1.remove(this);
+    }
+
     public void move(Field from, Field to, Direction direction) {
         if(from.getSegment() == null) {
             return;
         }
-        Pawn pawn = from.getSegment().getPawn();
+        //Pawn pawn = from.getSegment().getPawn();
 
-        if(pawn.getLeftSteps() <= 0) {
+        if(this.getLeftSteps() <= 0) {
             return;
         }
 
-        pawn.setLeftSteps((byte) (pawn.getLeftSteps()-1));
+        this.setLeftSteps((byte) (this.getLeftSteps()-1));
         to.setSegment(from.getSegment());
 
+        this.segments.get(0).setField(to);
 
         switch (direction) {
             case UP:

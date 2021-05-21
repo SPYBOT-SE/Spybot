@@ -1,6 +1,7 @@
 package com.pawns;
 
 import com.example.spybot.R;
+import com.level.Board;
 import com.pawns.Attack.AttackSize;
 import com.pawns.Attack.AttackSpeed;
 

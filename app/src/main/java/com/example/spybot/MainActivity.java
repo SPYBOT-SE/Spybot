@@ -406,9 +406,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     break;
                 case Healable:
                     break;
+                case Attackable:
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_attack_reachable);
+                    break;
                 case Attackable1:
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_attack);
+                    break;
                 case Attackable2:
                     layerView[2] = this.getDrawable(R.drawable.highlighting_attack);
+                    break;
                 case Buildable:
                     break;
                 case SpawnableP1:
@@ -526,12 +532,22 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
             if(board.currentState == LevelState.Running && (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){
                 //game has ended
-                Intent i = new Intent(this, LevelSelection.class);
-                startActivity(i);
+
+                if(board.pawnsInTeam1.size() == 0 ) {
+                    Toast.makeText(MainActivity.this, "Spieler 2 hat gewonnen", Toast.LENGTH_SHORT).show();
+                } else if (board.pawnsInTeam2.size() == 0) {
+                    Toast.makeText(MainActivity.this, "Spieler 1 hat gewonnen", Toast.LENGTH_SHORT).show();
+                }
+
+                board.setState(LevelState.Finished);
+
+                //Intent i = new Intent(this, LevelSelection.class);
+                //startActivity(i);
             }
 
 
             clearBoard();
+            refreshBoard();
 
         }
     }
@@ -575,7 +591,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 } else if (attackNum == 2) {
                     neighborField.setHighlighting(Highlighting.Attackable2);
                 }
+            } else {
+                neighborField.setHighlighting(Highlighting.Attackable);
             }
+
         }
     }
 
