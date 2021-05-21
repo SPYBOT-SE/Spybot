@@ -334,13 +334,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-    private void doMovable(Field field) {
-        field.setSegment(lastSelected.getSegment());
-        lastSelected.setSegment(null);
-        byte steps = field.getSegment().getPawn().getLeftSteps();
-        field.getSegment().getPawn().setLeftSteps((byte) (steps - 1));
-    }
-
 
     /**
      * Function maps the status of a field to the correct picture representation
@@ -542,7 +535,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void setHighlightingAttack(Field field, byte attackNum) {
         clearBoard();
         for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1, ActionID.ATTACK_1)) {
-            if (neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
+            if (neighborField.getSegment() != null && neighborField.getSegment().getPawn().getTeam() != board.currentPlayer) {
                 if (attackNum == 1) {
                     neighborField.setHighlighting(Highlighting.Attackable1);
                 } else if (attackNum == 2) {
