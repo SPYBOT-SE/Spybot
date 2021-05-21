@@ -129,4 +129,12 @@ public abstract class Pawn {
     public void setTeam(byte team) {
         this.team = team;
     }
+
+    public Attack getAttack1() {
+        return attack1;
+    }
+
+    public Attack getAttack2() {
+        return attack2;
+    }
 }

@@ -305,13 +305,25 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             board.currentState = LevelState.Running;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
             board.currentPlayer = 1;
+
+
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 1){
             board.currentPlayer = 0;
-        }
-        int test = board.currentPlayer;
 
-        Toast.makeText(MainActivity.this, Integer.toString(test), Toast.LENGTH_SHORT).show();
+        }
+        int currentPlayerIndex = board.currentPlayer;
+        ResetAttributes();
+        Toast.makeText(MainActivity.this, Integer.toString(currentPlayerIndex), Toast.LENGTH_SHORT).show();
     }
+
+    private void ResetAttributes(){
+        for (Pawn pawn: board.pawnsOnBoard) {
+            pawn.setLeftSteps(pawn.getSpeed());
+            pawn.getAttack1().SetAttackFlag(false);
+            pawn.getAttack2().SetAttackFlag(false);
+        }
+    }
+
 
     private void CreateTextViews(LinearLayout panel, String description, int color, int id) {
         TextView text = new TextView(this);
