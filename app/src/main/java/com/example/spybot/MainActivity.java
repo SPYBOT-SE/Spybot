@@ -142,10 +142,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / ratio));
         btnTag.setId(id);
 
-//        btnTag.setOnClickListener((v) -> {
-//            OnClick(v.getId());
-//        });
-
         btnTag.setVisibility(View.VISIBLE);
 
         return btnTag;
@@ -210,10 +206,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
 
-        // Button button = findViewById(id);
-        // button.setBackgroundColor(0xFF00FF00);
-
-
         refreshBoard();
 
     }
@@ -231,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));
         btn.setId((int) 1100);
 
-        btn.setBackgroundResource(R.drawable.button_icon_bug);
         btn.setVisibility(View.VISIBLE);
         btn.setClickable(false);
         panel.addView(btn);
@@ -303,17 +294,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void TurnButtonOnClick(){
         if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
-            //Spieler 2 darf jetzt spawnen
             board.currentPlayer = 1;
         } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
-            //Spiel beginnt, Spieler 1 ist dran
             board.currentPlayer = 0;
             board.currentState = LevelState.Running;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
-            //Spieler 2 ist dran
             board.currentPlayer = 1;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 1){
-            //Spieler 3 ist dran
             board.currentPlayer = 0;
         }
         int test = board.currentPlayer;
@@ -446,7 +433,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     /**
      * By clicking on a highlighted field the associated action will be performed here
      *
-     * @param field cklicked field
+     * @param field clicked field
      */
     private void doHighlightingActions(Field field) {
         if (field.getHighlighting() != Highlighting.Empty) {
@@ -582,10 +569,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void clearInfoPanel() {
-        TextView showName = (TextView) findViewById((int) 90001); //Name
-        TextView showHealth = (TextView) findViewById((int) 90002); //HP
-        TextView showSteps = (TextView) findViewById((int) 90003); //Steps
-        TextView showClass = (TextView) findViewById((int) 90004); //Class
+        TextView showName =  findViewById((int) 90001); //Name
+        TextView showHealth = findViewById((int) 90002); //HP
+        TextView showSteps = findViewById((int) 90003); //Steps
+        TextView showClass = findViewById((int) 90004); //Class
 
         showName.setVisibility(View.INVISIBLE);
         showHealth.setVisibility(View.INVISIBLE);
@@ -607,10 +594,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
-            TextView showName = (TextView) findViewById((int) 90001); //Name
-            TextView showHealth = (TextView) findViewById((int) 90002); //HP
-            TextView showSteps = (TextView) findViewById((int) 90003); //Steps
-            TextView showClass = (TextView) findViewById((int) 90004); //Class
+            TextView showName = findViewById((int) 90001); //Name
+            TextView showHealth = findViewById((int) 90002); //HP
+            TextView showSteps = findViewById((int) 90003); //Steps
+            TextView showClass = findViewById((int) 90004); //Class
 
             showName.setVisibility(View.VISIBLE);
             showHealth.setVisibility(View.VISIBLE);
@@ -628,9 +615,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn = findViewById(ActionID.attack2);
             btn.setVisibility(View.VISIBLE);
 
-
-        } else {
-
+            btn = findViewById((int) 1100);
+            btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
+            
         }
     }
 
@@ -655,11 +642,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             board.pawnsOnBoard.add(bug);
             bug.createSegment(field, BodyType.Head);
 
-
         } else if(true) {
 
         }
-
 
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
         return true;
