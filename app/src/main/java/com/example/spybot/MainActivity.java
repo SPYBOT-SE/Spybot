@@ -180,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             switch (id) {
                 case ActionID.MOVE:
                     setHighlightingMove(lastSelected);
-                    // loadInfoWithAction(ActionID.move);
                     break;
                 case ActionID.ATTACK_1:
                     setHighlightingAttack(lastSelected, (byte) 1);
@@ -199,8 +198,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     void SetUpInfoPanel(LinearLayout panel) {
-        //createButton(panel, 1234567, View.VISIBLE, 10);
-
         Button btn = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -299,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Intent i = new Intent(this, LevelSelection.class);
         startActivity(i);
     }
+
     private void TurnButtonOnClick(){
         if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
             board.currentPlayer = 1;
@@ -515,7 +513,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         clearBoard();
 
         Pawn pawn = field.getSegment().getPawn();
-        Button buttonNeighbor;
 
         if (pawn.getLeftSteps() > 0) {
             for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
@@ -523,8 +520,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     continue;
                 }
                 neighborField.setHighlighting(Highlighting.Reachable);
-                buttonNeighbor = findViewById(neighborField.getId());
-
             }
 
             if (board.getField((short)(field.x + 1), field.y) != null && board.getField((short)(field.x + 1), field.y).getSegment() == null) {
@@ -562,7 +557,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     private void clearBoard() {
-
         if(board.currentState == LevelState.Preparation) {
             return;
         }
@@ -668,7 +662,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         board.pawnsOnBoard.add(p);
         p.createSegment(field, BodyType.Head);
-        p.setTeam(board.currentPlayer);
 
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 

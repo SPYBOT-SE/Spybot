@@ -22,11 +22,5 @@ public class Dumbbell extends Pawn {
         this.attack2 = new AttackSpeed((byte) 1, (byte) 1);
 
     }
-    /*
-    @Override
-    void attack() {
-
-    }
-    */
 
 }

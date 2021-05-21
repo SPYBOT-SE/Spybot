@@ -22,7 +22,7 @@ public class Field{
     public final int background;
 
     //active or inactive
-    private boolean enabled = true;
+    private boolean enabled;
 
     //id of button
     private int id;

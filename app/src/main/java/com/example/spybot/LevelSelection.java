@@ -50,8 +50,6 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             String text =  Integer.toString(i);
             btnTag.setText(name + "\n" + text);
             btnTag.setId(i);
-//            btnTag.setWidth(40);
-//            btnTag.setHeight(40);
             btnTag.setOnClickListener(this);
             layout.addView(btnTag);
 
@@ -59,10 +57,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onClick(View v) {
-
-
             MainActivity.selectedLevel = levelSingle.getLevel(v.getId());
-
 
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
