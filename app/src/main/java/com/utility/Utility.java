@@ -2,23 +2,68 @@ package com.utility;
 
 import com.level.Board;
 import com.level.Field;
+import com.model.ActionID;
 import com.model.AdjacencyList;
 import com.model.Vertex;
+import com.pawns.PawnSegment;
 
 import java.util.*;
 
 public class Utility {
 
-    public static ArrayList<Field> getFieldsInRange(Board board, int id, int range) {
+    public static ArrayList<Field> getFieldsInRange(Board board, int id, int range, int action) {
         Field origin = board.getFieldById(id);
         ArrayDeque<Field> deque = new ArrayDeque<>();
         deque.add(origin);
+        HashSet<Field> fieldsInRange;
 
+        switch (action) {
+            case ActionID.MOVE:
+                fieldsInRange = getMovableFields(board, range, deque);
+                break;
+            case ActionID.ATTACK_1:
+            case ActionID.ATTACK_2:
+            default:
+                fieldsInRange = getAllFields(board, range, deque, id);
+                break;
+        }
+
+        return new ArrayList<>(fieldsInRange);
+    }
+
+    private static HashSet<Field> getMovableFields(Board board, int range, ArrayDeque<Field> deque) {
+        int added;
+        int neighboursCount = 1;
         ArrayList<Field> list;
         HashSet<Field> fieldsInRange = new HashSet<>();
 
-        int neighboursCount = 1;
+        while (range-- > 0) {
+            added = 0;
+            while (neighboursCount-- > 0) {
+                list = board.getGraph().getNeighbourFields(deque.getFirst());
+
+                for (Field currField : list) {
+                    if (currField.getSegment() == null) {
+                        deque.add(currField);
+                        fieldsInRange.add(currField);
+                        added++;
+                    }
+                }
+
+                deque.pop();
+            }
+            neighboursCount = added;
+        }
+
+        return fieldsInRange;
+    }
+
+    private static HashSet<Field> getAllFields(Board board, int range, ArrayDeque<Field> deque, int id) {
         int added;
+        int neighboursCount = 1;
+        ArrayList<Field> list;
+        HashSet<Field> fieldsInRange = new HashSet<>();
+
         while (range-- > 0) {
             added = 0;
             while (neighboursCount-- > 0) {
@@ -31,9 +76,20 @@ public class Utility {
             neighboursCount = added;
         }
 
+        removeOccupiedFieldsFromPawn(board, fieldsInRange, id);
 
-        return new ArrayList<>(fieldsInRange);
+        return fieldsInRange;
     }
+
+
+    private static void removeOccupiedFieldsFromPawn(Board board, HashSet<Field> fieldsInRange, int id) {
+        List<PawnSegment> segments = board.getFieldById(id).getSegment().getPawn().getSegments();
+
+        for (PawnSegment segment: segments) {
+            fieldsInRange.remove(segment.getField());
+        }
+    }
+
 
     public static ArrayDeque<Field> getShortestPath(AdjacencyList<Field> graph, Field start, Field goal) throws NoSuchElementException {
         if (!existingStartGoal(graph, start, goal)) {

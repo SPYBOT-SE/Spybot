@@ -18,7 +18,6 @@ import com.level.Highlighting;
 import com.level.levelSingle;
 import com.model.ActionID;
 import com.model.Direction;
-import com.model.LevelState;
 import com.pawns.BodyType;
 import com.pawns.Bug;
 import com.pawns.Pawn;
@@ -159,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             switch (board.getState()) {
                 case Preparation:
-                    loadInfoWithSpawnable();
                     // TODO Spawn something
                     break;
                 case Running:
@@ -179,23 +177,23 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
 
             switch (id) {
-                case ActionID.move:
+                case ActionID.MOVE:
 
                     setHighlightingMove(lastSelected);
 
                     // loadInfoWithAction(ActionID.move);
                     break;
-                case ActionID.attack1:
+                case ActionID.ATTACK_1:
                     setHighlightingAttack(lastSelected, (byte) 1);
                     break;
-                case ActionID.attack2:
+                case ActionID.ATTACK_2:
                     setHighlightingAttack(lastSelected, (byte) 2);
                     break;
-                case ActionID.back:
+                case ActionID.BACK:
 
                     loadInfoWithPawn();
                     break;
-                case ActionID.nextTurn:
+                case ActionID.NEXT_TURN:
                     board.nextTurn();
                     loadDefaultView();
                     break;
@@ -250,35 +248,35 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
 
-        btn = createButton(btnLayout, ActionID.move, 20);
+        btn = createButton(btnLayout, ActionID.MOVE, 20);
         btn.setText("Move");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.attack1, 20);
+        btn = createButton(btnLayout, ActionID.ATTACK_1, 20);
         btn.setText("Attack 1");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.attack2, 20);
+        btn = createButton(btnLayout, ActionID.ATTACK_2, 20);
         btn.setText("Attack 2");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.back, 20);
+        btn = createButton(btnLayout, ActionID.BACK, 20);
         btn.setText("Back");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.nextTurn, 20);
+        btn = createButton(btnLayout, ActionID.NEXT_TURN, 20);
         btn.setText("Next Turn");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
@@ -489,7 +487,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Button buttonNeighbor;
 
         if (pawn.getLeftSteps() > 0) {
-            for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps())) {
+            for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
                 if(neighborField.getSegment() != null) {
                     continue;
                 }
@@ -518,7 +516,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void setHighlightingAttack(Field field, byte attackNum) {
         clearBoard();
         //Button buttonNeighbor;
-        for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1)) {
+        for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1, ActionID.ATTACK_1)) {
             if(neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
                 if(attackNum == 1) {
                     neighborField.setHighlighting(Highlighting.Attackable1);
@@ -532,8 +530,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-
-    private void clearBoard() {
+    void clearBoard() {
         for (short y = 0; y < height; y++) {
             for (short x = 0; x < width; x++) {
                 Field currentF = board.getField(x,y);
@@ -561,16 +558,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         showSteps.setVisibility(View.INVISIBLE);
         showClass.setVisibility(View.INVISIBLE);
 
-        Button btn = findViewById(ActionID.move);
+        Button btn = findViewById(ActionID.MOVE);
         btn.setVisibility(View.INVISIBLE);
-        btn = findViewById(ActionID.attack1);
+        btn = findViewById(ActionID.ATTACK_1);
         btn.setVisibility(View.INVISIBLE);
-        btn = findViewById(ActionID.attack2);
+        btn = findViewById(ActionID.ATTACK_2);
         btn.setVisibility(View.INVISIBLE);
-    }
-
-    private void loadInfoWithSpawnable() {
-
     }
 
 
@@ -590,11 +583,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             showHealth.setText("HP: " + lastSelected.getSegment().getPawn().getCurrentSize() + " / " + lastSelected.getSegment().getPawn().getMaxSize());
             showSteps.setText("Steps: " + lastSelected.getSegment().getPawn().getLeftSteps());
 
-            Button btn = findViewById(ActionID.move);
+            Button btn = findViewById(ActionID.MOVE);
             btn.setVisibility(View.VISIBLE);
-            btn = findViewById(ActionID.attack1);
+            btn = findViewById(ActionID.ATTACK_1);
             btn.setVisibility(View.VISIBLE);
-            btn = findViewById(ActionID.attack2);
+            btn = findViewById(ActionID.ATTACK_2);
             btn.setVisibility(View.VISIBLE);
 
 
@@ -633,14 +626,5 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
         return true;
     }
-
-    /*
-    private void loadInfoWithAction(int action) {
-        switch (action) {
-            case ActionID.move:
-                break;
-            default:
-        }
-    }*/
 
 }
