@@ -182,10 +182,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     setHighlightingMove(lastSelected);
                     break;
                 case ActionID.ATTACK_1:
-                    setHighlightingAttack(lastSelected, (byte) 1);
+                    setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange());
                     break;
                 case ActionID.ATTACK_2:
-                    setHighlightingAttack(lastSelected, (byte) 2);
+                    setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack1().getRange());
                     break;
                 default:
             }
@@ -566,9 +566,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    private void setHighlightingAttack(Field field, byte attackNum) {
+    private void setHighlightingAttack(Field field, byte attackNum, byte range) {
         clearBoard();
-        for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1, ActionID.ATTACK_1)) {
+        for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), range, ActionID.ATTACK_1)) {
             if (neighborField.getSegment() != null && neighborField.getSegment().getPawn().getTeam() != board.currentPlayer) {
                 if (attackNum == 1) {
                     neighborField.setHighlighting(Highlighting.Attackable1);
