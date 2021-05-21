@@ -662,7 +662,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         board.pawnsOnBoard.add(p);
         p.createSegment(field, BodyType.Head);
-
+        p.setTeam(board.currentPlayer);
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
         mapFieldToView(field);
