@@ -196,20 +196,6 @@ public class Board {
         this.currentState = state;
     }
 
-    public void nextTurn() {
-        /*switch (state) {
-            case Preparation:
-            case PlayerTwosTurn:
-                state = LevelState.PlayerOnesTurn;
-                break;
-            case PlayerOnesTurn:
-                state = LevelState.PlayerTwosTurn;
-                break;
-            default:
-        }
-        System.out.println("new State: " + state);*/
-    }
-
     public SelectedInfo getSelectedInfo() {
         return selectedInfo;
     }

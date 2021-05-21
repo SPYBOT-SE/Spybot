@@ -175,9 +175,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             switch (id) {
                 case ActionID.MOVE:
-
                     setHighlightingMove(lastSelected);
-
                     // loadInfoWithAction(ActionID.move);
                     break;
                 case ActionID.ATTACK_1:
@@ -186,24 +184,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 case ActionID.ATTACK_2:
                     setHighlightingAttack(lastSelected, (byte) 2);
                     break;
-                case ActionID.BACK:
-
-                    loadInfoWithPawn();
-                    break;
-                case ActionID.NEXT_TURN:
-                    board.nextTurn();
-                    loadDefaultView();
-                    break;
                 default:
             }
-
-
         }
 
         System.out.println("" + board.getState() + " "+ board.getSelectedInfo().getFieldId());
-
-
-
         refreshBoard();
 
     }
@@ -273,14 +258,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             LoadMainMenu();
-            //OnClick(v.getId());
         });
 
-
-
         panel.addView(btnLayout);
-
-
     }
 
     private void LoadMainMenu(){
@@ -386,9 +366,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 case Buildable:
                     break;
                 case SpawnableP1:
-                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p1);
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p0);
                     break;
                 case SpawnableP2:
+                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p1);
+                    break;
                 default:
             }
             PawnSegment segment = field.getSegment();
@@ -485,13 +467,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     //TODO
                     break;
                 case SpawnableP1:
+                    if(board.currentPlayer != 0) break;
                     ShowSpawnableList(findViewById(field.getId()));
                 case SpawnableP2:
+                    if(board.currentPlayer != 1) break;
+                    ShowSpawnableList(findViewById(field.getId()));
                 default:
 
             }
-
             clearBoard();
+
         }
     }
 
@@ -547,6 +532,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     private void clearBoard() {
+
+        if(board.currentState == LevelState.Preparation) {
+            return;
+        }
+
         for (short y = 0; y < height; y++) {
             for (short x = 0; x < width; x++) {
                 Field currentF = board.getField(x,y);
