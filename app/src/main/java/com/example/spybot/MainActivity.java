@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
 
-        System.out.println("" + board.getState() + " "+ board.getSelectedInfo().getFieldId());
+        System.out.println("" + board.getState() + " " + board.getSelectedInfo().getFieldId());
         refreshBoard();
 
     }
@@ -541,17 +541,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void setHighlightingAttack(Field field, byte attackNum) {
         clearBoard();
-        //Button buttonNeighbor;
         for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), 1, ActionID.ATTACK_1)) {
-                if (neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
-                    if (attackNum == 1) {
-                        neighborField.setHighlighting(Highlighting.Attackable1);
-                    } else if (attackNum == 2) {
-                        neighborField.setHighlighting(Highlighting.Attackable2);
-                    }
+            if (neighborField.getSegment() == null || field.getSegment().getPawn() != neighborField.getSegment().getPawn()) {
+                if (attackNum == 1) {
+                    neighborField.setHighlighting(Highlighting.Attackable1);
+                } else if (attackNum == 2) {
+                    neighborField.setHighlighting(Highlighting.Attackable2);
                 }
-
-                //buttonNeighbor = findViewById(neighborField.getId());
+            }
         }
     }
 
