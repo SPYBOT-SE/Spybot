@@ -19,8 +19,8 @@ public class Dumbbell extends Pawn {
         this.pictureTailLeft = R.drawable.hantel_body_left;
         this.pictureTailRight = R.drawable.hantel_body_right;
 
-        this.attack1 = new AttackSize((byte) 1, (byte) 1);
-        this.attack2 = new AttackSpeed((byte) 1, (byte) 1);
+        this.attack1 = new AttackSize("",0,(byte) 1, (byte) 1);
+        this.attack2 = new AttackSpeed("",0, (byte) 1, (byte) 1);
 
     }
 

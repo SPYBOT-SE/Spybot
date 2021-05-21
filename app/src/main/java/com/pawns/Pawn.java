@@ -89,11 +89,11 @@ public abstract class Pawn {
         return;
     }
 
-    public void attack1(Pawn target) {
+    public void attack1(Field target) {
         this.attack1.performAttack(target);
     }
 
-    public void attack2(Pawn target) {
+    public void attack2(Field target) {
         this.attack2.performAttack(target);
     }
 
