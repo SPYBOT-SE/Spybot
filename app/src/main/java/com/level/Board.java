@@ -20,6 +20,8 @@ public class Board {
     int idCount = 0;
 
     public ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
+    public ArrayList<Pawn> pawnsInTeam1 = new ArrayList<>();
+    public ArrayList<Pawn> pawnsInTeam2 = new ArrayList<>();
 
     public byte currentPlayer = 0;
     public LevelState currentState = LevelState.Preparation;

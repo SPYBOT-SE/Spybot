@@ -302,6 +302,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             board.currentPlayer = 1;
         } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
             board.currentPlayer = 0;
+            SortPawnsInTeams();
             board.currentState = LevelState.Running;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
             board.currentPlayer = 1;
@@ -313,14 +314,26 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
         int currentPlayerIndex = board.currentPlayer;
         ResetAttributes();
+        clearBoard();
+        refreshBoard();
         Toast.makeText(MainActivity.this, Integer.toString(currentPlayerIndex), Toast.LENGTH_SHORT).show();
+    }
+
+    private void SortPawnsInTeams() {
+        for (Pawn pawn: board.pawnsOnBoard) {
+            if (pawn.getTeam() == 0){
+                board.pawnsInTeam1.add(pawn);
+            } else if (pawn.getTeam() == 1){
+                board.pawnsInTeam2.add(pawn);
+            }
+        }
     }
 
     private void ResetAttributes(){
         for (Pawn pawn: board.pawnsOnBoard) {
             pawn.setLeftSteps(pawn.getSpeed());
-            pawn.getAttack1().SetAttackFlag(false);
-            pawn.getAttack2().SetAttackFlag(false);
+            pawn.getAttack1().SetAttackFlag(true);
+            pawn.getAttack2().SetAttackFlag(true);
         }
     }
 
@@ -485,16 +498,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     break;
                 case Attackable1:
                     actor = lastSelected.getSegment().getPawn();
-                    if(field.getSegment() != null) {
+                    if(field.getSegment() != null && actor.getAttack1().canAttack()) {
                         target = field.getSegment().getPawn();
                         actor.attack1(target);
+                        actor.getAttack1().SetAttackFlag(false);
+
                     }
                     break;
                 case Attackable2:
                     actor = lastSelected.getSegment().getPawn();
-                    if(field.getSegment() != null) {
+                    if(field.getSegment() != null && actor.getAttack2().canAttack()) {
                         target = field.getSegment().getPawn();
                         actor.attack2(target);
+                        actor.getAttack2().SetAttackFlag(false);
                     }
                     break;
                 case Buildable:
@@ -509,6 +525,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 default:
 
             }
+            if(board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0){
+                //game has ended
+                Intent i = new Intent(this, LevelSelection.class);
+                startActivity(i);
+            }
+
+
             clearBoard();
 
         }
@@ -566,9 +589,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         for (short y = 0; y < height; y++) {
             for (short x = 0; x < width; x++) {
                 Field currentF = board.getField(x,y);
-                if(currentF.getHighlighting() != Highlighting.SpawnableP1) {
-                    currentF.setHighlighting(Highlighting.Empty);
-                }
+                currentF.setHighlighting(Highlighting.Empty);
             }
         }
     }

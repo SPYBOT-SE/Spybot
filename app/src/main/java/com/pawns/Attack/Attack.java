@@ -6,7 +6,7 @@ public abstract class Attack {
 
     protected byte range;
     protected byte magnitude;
-    protected boolean hasBeenUsed;
+    protected boolean canAttack;
 
     public Attack(byte range, byte magnitude) {
         this.range = range;
@@ -16,11 +16,11 @@ public abstract class Attack {
     public abstract void performAttack(Pawn target);
 
 
-    public boolean GetAttackFlag() {
-        return hasBeenUsed;
+    public boolean canAttack() {
+        return canAttack;
     }
 
     public void SetAttackFlag(boolean hasBeenUsed) {
-        this.hasBeenUsed = hasBeenUsed;
+        this.canAttack = hasBeenUsed;
     }
 }
