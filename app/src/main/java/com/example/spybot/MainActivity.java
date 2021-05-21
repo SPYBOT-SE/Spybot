@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
 
-        System.out.println("" + board.getState() + " " + board.getSelectedInfo().getFieldId());
         refreshBoard();
 
     }
