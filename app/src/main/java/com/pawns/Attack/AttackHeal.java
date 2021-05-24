@@ -9,23 +9,23 @@ import static java.lang.Math.abs;
 public class AttackHeal extends Attack{
 
 
-    public AttackHeal(byte range, byte magnitude) {
-        super(range, magnitude);
+    public AttackHeal(String attackName,int icon,  byte range, byte magnitude) {
+        super(attackName,icon, range, magnitude);
     }
 
     @Override
-    public void performAttack(Pawn target) {
+    public void performAttack(Field target) {
 
         if(magnitude < 0) {
             for(int i = 0; i < abs(magnitude); i++) {
-                if(target.getSegments().size() > 1){
-                    PawnSegment segment = target.getSegments().get(1);
+                if(target.getSegment().getPawn().getSegments().size() > 1){
+                    PawnSegment segment = target.getSegment().getPawn().getSegments().get(1);
                     Field segField = segment.getField();
                     segField.setSegment(null);
-                    target.getSegments().remove(1);
+                    target.getSegment().getPawn().getSegments().remove(1);
                 }
                 else {
-                    target.die();
+                    target.getSegment().getPawn().die();
                     continue;
                 }
 

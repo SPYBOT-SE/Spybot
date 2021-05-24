@@ -195,6 +195,31 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
+    void RefreshInteractableView(Field field){
+        if (field != null){
+            Button button = findViewById(field.getId());
+            int visible = field.getStatus() ? 0 : 4;
+            button.setVisibility((int) visible);
+
+        } else{
+            for (short y = 0; y < height; y++) {
+                for (short x = 0; x < width; x++) {
+                    int id = y * width + x;
+                    if (board.getField(x,y).getStatus()) {
+                        Button button = findViewById(id);
+                        button.setVisibility(View.VISIBLE);
+                    } else {
+                        Button button = findViewById(field.getId());
+                        button.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+            }
+        }
+
+    }
+
+
 
     void SetUpInfoPanel(LinearLayout panel) {
         Button btn = new Button(this);
@@ -410,10 +435,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     layerView[2] = this.getDrawable(R.drawable.highlighting_attack_reachable);
                     break;
                 case Attackable1:
-                    layerView[2] = this.getDrawable(R.drawable.highlighting_attack);
+                    layerView[2] = this.getDrawable(lastSelected.getSegment().getPawn().getAttack1().getResource());
                     break;
                 case Attackable2:
-                    layerView[2] = this.getDrawable(R.drawable.highlighting_attack);
+                    layerView[2] = this.getDrawable(lastSelected.getSegment().getPawn().getAttack2().getResource());
                     break;
                 case Buildable:
                     break;
@@ -505,7 +530,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     actor = lastSelected.getSegment().getPawn();
                     if(field.getSegment() != null && actor.getAttack1().canAttack()) {
                         target = field.getSegment().getPawn();
-                        actor.attack1(target);
+                        actor.attack1(lastSelected);
                         actor.getAttack1().SetAttackFlag(false);
 
                     }
@@ -514,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     actor = lastSelected.getSegment().getPawn();
                     if(field.getSegment() != null && actor.getAttack2().canAttack()) {
                         target = field.getSegment().getPawn();
-                        actor.attack2(target);
+                        actor.attack2(lastSelected);
                         actor.getAttack2().SetAttackFlag(false);
                     }
                     break;
@@ -530,6 +555,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 default:
 
             }
+            RefreshInteractableView(field);
             if(board.currentState == LevelState.Running && (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){
                 //game has ended
 
@@ -661,6 +687,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn = findViewById(ActionID.ATTACK_2);
             btn.setVisibility(View.VISIBLE);
 
+            btn = findViewById(ActionID.ATTACK_1);
+            btn.setText(lastSelected.getSegment().getPawn().getAttack1().getNameOfAttack());
+            btn = findViewById(ActionID.ATTACK_2);
+            btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());
+
             btn = findViewById((int) 1100);
             btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
             
@@ -677,6 +708,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         selectionList.getMenu().add(v.getId(), 0 ,0 , "Bug");
         selectionList.getMenu().add(v.getId(),1,1,"Dumbbell");
+        selectionList.getMenu().add(v.getId(),2,2,"T3INF2002");
 
         selectionList.show();
     }
@@ -695,6 +727,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             p = new Bug();
         } else if(item.getTitle().equals("Dumbbell")) {
             p = new Dumbbell();
+        } else if(item.getTitle().equals("T3INF2002")){
+            p = new Compilerbau();
         } else {
             throw new NoSuchElementException("Error, selected pawn not implemented");
         }

@@ -15,8 +15,9 @@ public class Bug extends Pawn {
         this.maxSize = 3;
         this.pictureHead = R.drawable.button_icon_bug;
         this.pictureTail = R.drawable.button_icon_bug;
-        this.attack1 = new AttackHeal((byte) 3, (byte) -3);
-        this.attack2 = new AttackSpeed((byte) 1, (byte) -1);
+        this.attack1 = new AttackHeal("Byte", 0,(byte) 3, (byte) -3);
+        this.attack2 = new AttackSpeed("Bite",0,(byte) 1, (byte) -1);
+
     }
 
 }
