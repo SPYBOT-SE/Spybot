@@ -2,7 +2,7 @@ package com.utility;
 
 import com.level.Board;
 import com.level.Field;
-import com.model.ActionID;
+import com.model.shortcuts.ActionID;
 import com.model.AdjacencyList;
 import com.model.Vertex;
 import com.pawns.PawnSegment;

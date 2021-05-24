@@ -1,0 +1,20 @@
+{
+  "initialized": false,
+  "Players":
+  {
+    "p1":
+    {
+      "id":1,
+      "inv":[
+        "Bug"
+      ]
+    },
+    "p2":
+    {
+      "id":2,
+      "inv":[
+        "Bug"
+      ]
+    }
+  }
+}

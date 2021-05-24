@@ -19,7 +19,7 @@ import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
 import com.level.levelSingle;
-import com.model.ActionID;
+import com.model.shortcuts.ActionID;
 import com.model.Direction;
 import com.model.LevelState;
 import com.pawns.*;

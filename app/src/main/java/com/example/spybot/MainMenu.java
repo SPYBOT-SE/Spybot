@@ -1,13 +1,17 @@
 package com.example.spybot;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.spybot.app.AppSetting;
+
+import java.io.*;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
@@ -26,6 +30,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         Button settings = (Button) findViewById(R.id.btnSettings);
         settings.setOnClickListener(this);
 
+
     }
 
     @Override
@@ -38,11 +43,17 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             case R.id.btnQuit:
                 System.exit(0);
                 break;
+            case R.id.btnSettings:
+                //AppSetting.loadSavegame(this);
+                AppSetting.resetSavegame(this);
+                break;
             default:
                 System.exit(1);
                 break;
         }
     }
+
+
 
 
 }
