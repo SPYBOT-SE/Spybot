@@ -5,14 +5,14 @@
     "p1":
     {
       "id":1,
-      "inv":[
+      "inventory":[
         "Bug"
       ]
     },
     "p2":
     {
       "id":2,
-      "inv":[
+      "inventory":[
         "Bug"
       ]
     }

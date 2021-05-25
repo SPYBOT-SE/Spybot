@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.spybot.R;
 import com.model.Savegame;
 import com.model.shortcuts.Json;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -46,11 +47,11 @@ public class AppSetting {
             Log.d("Spybot", "Data: " + data + "\n");
         }
         catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+            Log.e("Spybot/Exception", "File write failed: " + e.toString());
         }
     }
 
-    public static String readFromFile(String filename, Context context) {
+    public static String readFromFile(String filename, Context context) throws IOException {
 
         String ret = "";
 
@@ -75,9 +76,11 @@ public class AppSetting {
             }
         }
         catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Spybot/Exception", "File not found: " + e);
+            throw e;
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Spybot/Exception", "Can not read file: " + e);
+            throw e;
         }
 
         return ret;
@@ -85,58 +88,99 @@ public class AppSetting {
 
 
     public static void loadSavegame(Context ctx) {
-        String savegame = readFromFile("savegame.json", ctx);
         Savegame sg;
-        JSONObject jsonObject;
-        try {
-            jsonObject = new JSONObject(savegame);
-            if (!jsonObject.getBoolean(Json.INITIALIZED)) {
-                jsonObject = new JSONObject(getFileContent(ctx.getResources().openRawResource(R.raw.savegame)));
-            }
 
-            sg = new Savegame(jsonObject);
-
-        } catch (Exception e) {
-            sg = new Savegame();
+        if (!isFileExisting(Json.SAVEGAMEFILE, ctx)) {
+            resetSavegame(ctx);
         }
+
+        sg = getSavegame(ctx, false);
+        if (sg == null) {
+            //Savegame is corrupted
+            sg = getSavegame(ctx, true);
+        }
+
 
         //TODO set savegame somewhere, accessible for all activities
         sg.toString();
 
     }
 
-    public static void resetSavegame(Context ctx) {
-        String originalSavegame = "{\n" +
-                "  \"initialized\": false,\n" +
-                "  \"Players\":\n" +
-                "  {\n" +
-                "    \"p1\":\n" +
-                "    {\n" +
-                "      \"id\":1,\n" +
-                "      \"inv\":[\n" +
-                "        \"Bug\"\n" +
-                "      ]\n" +
-                "    },\n" +
-                "    \"p2\":\n" +
-                "    {\n" +
-                "      \"id\":2,\n" +
-                "      \"inv\":[\n" +
-                "        \"Bug\"\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  }\n" +
-                "}";
-        try {
-            originalSavegame = getFileContent(ctx.getResources().openRawResource(R.raw.savegame));
-        } catch (Exception e) {
+    /**
+     * Get an instance of a savegame related to the savegame file.
+     * If there is a problem with the savegame and the defaultSavegame param is false, null will be returned,
+     * otherwise a default instance will be returned.
+     *
+     * @param ctx
+     * @param defaultSavegame, if returned value should be a default savegame, otherwise will be null
+     * @return
+     */
+    private static Savegame getSavegame(Context ctx, boolean defaultSavegame) {
+        Savegame savegame;
 
+        if (defaultSavegame) {
+            savegame = withoutError(ctx);
+        } else {
+            try {
+                savegame = withError(ctx);
+            } catch (IOException e) {
+                Log.e("Spybot/Exception", "Corrupted Savegame");
+                savegame = null;
+            } catch (JSONException e) {
+                Log.e("Spybot/Exception", "JSON parse Exception");
+                savegame = null;
+            }
         }
 
-        writeToFile("savegame.json", originalSavegame, ctx);
+        return savegame;
     }
 
-    public static String getFileContent(InputStream inputStream) throws IOException
-    {
+    private static Savegame withError(Context ctx) throws IOException, JSONException {
+        String json = readFromFile(Json.SAVEGAMEFILE, ctx);
+
+        return new Savegame(new JSONObject(json));
+    }
+
+    private static Savegame withoutError(Context ctx) {
+        Savegame savegame;
+        try {
+            savegame = withError(ctx);
+        } catch (IOException |JSONException e) {
+            savegame = new Savegame();
+        }
+
+        return  savegame;
+    }
+
+
+
+    public static void resetSavegame(Context ctx) {
+        String defaultSavegame = Json.DEFAULTSAVEGAME;
+
+        try {
+            defaultSavegame = getFileContent(ctx.getResources().openRawResource(R.raw.savegame));
+        } catch (Exception e) {
+            Log.e("Spybot/Exception", "Could not read default savegame resource, hardcoded String used");
+        }
+
+        writeToFile("savegame.json", defaultSavegame, ctx);
+        Log.i("Spybot/Savegame", "Savegame resetted");
+    }
+
+    public static boolean isFileExisting(String filename, Context ctx) {
+        boolean ret = true;
+        try {
+            InputStream inputStream = ctx.openFileInput(filename);
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            ret = false;
+        } catch (IOException e) {
+            Log.e("Spybot/Exception", "General IOException");
+        }
+        return ret;
+    }
+
+    public static String getFileContent(InputStream inputStream) throws IOException {
         return new BufferedReader(new InputStreamReader(inputStream))
                 .lines().collect(Collectors.joining("\n"));
     }

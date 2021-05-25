@@ -44,8 +44,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 System.exit(0);
                 break;
             case R.id.btnSettings:
-                //AppSetting.loadSavegame(this);
-                AppSetting.resetSavegame(this);
+                AppSetting.writeToFile("savegame.json", "defaultSavegame", this);;
+                AppSetting.loadSavegame(this);
                 break;
             default:
                 System.exit(1);
