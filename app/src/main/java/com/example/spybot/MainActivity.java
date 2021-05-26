@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (field != null){
             Button button = findViewById(field.getId());
             int visible = field.getStatus() ? 0 : 4;
-            button.setVisibility((int)visible);
+            button.setVisibility(visible);
 
         } else{
             for (short y = 0; y < height; y++) {
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         int width = dm.widthPixels;
 
         btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));
-        btn.setId((int)1100);
+        btn.setId(1100);
 
         btn.setVisibility(View.VISIBLE);
         btn.setClickable(false);
@@ -690,7 +690,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn = findViewById(ActionID.ATTACK_2);
             btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());
 
-            btn = findViewById((int)1100);
+            btn = findViewById(1100);
             btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
             
         }
