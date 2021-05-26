@@ -3,18 +3,16 @@ package com.example.spybot;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.View;
-
 import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
@@ -199,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (field != null){
             Button button = findViewById(field.getId());
             int visible = field.getStatus() ? 0 : 4;
-            button.setVisibility((int) visible);
+            button.setVisibility((int)visible);
 
         } else{
             for (short y = 0; y < height; y++) {
@@ -229,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         int width = dm.widthPixels;
 
         btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));
-        btn.setId((int) 1100);
+        btn.setId((int)1100);
 
         btn.setVisibility(View.VISIBLE);
         btn.setClickable(false);
@@ -598,11 +596,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             if (board.getField((short)(field.x - 1), field.y) != null && board.getField((short)(field.x - 1), field.y).getSegment() == null) {
                 board.getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);
             }
-            if (board.getField((short)(field.x), (short)(field.y+1)) != null && board.getField((short)(field.x), (short)(field.y+1)).getSegment() == null) {
-                board.getField((short)(field.x), (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
+            if (board.getField(field.x, (short)(field.y+1)) != null && board.getField(field.x, (short)(field.y+1)).getSegment() == null) {
+                board.getField(field.x, (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
             }
-            if (board.getField((short)(field.x), (short)(field.y-1)) != null && board.getField((short)(field.x), (short)(field.y-1)).getSegment() == null) {
-                board.getField((short)(field.x), (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
+            if (board.getField(field.x, (short)(field.y-1)) != null && board.getField(field.x, (short)(field.y-1)).getSegment() == null) {
+                board.getField(field.x, (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
             }
         }
     }
@@ -645,10 +643,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void clearInfoPanel() {
-        TextView showName =  findViewById((int) ActionID.NAME);
-        TextView showHealth = findViewById((int) ActionID.HP);
-        TextView showSteps = findViewById((int) ActionID.STEPS);
-        TextView showClass = findViewById((int) ActionID.CLASS);
+        TextView showName =  findViewById(ActionID.NAME);
+        TextView showHealth = findViewById(ActionID.HP);
+        TextView showSteps = findViewById(ActionID.STEPS);
+        TextView showClass = findViewById(ActionID.CLASS);
 
         showName.setVisibility(View.INVISIBLE);
         showHealth.setVisibility(View.INVISIBLE);
@@ -666,10 +664,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
-            TextView showName = findViewById((int) ActionID.NAME);
-            TextView showHealth = findViewById((int) ActionID.HP);
-            TextView showSteps = findViewById((int) ActionID.STEPS);
-            TextView showClass = findViewById((int) ActionID.CLASS);
+            TextView showName = findViewById(ActionID.NAME);
+            TextView showHealth = findViewById(ActionID.HP);
+            TextView showSteps = findViewById(ActionID.STEPS);
+            TextView showClass = findViewById(ActionID.CLASS);
 
             showName.setVisibility(View.VISIBLE);
             showHealth.setVisibility(View.VISIBLE);
@@ -692,7 +690,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn = findViewById(ActionID.ATTACK_2);
             btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());
 
-            btn = findViewById((int) 1100);
+            btn = findViewById((int)1100);
             btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
             
         }
@@ -744,5 +742,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         return true;
     }
+
 
 }

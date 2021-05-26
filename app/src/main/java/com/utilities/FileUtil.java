@@ -17,7 +17,7 @@ public class FileUtil {
             Log.d("Spybot", "Data: " + data + "\n");
         }
         catch (IOException e) {
-            Log.e("Spybot/Exception", "File write failed: " + e.toString());
+            Log.e("Spybot/Exception", "File write failed: " + e);
         }
     }
 

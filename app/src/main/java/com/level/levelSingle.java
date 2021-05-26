@@ -23,7 +23,7 @@ public class levelSingle {
     /**
      * Hashmap that maps button IDs to levels
      */
-    private static HashMap<Integer, int[][]> levels = new HashMap<>();
+    private static final HashMap<Integer, int[][]> levels = new HashMap<>();
     private static void initializeLevels() {
         levels.put(0, Ones);
         levels.put(1, TestLevel1);
