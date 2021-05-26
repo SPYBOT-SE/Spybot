@@ -30,7 +30,7 @@ public abstract class Pawn {
     public int pictureTailLeft = R.drawable.hantel_body_left;
 
 
-    private LinkedList<PawnSegment> segments = new LinkedList<>();
+    private final LinkedList<PawnSegment> segments = new LinkedList<>();
 
     public void createSegment(Field field, BodyType type) {
         PawnSegment newSeg = new PawnSegment(this, type, field);

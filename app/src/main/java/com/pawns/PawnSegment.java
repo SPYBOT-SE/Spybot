@@ -7,7 +7,7 @@ import com.level.Field;
  */
 public class PawnSegment {
 
-    private Pawn pawn;
+    private final Pawn pawn;
 
     private BodyType bodyType;
 

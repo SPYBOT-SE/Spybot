@@ -20,7 +20,7 @@ public class Field{
     private boolean enabled;
 
     //id of button
-    private int id;
+    private final int id;
 
     // Segment of a pawn
     private PawnSegment segment = null;

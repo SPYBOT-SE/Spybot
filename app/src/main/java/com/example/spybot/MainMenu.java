@@ -26,11 +26,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         AppSetting.hideSystemUI(this);
 
         //create Buttons
-        Button start = (Button) findViewById(R.id.btnStart);
+        Button start = findViewById(R.id.btnStart);
         start.setOnClickListener(this);
-        Button quit = (Button) findViewById(R.id.btnQuit);
+        Button quit = findViewById(R.id.btnQuit);
         quit.setOnClickListener(this);
-        Button settings = (Button) findViewById(R.id.btnSettings);
+        Button settings = findViewById(R.id.btnSettings);
         settings.setOnClickListener(this);
 
 
@@ -47,7 +47,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 System.exit(0);
                 break;
             case R.id.btnSettings:
-                FileUtil.writeToFile(Json.SAVEGAMEFILE, "defaultSavegame", this);;
+                FileUtil.writeToFile(Json.SAVEGAMEFILE, "defaultSavegame", this);
                 SavegameUtil.loadSavegame(this);
                 break;
             default:
