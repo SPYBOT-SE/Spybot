@@ -24,7 +24,7 @@ import com.model.Direction;
 import com.model.LevelState;
 import com.pawns.*;
 import com.spybot.app.AppSetting;
-import com.utility.Utility;
+import com.utilities.BoardUtil;
 
 import java.util.NoSuchElementException;
 
@@ -584,7 +584,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Pawn pawn = field.getSegment().getPawn();
 
         if (pawn.getLeftSteps() > 0) {
-            for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
+            for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
                 if(neighborField.getSegment() != null) {
                     continue;
                 }
@@ -610,7 +610,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void setHighlightingAttack(Field field, byte attackNum, byte range) {
         clearBoard();
-        for (Field neighborField : Utility.getFieldsInRange(board, field.getId(), range, ActionID.ATTACK_1)) {
+        for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), range, ActionID.ATTACK_1)) {
             if (neighborField.getSegment() != null && neighborField.getSegment().getPawn().getTeam() != board.currentPlayer) {
                 if (attackNum == 1) {
                     neighborField.setHighlighting(Highlighting.Attackable1);

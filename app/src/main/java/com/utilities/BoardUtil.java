@@ -1,4 +1,4 @@
-package com.utility;
+package com.utilities;
 
 import com.level.Board;
 import com.level.Field;
@@ -9,7 +9,7 @@ import com.pawns.PawnSegment;
 
 import java.util.*;
 
-public class Utility {
+public class BoardUtil {
 
     public static ArrayList<Field> getFieldsInRange(Board board, int id, int range, int action) {
         Field origin = board.getFieldById(id);

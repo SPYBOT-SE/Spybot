@@ -10,6 +10,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.spybot.app.AppSetting;
+import com.utilities.FileUtil;
+import com.utilities.SavegameUtil;
 
 import java.io.*;
 
@@ -44,8 +46,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 System.exit(0);
                 break;
             case R.id.btnSettings:
-                AppSetting.writeToFile("savegame.json", "defaultSavegame", this);;
-                AppSetting.loadSavegame(this);
+                FileUtil.writeToFile("savegame.json", "defaultSavegame", this);;
+                SavegameUtil.loadSavegame(this);
                 break;
             default:
                 System.exit(1);
