@@ -1,20 +1,14 @@
 package com.example.spybot;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.model.shortcuts.Json;
 import com.spybot.app.AppSetting;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
-
-import java.io.*;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
