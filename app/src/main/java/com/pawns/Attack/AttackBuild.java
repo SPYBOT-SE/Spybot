@@ -2,7 +2,6 @@ package com.pawns.Attack;
 
 import com.level.Field;
 
-
 public class AttackBuild extends Attack{
 
     public AttackBuild(String attackName,int icon,  byte range, byte magnitude) {

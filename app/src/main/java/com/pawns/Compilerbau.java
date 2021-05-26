@@ -2,8 +2,6 @@ package com.pawns;
 
 import com.example.spybot.R;
 import com.pawns.Attack.AttackBuild;
-import com.pawns.Attack.AttackSize;
-import com.pawns.Attack.AttackSpeed;
 
 public class Compilerbau extends Pawn{
 

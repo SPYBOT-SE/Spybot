@@ -1,7 +1,6 @@
 package com.pawns.Attack;
 
 import com.level.Field;
-import com.pawns.Pawn;
 import com.pawns.PawnSegment;
 
 import static java.lang.Math.abs;

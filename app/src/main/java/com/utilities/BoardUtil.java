@@ -2,12 +2,15 @@ package com.utilities;
 
 import com.level.Board;
 import com.level.Field;
-import com.model.shortcuts.ActionID;
 import com.model.AdjacencyList;
 import com.model.Vertex;
+import com.model.shortcuts.ActionID;
 import com.pawns.PawnSegment;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class BoardUtil {
 
@@ -30,6 +33,7 @@ public class BoardUtil {
 
         return new ArrayList<>(fieldsInRange);
     }
+
 
     private static HashSet<Field> getMovableFields(Board board, int range, ArrayDeque<Field> deque) {
         int added;
@@ -57,6 +61,7 @@ public class BoardUtil {
 
         return fieldsInRange;
     }
+
 
     private static HashSet<Field> getAllFields(Board board, int range, ArrayDeque<Field> deque, int id) {
         int added;
@@ -90,7 +95,7 @@ public class BoardUtil {
         }
     }
 
-
+    /* currently not used
     public static ArrayDeque<Field> getShortestPath(AdjacencyList<Field> graph, Field start, Field goal) throws NoSuchElementException {
         if (!existingStartGoal(graph, start, goal)) {
             throw new NoSuchElementException("Start or goal field not found");
@@ -140,12 +145,14 @@ public class BoardUtil {
         }
 
         return deque;
-    }
+    } */
+
 
     private static boolean existingStartGoal(AdjacencyList<Field> graph, Field start, Field goal) {
         HashSet<Vertex<Field>> set = graph.getAllVertices();
         return set.contains(new Vertex<>(start)) && set.contains(new Vertex<>(goal));
     }
+
 
     private static Vertex<Field> getNewVertex(AdjacencyList<Field> original, AdjacencyList<Field> building) {
         Vertex<Field> min = new Vertex<>();
@@ -156,4 +163,5 @@ public class BoardUtil {
         }
         return min;
     }
+
 }

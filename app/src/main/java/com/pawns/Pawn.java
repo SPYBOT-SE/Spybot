@@ -1,7 +1,6 @@
 package com.pawns;
 
 import com.example.spybot.R;
-import com.level.Board;
 import com.level.Field;
 import com.model.Direction;
 import com.pawns.Attack.Attack;
