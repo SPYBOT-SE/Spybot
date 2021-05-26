@@ -90,7 +90,7 @@ public class SavegameUtil {
             Log.e("Spybot/Exception", "Could not read default savegame resource, hardcoded String used");
         }
 
-        FileUtil.writeToFile("savegame.json", defaultSavegame, ctx);
+        FileUtil.writeToFile(Json.SAVEGAMEFILE, defaultSavegame, ctx);
         Log.i("Spybot/Savegame", "Savegame resetted");
     }
 

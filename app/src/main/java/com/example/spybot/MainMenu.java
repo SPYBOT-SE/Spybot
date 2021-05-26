@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.model.shortcuts.Json;
 import com.spybot.app.AppSetting;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
@@ -46,7 +47,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 System.exit(0);
                 break;
             case R.id.btnSettings:
-                FileUtil.writeToFile("savegame.json", "defaultSavegame", this);;
+                FileUtil.writeToFile(Json.SAVEGAMEFILE, "defaultSavegame", this);;
                 SavegameUtil.loadSavegame(this);
                 break;
             default:
@@ -54,9 +55,6 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 break;
         }
     }
-
-
-
 
 }
 
